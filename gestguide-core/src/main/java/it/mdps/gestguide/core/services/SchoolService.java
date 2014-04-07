@@ -26,7 +26,7 @@ public class SchoolService {
 		autoscuola.setEmail(schoolBean.getEmail());
 		autoscuola.setFax(schoolBean.getFax());
 		autoscuola.setIndirizzo(schoolBean.getIndirizzo());
-		autoscuola.setNome(schoolBean.getNome());
+		autoscuola.setNome(schoolBean.getNomeSede());
 		autoscuola.setProvincia(schoolBean.getProvincia());
 		autoscuola.setTelefono(schoolBean.getTelefono());
 		
@@ -48,7 +48,7 @@ public class SchoolService {
 			bean.setEmail(a.getEmail());
 			bean.setFax(a.getFax());
 			bean.setIndirizzo(a.getIndirizzo());
-			bean.setNome(a.getNome());
+			bean.setNomeSede(a.getNome());
 			bean.setProvincia(a.getProvincia());
 			bean.setTelefono(a.getTelefono());
 			schoolBeans.add(bean);

@@ -30,7 +30,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class SchoolComponent extends CustomComponent
 {
-	private Table schoolList = new Table();
+	private Table table = new Table();
 	private TextField searchField = new TextField();
 	private Button addNewSchoolButton = new Button("Nuovo");
 	private Button removeSchoolButton = new Button("Cancella");
@@ -71,7 +71,7 @@ public class SchoolComponent extends CustomComponent
 		VerticalLayout leftLayout = new VerticalLayout();
 		splitPanel.addComponent(leftLayout);
 		splitPanel.addComponent(editorForm);
-		leftLayout.addComponent(schoolList);
+		leftLayout.addComponent(table);
 
 		HorizontalLayout bottomLeftLayout = new HorizontalLayout();
 		leftLayout.addComponent(bottomLeftLayout);
@@ -79,8 +79,8 @@ public class SchoolComponent extends CustomComponent
 		bottomLeftLayout.addComponent(addNewSchoolButton);
 
 		leftLayout.setSizeFull();
-		leftLayout.setExpandRatio(schoolList, 1);
-		schoolList.setSizeFull();
+		leftLayout.setExpandRatio(table, 1);
+		table.setSizeFull();
 
 		bottomLeftLayout.setWidth("100%");
 		searchField.setWidth("100%");
@@ -164,19 +164,19 @@ public class SchoolComponent extends CustomComponent
 				schoolContainer.removeAllContainerFilters();
 				Object contactId = schoolContainer.addItemAt(0);
 
-				schoolList.getContainerProperty(contactId, ID).setReadOnly(true);
-				schoolList.getContainerProperty(contactId, NOME).setValue("Nome");
-				schoolList.getContainerProperty(contactId, CITTA).setValue("Città");
+				table.getContainerProperty(contactId, ID).setReadOnly(true);
+				table.getContainerProperty(contactId, NOME).setValue("Nome");
+				table.getContainerProperty(contactId, CITTA).setValue("Città");
 
-				schoolList.select(contactId);
+				table.select(contactId);
 			}
 		});
 
 		// Remove button
 		removeSchoolButton.addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				Object contactId = schoolList.getValue();
-				schoolList.removeItem(contactId);
+				Object contactId = table.getValue();
+				table.removeItem(contactId);
 			}
 		});
 		
@@ -187,8 +187,8 @@ public class SchoolComponent extends CustomComponent
 			public void buttonClick(ClickEvent event) {
 				SchoolBean schoolBean = new SchoolBean();
 				
-				Object id = schoolList.getValue();
-				schoolBean.setNome((String) schoolContainer.getContainerProperty(id, NOME).getValue());
+				Object id = table.getValue();
+				schoolBean.setNomeSede((String) schoolContainer.getContainerProperty(id, NOME).getValue());
 				schoolBean.setCitta((String) schoolContainer.getContainerProperty(id, CITTA).getValue());
 				schoolBean.setTelefono((String) schoolContainer.getContainerProperty(id, TELEFONO).getValue());
 				schoolBean.setFax((String) schoolContainer.getContainerProperty(id, FAX).getValue());
@@ -215,16 +215,16 @@ public class SchoolComponent extends CustomComponent
 
 		schoolContainer = populateSchoolList();
 		
-		schoolList.setContainerDataSource(schoolContainer);
-		schoolList.setVisibleColumns(new String[] { NOME, CITTA });
-		schoolList.setSelectable(true);
-		schoolList.setImmediate(true);
+		table.setContainerDataSource(schoolContainer);
+		table.setVisibleColumns(new String[] { NOME, CITTA });
+		table.setSelectable(true);
+		table.setImmediate(true);
 
 		// executed when an element is selected from the list and show that in the editor on the right
-		schoolList.addValueChangeListener(new Property.ValueChangeListener() {
+		table.addValueChangeListener(new Property.ValueChangeListener() {
 			public void valueChange(ValueChangeEvent event) {
-				Object contactId = schoolList.getValue();
-				editorFields.setItemDataSource(schoolList.getItem(contactId));
+				Object contactId = table.getValue();
+				editorFields.setItemDataSource(table.getItem(contactId));
 				editorForm.setVisible(contactId != null);
 			}
 		});
@@ -248,7 +248,7 @@ public class SchoolComponent extends CustomComponent
 			Object id = ic.addItem();
 			ic.getContainerProperty(id, ID).setValue(s.getId()!=null?s.getId().toString():"");
 			ic.getContainerProperty(id, ID).setReadOnly(true);
-			ic.getContainerProperty(id, NOME).setValue(s.getNome()!=null?s.getNome():"");
+			ic.getContainerProperty(id, NOME).setValue(s.getNomeSede()!=null?s.getNomeSede():"");
 			ic.getContainerProperty(id, CITTA).setValue(s.getCitta()!=null?s.getCitta():"");
 			ic.getContainerProperty(id, TELEFONO).setValue(s.getTelefono()!=null?s.getTelefono():"");
 			ic.getContainerProperty(id, FAX).setValue(s.getFax()!=null?s.getFax():"");

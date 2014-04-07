@@ -21,17 +21,22 @@ public class HomeLayout extends VerticalLayout {
         
         // Tab 2 content
         SchoolComponent l2 = new SchoolComponent(uiFacade);
+        
         // Tab 3 content
-        VerticalLayout l3 = new VerticalLayout();
-        l3.setMargin(true);
-        l3.addComponent(new Label("There are currently no issues."));
+        SchoolTable l3 = new SchoolTable(uiFacade);
+        
+        
+        VerticalLayout l13 = new VerticalLayout();
+        l13.setMargin(true);
+        l13.addComponent(new Label("There are currently no issues."));
 
         tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
         tabSheet.addTab(l1, "Calendario", null);
         tabSheet.addTab(l2, "Autoscuole", null);
-        tabSheet.addTab(l3, "---", null);
+        tabSheet.addTab(l3, "Autoscuole 2", null);
+        tabSheet.addTab(l13, "---", null);
         
         tabSheet.addSelectedTabChangeListener(
                 new TabSheet.SelectedTabChangeListener() {

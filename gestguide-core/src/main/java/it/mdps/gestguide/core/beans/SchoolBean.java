@@ -1,16 +1,41 @@
 package it.mdps.gestguide.core.beans;
 
-public class SchoolBean {
+import java.io.Serializable;
 
+import it.mdps.gestguide.common.StaticValues;
+
+import com.vaadin.data.fieldgroup.PropertyId;
+
+public class SchoolBean implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@PropertyId(StaticValues.ID)
 	private Long id;
-	private String nome;	
-	private String cap;
-	private String citta;
-	private String provincia;
-	private String indirizzo;	
-	private String telefono;	
-	private String fax;	
-	private String email;
+	
+	@PropertyId(StaticValues.NOME_SEDE)
+	private String nomeSede = "";	
+	
+	@PropertyId(StaticValues.CAP)
+	private String cap = "";
+	
+	@PropertyId(StaticValues.CITTA)
+	private String citta = "";
+
+	@PropertyId(StaticValues.PROVINCIA)
+	private String provincia = "";
+
+	@PropertyId(StaticValues.INDIRIZZO)
+	private String indirizzo = "";
+	
+	@PropertyId(StaticValues.TELEFONO)
+	private String telefono = "";
+	
+	@PropertyId(StaticValues.FAX)
+	private String fax = "";	
+	
+	@PropertyId(StaticValues.EMAIL)
+	private String email = "";
 	
 	
 	/**
@@ -28,14 +53,14 @@ public class SchoolBean {
 	/**
 	 * @return the nome
 	 */
-	public String getNome() {
-		return nome;
+	public String getNomeSede() {
+		return nomeSede;
 	}
 	/**
 	 * @param nome the nome to set
 	 */
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeSede(String nomeSede) {
+		this.nomeSede = nomeSede;
 	}
 	/**
 	 * @return the cap
