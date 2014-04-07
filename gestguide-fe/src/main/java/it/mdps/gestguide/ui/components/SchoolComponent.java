@@ -1,17 +1,22 @@
 package it.mdps.gestguide.ui.components;
 
-import java.util.List;
-
+import it.mdps.gestguide.common.StaticValues;
 import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.ui.services.UIFacade;
+
+import java.util.List;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitEvent;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitHandler;
+import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.ui.AbstractTextField.TextChangeEventMode;
@@ -19,49 +24,39 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @Theme("mytheme")
 @SuppressWarnings("serial")
-public class SchoolComponent extends CustomComponent
-{
-	private Table table = new Table();
+public class SchoolComponent extends CustomComponent {
+
+	// Table
+	private Table table;
+	private BeanItemContainer<SchoolBean> tableBeanContainer;
 	private TextField searchField = new TextField();
-	private Button addNewSchoolButton = new Button("Nuovo");
-	private Button removeSchoolButton = new Button("Cancella");
-	private Button saveSchoolButton = new Button("Salva");
-	private FormLayout editorForm = new FormLayout();
-	private FieldGroup editorFields = new FieldGroup();
 
-	private IndexedContainer schoolContainer;
+	private Button addNewButton = new Button(StaticValues.BUTTON_NEW);
+	private Button removeButton = new Button(StaticValues.BUTTON_CANCEL);
+	private Button saveButton = new Button(StaticValues.BUTTON_SAVE);
 
-	private static final String ID = "ID";
-	private static final String NOME = "Nome sede";
-	private static final String CITTA = "Citta";
-	private static final String TELEFONO = "Telefono";
-	private static final String FAX = "Fax";
-	private static final String EMAIL = "Email";
-	private static final String INDIRIZZO = "Indirizzo";
-	private static final String PROVINCIA = "Provincia";
-	private static final String CAP = "CAP";
-	
-	private static final String[] fieldNames = new String[] { ID, NOME, TELEFONO, FAX, EMAIL, INDIRIZZO, CITTA, PROVINCIA, CAP};
+	// Form
+	private SchoolFormLayout formLayout = new SchoolFormLayout();
+	private BeanFieldGroup<SchoolBean> formFieldGroup;
 
 	private UIFacade uiFacade;
-	
+
 	public SchoolComponent(UIFacade uiFacade) {
-		this.uiFacade = uiFacade;		
-		
+		this.uiFacade = uiFacade;
+
 		initLayout();
-		initContactList();
-		initEditor();
-		initSearch();
+		initForm();
 		initButtons();
+		//		initSearch();
 	}
 
 	private void initLayout() {
@@ -69,47 +64,115 @@ public class SchoolComponent extends CustomComponent
 		setCompositionRoot(splitPanel);
 
 		VerticalLayout leftLayout = new VerticalLayout();
-		splitPanel.addComponent(leftLayout);
-		splitPanel.addComponent(editorForm);
+		initTable();
 		leftLayout.addComponent(table);
+		splitPanel.addComponent(leftLayout);
 
+		splitPanel.addComponent(formLayout);
+
+		// Left
 		HorizontalLayout bottomLeftLayout = new HorizontalLayout();
 		leftLayout.addComponent(bottomLeftLayout);
 		bottomLeftLayout.addComponent(searchField);
-		bottomLeftLayout.addComponent(addNewSchoolButton);
+		bottomLeftLayout.addComponent(addNewButton);
 
 		leftLayout.setSizeFull();
 		leftLayout.setExpandRatio(table, 1);
-		table.setSizeFull();
 
 		bottomLeftLayout.setWidth("100%");
 		searchField.setWidth("100%");
 
 		bottomLeftLayout.setExpandRatio(searchField, 1);
-
-		editorForm.setMargin(true);
-
-		editorForm.setVisible(false);
 	}
 
-	private void initEditor() {
+	private void initForm() {
 
-		for (String fieldName : fieldNames) {
-			TextField field = new TextField(fieldName);
-			editorForm.addComponent(field);
-			field.setWidth("200px");
-
-			editorFields.bind(field, fieldName);
-		}
+		formFieldGroup = formLayout.getBeanFieldGroup();
+		formFieldGroup.addCommitHandler(new AddCommitHandler());
 		
+		// bind form field to bean attribute
+		//		formLayout.addComponent(formFieldGroup.buildAndBind(StaticValues.NOME_SEDE, StaticValues.NOME_SEDE));
+		//		formLayout.addComponent(formFieldGroup.buildAndBind(StaticValues.CITTA, StaticValues.CITTA));
+
 		HorizontalLayout buttonBarLayout = new HorizontalLayout();
-		buttonBarLayout.addComponent(removeSchoolButton);
-		buttonBarLayout.addComponent(saveSchoolButton);
-		
-		editorForm.addComponent(buttonBarLayout);
-		editorFields.setBuffered(false);
+		buttonBarLayout.addComponent(removeButton);
+		buttonBarLayout.addComponent(saveButton);
+
+		formLayout.addComponent(buttonBarLayout);
+
+		formLayout.setMargin(true);
+		formLayout.setVisible(false);
 	}
-	
+
+	private void initTable() {
+		List<SchoolBean> schools = uiFacade.getSchools();
+
+		tableBeanContainer = new BeanItemContainer<SchoolBean>(SchoolBean.class);
+		tableBeanContainer.addAll(schools);
+
+		table = new Table("Scuole", tableBeanContainer);
+		table.setSelectable(true);
+		table.setImmediate(true);
+		//		table.setVisibleColumns(new String[] {StaticValues.ID, StaticValues.NOME_SEDE, StaticValues.CITTA });
+
+		// executed when an element is selected from the list and show that in the editor on the right
+		table.addValueChangeListener(new Property.ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				Object contactId = table.getValue();
+				if(contactId != null) {
+					formFieldGroup.setItemDataSource(table.getItem(contactId));
+					formLayout.setVisible(true);
+				}
+			}
+		});
+	}
+
+	/*
+	 * ----------------------------------------------------------------------------
+	 * Initialize button listeners
+	 * ----------------------------------------------------------------------------
+	 */
+
+	private void initButtons() {
+		// Add button
+		addNewButton.addClickListener(new ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				SchoolBean schoolBean = new SchoolBean();
+				schoolBean.setNomeSede("Inserisci nome sede");
+				schoolBean.setCitta("Inserisci città");
+
+				formFieldGroup.setItemDataSource(schoolBean);
+				formLayout.setVisible(true);
+				//				AddSchoolWindow subWindow = new AddSchoolWindow(uiFacade);				
+				//				UI.getCurrent().addWindow(subWindow);			
+			}
+		});
+
+		// Remove button
+		removeButton.addClickListener(new ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				Object contactId = table.getValue();
+				table.removeItem(contactId);
+			}
+		});
+
+		// Save button
+		saveButton.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				try {
+					formFieldGroup.commit();
+				} catch (CommitException e) {
+					Notification.show("KO!");
+				}
+			}
+		});
+	}
+	/* ---------------------------------------------------------------------------- */
+
+
+
 	/* 
 	 * ----------------------------------------------------------------------------
 	 * Search
@@ -121,12 +184,12 @@ public class SchoolComponent extends CustomComponent
 		searchField.setTextChangeEventMode(TextChangeEventMode.LAZY);
 		searchField.addTextChangeListener(new TextChangeListener() {
 			public void textChange(final TextChangeEvent event) {
-				schoolContainer.removeAllContainerFilters();
-				schoolContainer.addContainerFilter(new ContactFilter(event.getText()));
+				tableBeanContainer.removeAllContainerFilters();
+				tableBeanContainer.addContainerFilter(new ContactFilter(event.getText()));
 			}
 		});
 	}
-	
+
 
 	// Filter for search
 	private class ContactFilter implements Filter {
@@ -137,8 +200,8 @@ public class SchoolComponent extends CustomComponent
 		}
 
 		public boolean passesFilter(Object itemId, Item item) {
-			String haystack = ("" + item.getItemProperty(NOME).getValue()
-					+ item.getItemProperty(CITTA).getValue()).toLowerCase();
+			String haystack = ("" + item.getItemProperty(StaticValues.NOME_SEDE).getValue()
+					+ item.getItemProperty(StaticValues.CITTA).getValue()).toLowerCase();
 			return haystack.contains(needle);
 		}
 
@@ -146,122 +209,38 @@ public class SchoolComponent extends CustomComponent
 			return true;
 		}
 	}
-	
+
 	/* ---------------------------------------------------------------------------- */
-	
-	/*
+
+
+	/* 
 	 * ----------------------------------------------------------------------------
-	 * Initialize button listeners
+	 * Binder commit handler
 	 * ----------------------------------------------------------------------------
 	 */
+	
+	private class AddCommitHandler implements CommitHandler {
 
-	private void initButtons() {
-		// Add button
-		addNewSchoolButton.addClickListener(new ClickListener() {
-			@SuppressWarnings("unchecked")
-			public void buttonClick(ClickEvent event) {
-				
-				schoolContainer.removeAllContainerFilters();
-				Object contactId = schoolContainer.addItemAt(0);
-
-				table.getContainerProperty(contactId, ID).setReadOnly(true);
-				table.getContainerProperty(contactId, NOME).setValue("Nome");
-				table.getContainerProperty(contactId, CITTA).setValue("Città");
-
-				table.select(contactId);
-			}
-		});
-
-		// Remove button
-		removeSchoolButton.addClickListener(new ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				Object contactId = table.getValue();
-				table.removeItem(contactId);
-			}
-		});
-		
-		// Save button
-		saveSchoolButton.addClickListener(new ClickListener() {
+		@Override
+		public void preCommit(CommitEvent commitEvent) throws CommitException {
 			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				SchoolBean schoolBean = new SchoolBean();
-				
-				Object id = table.getValue();
-				schoolBean.setNomeSede((String) schoolContainer.getContainerProperty(id, NOME).getValue());
-				schoolBean.setCitta((String) schoolContainer.getContainerProperty(id, CITTA).getValue());
-				schoolBean.setTelefono((String) schoolContainer.getContainerProperty(id, TELEFONO).getValue());
-				schoolBean.setFax((String) schoolContainer.getContainerProperty(id, FAX).getValue());
-				schoolBean.setEmail((String) schoolContainer.getContainerProperty(id, EMAIL).getValue());
-				schoolBean.setIndirizzo((String) schoolContainer.getContainerProperty(id, INDIRIZZO).getValue());
-				schoolBean.setProvincia((String) schoolContainer.getContainerProperty(id, PROVINCIA).getValue());
-				schoolBean.setCap((String) schoolContainer.getContainerProperty(id, CAP).getValue());
-				
-				uiFacade.addSchool(schoolBean);
-			}
-		});
-	}
-	/* ---------------------------------------------------------------------------- */
-	
-	
-	
-	/*
-	 * ----------------------------------------------------------------------------
-	 * Contact list
-	 * ----------------------------------------------------------------------------
-	 */
-
-	private void initContactList() {
-
-		schoolContainer = populateSchoolList();
-		
-		table.setContainerDataSource(schoolContainer);
-		table.setVisibleColumns(new String[] { NOME, CITTA });
-		table.setSelectable(true);
-		table.setImmediate(true);
-
-		// executed when an element is selected from the list and show that in the editor on the right
-		table.addValueChangeListener(new Property.ValueChangeListener() {
-			public void valueChange(ValueChangeEvent event) {
-				Object contactId = table.getValue();
-				editorFields.setItemDataSource(table.getItem(contactId));
-				editorForm.setVisible(contactId != null);
-			}
-		});
-	}
-
-	// populate list
-	@SuppressWarnings("unchecked")
-	private IndexedContainer populateSchoolList() {
-		IndexedContainer ic = new IndexedContainer();
-
-		// initialize fields
-		for (String p: fieldNames) {
-			ic.addContainerProperty(p, String.class, "");
 		}
-		
-		// get school list
-		List<SchoolBean> schools = uiFacade.getSchools();
-		
-		// populate school list
-		for(SchoolBean s: schools) {
-			Object id = ic.addItem();
-			ic.getContainerProperty(id, ID).setValue(s.getId()!=null?s.getId().toString():"");
-			ic.getContainerProperty(id, ID).setReadOnly(true);
-			ic.getContainerProperty(id, NOME).setValue(s.getNomeSede()!=null?s.getNomeSede():"");
-			ic.getContainerProperty(id, CITTA).setValue(s.getCitta()!=null?s.getCitta():"");
-			ic.getContainerProperty(id, TELEFONO).setValue(s.getTelefono()!=null?s.getTelefono():"");
-			ic.getContainerProperty(id, FAX).setValue(s.getFax()!=null?s.getFax():"");
-			ic.getContainerProperty(id, EMAIL).setValue(s.getEmail()!=null?s.getEmail():"");
-			ic.getContainerProperty(id, INDIRIZZO).setValue(s.getIndirizzo()!=null?s.getIndirizzo():"");
-			ic.getContainerProperty(id, PROVINCIA).setValue(s.getProvincia()!=null?s.getProvincia():"");
-			ic.getContainerProperty(id, CAP).setValue(s.getCap()!=null?s.getCap():"");
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void postCommit(CommitEvent commitEvent) throws CommitException {			
+			SchoolBean bean = ((BeanFieldGroup<SchoolBean>) commitEvent.getFieldBinder()).getItemDataSource().getBean();
+			uiFacade.addSchool(bean);
+			Notification.show(bean.getNomeSede() + "aggiunto");
+			
+			// refresh table
+			BeanItem<SchoolBean> item = tableBeanContainer.addBean(bean);			
+			table.select(item);
 		}
-		
-		
-		return ic;
+
 	}
-	
+
 	/* ---------------------------------------------------------------------------- */
+
 
 }

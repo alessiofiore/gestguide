@@ -2,6 +2,7 @@ package it.mdps.gestguide.common;
 
 public class StaticValues {
 	public static final String ID = "ID";
+	public static final String AUTOSCUOLA = "Autoscuola";
 	public static final String CAP = "CAP";
 	public static final String CELLULARE = "Cellulare";
 	public static final String CITTA = "Citta";

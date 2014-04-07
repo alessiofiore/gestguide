@@ -18,7 +18,9 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_cliente")
-	private int idCliente;
+	private int idCliente;	
+
+	private String cap;
 
 	private String cellulare;
 
@@ -65,6 +67,14 @@ public class Cliente implements Serializable {
 
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
+	}
+	
+	public String getCap() {
+		return cap;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
 	}
 
 	public String getCellulare() {

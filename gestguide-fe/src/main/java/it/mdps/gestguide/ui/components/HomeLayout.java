@@ -18,13 +18,12 @@ public class HomeLayout extends VerticalLayout {
 		
 		// Tab 1 content
         ReservationComponent l1 = new ReservationComponent();
-        
+                
         // Tab 2 content
         SchoolComponent l2 = new SchoolComponent(uiFacade);
         
         // Tab 3 content
-        SchoolTable l3 = new SchoolTable(uiFacade);
-        
+        CustomerComponent l3 = new CustomerComponent(uiFacade);
         
         VerticalLayout l13 = new VerticalLayout();
         l13.setMargin(true);
@@ -35,7 +34,7 @@ public class HomeLayout extends VerticalLayout {
 
         tabSheet.addTab(l1, "Calendario", null);
         tabSheet.addTab(l2, "Autoscuole", null);
-        tabSheet.addTab(l3, "Autoscuole 2", null);
+        tabSheet.addTab(l3, "Clienti", null);
         tabSheet.addTab(l13, "---", null);
         
         tabSheet.addSelectedTabChangeListener(

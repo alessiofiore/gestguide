@@ -2,7 +2,7 @@ package it.mdps.gestguide.core.services;
 
 import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.database.dao.DaoFactory;
-import it.mdps.gestguide.database.dao.IAutoscuolaDao;
+import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.model.Autoscuola;
 
 import java.util.ArrayList;
@@ -30,12 +30,12 @@ public class SchoolService {
 		autoscuola.setProvincia(schoolBean.getProvincia());
 		autoscuola.setTelefono(schoolBean.getTelefono());
 		
-		IAutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
+		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		autoscuolaDao.create(autoscuola);
 	}
 	
 	public List<SchoolBean> getSchools() {
-		IAutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
+		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		List<Autoscuola> schools = autoscuolaDao.findAll();
 		
 		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();

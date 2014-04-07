@@ -1,7 +1,7 @@
 package it.mdps.gestguide.ui.components;
 
 import it.mdps.gestguide.common.StaticValues;
-import it.mdps.gestguide.core.beans.SchoolBean;
+import it.mdps.gestguide.core.beans.CustomerBean;
 import it.mdps.gestguide.ui.services.UIFacade;
 
 import java.util.List;
@@ -33,11 +33,11 @@ import com.vaadin.ui.VerticalLayout;
 
 @Theme("mytheme")
 @SuppressWarnings("serial")
-public class SchoolTable extends CustomComponent {
+public class CustomerComponent extends CustomComponent {
 
 	// Table
 	private Table table;
-	private BeanItemContainer<SchoolBean> tableBeanContainer;
+	private BeanItemContainer<CustomerBean> tableBeanContainer;
 	private TextField searchField = new TextField();
 
 	private Button addNewButton = new Button(StaticValues.BUTTON_NEW);
@@ -45,12 +45,12 @@ public class SchoolTable extends CustomComponent {
 	private Button saveButton = new Button(StaticValues.BUTTON_SAVE);
 
 	// Form
-	private SchoolFormLayout formLayout = new SchoolFormLayout();
-	private BeanFieldGroup<SchoolBean> formFieldGroup;
+	private CustomerFormLayout formLayout = new CustomerFormLayout();
+	private BeanFieldGroup<CustomerBean> formFieldGroup;
 
 	private UIFacade uiFacade;
 
-	public SchoolTable(UIFacade uiFacade) {
+	public CustomerComponent(UIFacade uiFacade) {
 		this.uiFacade = uiFacade;
 
 		initLayout();
@@ -105,10 +105,10 @@ public class SchoolTable extends CustomComponent {
 	}
 
 	private void initTable() {
-		List<SchoolBean> schools = uiFacade.getSchools();
+		List<CustomerBean> Customers = uiFacade.getCustomers();
 
-		tableBeanContainer = new BeanItemContainer<SchoolBean>(SchoolBean.class);
-		tableBeanContainer.addAll(schools);
+		tableBeanContainer = new BeanItemContainer<CustomerBean>(CustomerBean.class);
+		tableBeanContainer.addAll(Customers);
 
 		table = new Table("Scuole", tableBeanContainer);
 		table.setSelectable(true);
@@ -137,13 +137,13 @@ public class SchoolTable extends CustomComponent {
 		// Add button
 		addNewButton.addClickListener(new ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				SchoolBean schoolBean = new SchoolBean();
-				schoolBean.setNomeSede("Inserisci nome sede");
-				schoolBean.setCitta("Inserisci città");
+				CustomerBean CustomerBean = new CustomerBean();
+				CustomerBean.setFirstName("Inserisci nome");
+				CustomerBean.setCity("Inserisci città");
 
-				formFieldGroup.setItemDataSource(schoolBean);
+				formFieldGroup.setItemDataSource(CustomerBean);
 				formLayout.setVisible(true);
-				//				AddSchoolWindow subWindow = new AddSchoolWindow(uiFacade);				
+				//				AddCustomerWindow subWindow = new AddCustomerWindow(uiFacade);				
 				//				UI.getCurrent().addWindow(subWindow);			
 			}
 		});
@@ -229,12 +229,12 @@ public class SchoolTable extends CustomComponent {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void postCommit(CommitEvent commitEvent) throws CommitException {			
-			SchoolBean bean = ((BeanFieldGroup<SchoolBean>) commitEvent.getFieldBinder()).getItemDataSource().getBean();
-			uiFacade.addSchool(bean);
-			Notification.show(bean.getNomeSede() + "aggiunto");
+			CustomerBean bean = ((BeanFieldGroup<CustomerBean>) commitEvent.getFieldBinder()).getItemDataSource().getBean();
+			uiFacade.addCustomer(bean);
+			Notification.show(bean.getFirstName() + "aggiunto");
 			
 			// refresh table
-			BeanItem<SchoolBean> item = tableBeanContainer.addBean(bean);			
+			BeanItem<CustomerBean> item = tableBeanContainer.addBean(bean);			
 			table.select(item);
 		}
 

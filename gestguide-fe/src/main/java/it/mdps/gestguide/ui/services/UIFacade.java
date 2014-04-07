@@ -1,6 +1,8 @@
 package it.mdps.gestguide.ui.services;
 
+import it.mdps.gestguide.core.beans.CustomerBean;
 import it.mdps.gestguide.core.beans.SchoolBean;
+import it.mdps.gestguide.core.services.CustomerService;
 import it.mdps.gestguide.core.services.SchoolService;
 import it.mdps.gestguide.core.utils.SpringComponentFactory;
 
@@ -25,6 +27,17 @@ public class UIFacade {
 		logger.debug("Getting schools...");
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		return service.getSchools();
+	}
+	
+	public void addCustomer(CustomerBean CustomerBean) {
+		CustomerService service = componentFactory.getComponent(CustomerService.class);
+		service.addCustomer(CustomerBean);
+	}
+	
+	public List<CustomerBean> getCustomers() {
+		logger.debug("Getting Customers...");
+		CustomerService service = componentFactory.getComponent(CustomerService.class);
+		return service.getCustomers();
 	}
 
 }
