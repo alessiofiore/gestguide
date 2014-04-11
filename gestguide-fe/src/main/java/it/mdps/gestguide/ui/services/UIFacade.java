@@ -29,6 +29,12 @@ public class UIFacade {
 		return service.getSchools();
 	}
 	
+	public SchoolBean getSchool(Long id) {
+		logger.debug("Getting school " + id + " ...");
+		SchoolService service = componentFactory.getComponent(SchoolService.class);
+		return service.getSchool(id);
+	}
+	
 	public void addCustomer(CustomerBean CustomerBean) {
 		CustomerService service = componentFactory.getComponent(CustomerService.class);
 		service.addCustomer(CustomerBean);

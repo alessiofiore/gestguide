@@ -1,14 +1,17 @@
 package it.mdps.gestguide.database.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface IGenericDao<T> {
 	
-	T create(T t);
+	T save(T t);
 	
-	void delete(Object id);
+	void saveOrUpdate(T o);
 	
-	T find(Object id);
+	<O extends Object> void delete(O id);
+	
+	T find(Class<T> type, Serializable id);
 	
 	T update(T t);
 	

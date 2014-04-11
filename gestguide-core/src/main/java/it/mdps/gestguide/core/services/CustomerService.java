@@ -2,8 +2,11 @@ package it.mdps.gestguide.core.services;
 
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.CustomerBean;
+import it.mdps.gestguide.core.beans.SchoolBean;
+import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.ClienteDao;
+import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
 
 import java.util.ArrayList;
@@ -24,19 +27,27 @@ public class CustomerService {
 		Cliente cliente = BeanConverter.fromCustomerBean(bean);
 		
 		ClienteDao ClienteDao = daoFactory.getClienteDao();
-		ClienteDao.create(cliente);
+		ClienteDao.save(cliente);
 	}
 	
 	public List<CustomerBean> getCustomers() {
-		ClienteDao ClienteDao = daoFactory.getClienteDao();
-		List<Cliente> Customers = ClienteDao.findAll();
+		ClienteDao clienteDao = daoFactory.getClienteDao();
+		List<Cliente> customers = clienteDao.findAll();
 		
-		List<CustomerBean> CustomerBeans = new ArrayList<CustomerBean>();		
-		for(Cliente c: Customers) {
-			CustomerBeans.add(BeanConverter.toCustomerBean(c));
+		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
+		List<Autoscuola> schools = autoscuolaDao.findAll();
+		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
+		for(Autoscuola a: schools)
+			schoolBeans.add(BeanConverter.toSchoolBean(a));			
+		
+		List<CustomerBean> customerBeans = new ArrayList<CustomerBean>();		
+		for(Cliente c: customers) {
+			CustomerBean bean = BeanConverter.toCustomerBean(c);
+			
+			
 		}
 		
-		return CustomerBeans;
+		return customerBeans;
 	}
 	
 }

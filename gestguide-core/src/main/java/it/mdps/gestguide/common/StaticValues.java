@@ -18,7 +18,13 @@ public class StaticValues {
 	public static final String TELEFONO = "Telefono";
 	public static final String PROVINCIA = "Provincia";
 	
+	public static final String PROMP_SELECT_SCHOOL = "Seleziona una scuola";
+	
+	public static final String LABEL_SCHOOL = "Autoscuola";
+	
 	public static final String BUTTON_NEW = "Nuovo";
 	public static final String BUTTON_SAVE = "Salva";
-	public static final String BUTTON_CANCEL = "Cancella";
+	public static final String BUTTON_DELETE = "Cancella";
+	public static final String BUTTON_CANCEL = "Annulla";
+	
 }

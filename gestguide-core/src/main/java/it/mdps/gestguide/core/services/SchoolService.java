@@ -19,6 +19,11 @@ public class SchoolService {
 	@Autowired
 	private DaoFactory daoFactory;
 	
+	public void deleteSchool(Long id) {
+		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
+		autoscuolaDao.delete(id);
+	}
+
 	public void addSchool(SchoolBean schoolBean) {
 		Autoscuola autoscuola = new Autoscuola();
 		autoscuola.setCap(schoolBean.getCap());
@@ -29,17 +34,17 @@ public class SchoolService {
 		autoscuola.setNome(schoolBean.getNomeSede());
 		autoscuola.setProvincia(schoolBean.getProvincia());
 		autoscuola.setTelefono(schoolBean.getTelefono());
-		
+
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
-		autoscuolaDao.create(autoscuola);
+		autoscuolaDao.save(autoscuola);
 	}
-	
+
 	public List<SchoolBean> getSchools() {
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		List<Autoscuola> schools = autoscuolaDao.findAll();
-		
+
 		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
-		
+
 		for(Autoscuola a: schools) {
 			SchoolBean bean =  new SchoolBean();
 			bean.setId(a.getIdAutoscuola());
@@ -53,8 +58,29 @@ public class SchoolService {
 			bean.setTelefono(a.getTelefono());
 			schoolBeans.add(bean);
 		}
-		
+
 		return schoolBeans;
 	}
-	
+
+	public SchoolBean getSchool(Long id) {
+		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
+		Autoscuola a = autoscuolaDao.find(Autoscuola.class, id);
+
+		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
+
+		SchoolBean bean =  new SchoolBean();
+		bean.setId(a.getIdAutoscuola());
+		bean.setCap(a.getCap());
+		bean.setCitta(a.getCitta());
+		bean.setEmail(a.getEmail());
+		bean.setFax(a.getFax());
+		bean.setIndirizzo(a.getIndirizzo());
+		bean.setNomeSede(a.getNome());
+		bean.setProvincia(a.getProvincia());
+		bean.setTelefono(a.getTelefono());
+		schoolBeans.add(bean);
+
+		return bean;
+	}
+
 }

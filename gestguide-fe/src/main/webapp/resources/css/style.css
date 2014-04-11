@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+.table {
+	display: table;
+}
+
+.table_title {
+	display: table-caption;
+	text-align: center;
+	font-weight: bold;
+	font-size: larger;
+}
+
+.table_heading {
+	display: table-row;
+	font-weight: bold;
+	text-align: center;
+}
+
+.table_row {
+	display: table-row;
+}
+
+.table_cell {
+	display: table-cell;
+	border: solid;
+	border-width: thin;
+	padding-left: 5px;
+	padding-right: 5px;
+}

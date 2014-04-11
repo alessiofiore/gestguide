@@ -23,5 +23,14 @@ public class IstruttoreDaoImpl extends GenericDao<Istruttore> implements Istrutt
 		
 		return query.list();
 	}
+	
 
+	@Override
+	@Transactional
+	public void delete(Object id) {
+		Session session = super.sessionFactory.getCurrentSession();
+		Query q = session.createQuery("delete from Istruttore where idIstruttore = :id");
+		q.setLong("id", (Long) id);
+		q.executeUpdate();
+	}
 }

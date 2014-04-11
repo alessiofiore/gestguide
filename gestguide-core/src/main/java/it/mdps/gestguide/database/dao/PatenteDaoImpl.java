@@ -24,4 +24,12 @@ public class PatenteDaoImpl extends GenericDao<Patente> implements PatenteDao {
 		return query.list();
 	}
 
+	@Override
+	@Transactional
+	public void delete(Object id) {
+		Session session = super.sessionFactory.getCurrentSession();
+		Query q = session.createQuery("delete from Patente where idPatente = :id");
+		q.setLong("id", (Long) id);
+		q.executeUpdate();
+	}
 }

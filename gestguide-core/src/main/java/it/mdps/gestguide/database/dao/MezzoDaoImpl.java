@@ -24,4 +24,12 @@ public class MezzoDaoImpl extends GenericDao<Mezzo> implements MezzoDao {
 		return query.list();
 	}
 
+	@Override
+	@Transactional
+	public void delete(Object id) {
+		Session session = super.sessionFactory.getCurrentSession();
+		Query q = session.createQuery("delete from Mezzo where idMezzo = :id");
+		q.setLong("id", (Long) id);
+		q.executeUpdate();
+	}
 }
