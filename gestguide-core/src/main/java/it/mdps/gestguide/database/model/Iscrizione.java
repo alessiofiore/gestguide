@@ -11,32 +11,34 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="iscrizione")
 @NamedQuery(name="Iscrizione.findAll", query="SELECT i FROM Iscrizione i")
 public class Iscrizione implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_iscrizione")
+	@Column(name="id_iscrizione", unique=true, nullable=false)
 	private int idIscrizione;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date data;
-
-	//bi-directional many-to-one association to Autoscuola
-	@ManyToOne
-	@JoinColumn(name="id_autoscuola")
-	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Cliente
 	@ManyToOne
-	@JoinColumn(name="id_cliente")
+	@JoinColumn(name="id_cliente", nullable=false)
 	private Cliente cliente;
 
 	//bi-directional many-to-one association to Patente
 	@ManyToOne
-	@JoinColumn(name="id_patente")
+	@JoinColumn(name="id_patente", nullable=false)
 	private Patente patente;
+
+	//bi-directional many-to-one association to Autoscuola
+	@ManyToOne
+	@JoinColumn(name="id_autoscuola", nullable=false)
+	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Prenotazione
 	@OneToMany(mappedBy="iscrizione")
@@ -61,14 +63,6 @@ public class Iscrizione implements Serializable {
 		this.data = data;
 	}
 
-	public Autoscuola getAutoscuola() {
-		return this.autoscuola;
-	}
-
-	public void setAutoscuola(Autoscuola autoscuola) {
-		this.autoscuola = autoscuola;
-	}
-
 	public Cliente getCliente() {
 		return this.cliente;
 	}
@@ -83,6 +77,14 @@ public class Iscrizione implements Serializable {
 
 	public void setPatente(Patente patente) {
 		this.patente = patente;
+	}
+
+	public Autoscuola getAutoscuola() {
+		return this.autoscuola;
+	}
+
+	public void setAutoscuola(Autoscuola autoscuola) {
+		this.autoscuola = autoscuola;
 	}
 
 	public List<Prenotazione> getPrenotaziones() {

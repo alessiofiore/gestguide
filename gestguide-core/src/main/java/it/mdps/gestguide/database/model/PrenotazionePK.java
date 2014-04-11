@@ -10,46 +10,46 @@ public class PrenotazionePK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="id_autoscuola", insertable=false, updatable=false)
-	private int idAutoscuola;
+	private Long idAutoscuola;
 	
 	@Column(name="id_mezzo", insertable=false, updatable=false)
-	private int idMezzo;
+	private Long idMezzo;
 	
 	@Column(name="id_istruttore", insertable=false, updatable=false)
-	private int idIstruttore;
+	private Long idIstruttore;
 	
 	@Column(name="id_iscrizione", insertable=false, updatable=false)
-	private int idIscrizione;
+	private Long idIscrizione;
 
-	public int getIdAutoscuola() {
+	public Long getIdAutoscuola() {
 		return idAutoscuola;
 	}
 
-	public void setIdAutoscuola(int idAutoscuola) {
+	public void setIdAutoscuola(Long idAutoscuola) {
 		this.idAutoscuola = idAutoscuola;
 	}
 
-	public int getIdMezzo() {
+	public Long getIdMezzo() {
 		return idMezzo;
 	}
 
-	public void setIdMezzo(int idMezzo) {
+	public void setIdMezzo(Long idMezzo) {
 		this.idMezzo = idMezzo;
 	}
 
-	public int getIdIstruttore() {
+	public Long getIdIstruttore() {
 		return idIstruttore;
 	}
 
-	public void setIdIstruttore(int idIstruttore) {
+	public void setIdIstruttore(Long idIstruttore) {
 		this.idIstruttore = idIstruttore;
 	}
 
-	public int getIdIscrizione() {
+	public Long getIdIscrizione() {
 		return idIscrizione;
 	}
 
-	public void setIdIscrizione(int idIscrizione) {
+	public void setIdIscrizione(Long idIscrizione) {
 		this.idIscrizione = idIscrizione;
 	}
 
@@ -60,10 +60,10 @@ public class PrenotazionePK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idAutoscuola;
-		result = prime * result + idIscrizione;
-		result = prime * result + idIstruttore;
-		result = prime * result + idMezzo;
+		result = prime * result + idAutoscuola.intValue();
+		result = prime * result + idIscrizione.intValue();
+		result = prime * result + idIstruttore.intValue();
+		result = prime * result + idMezzo.intValue();
 		return result;
 	}
 

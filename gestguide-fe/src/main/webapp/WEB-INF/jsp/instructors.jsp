@@ -7,32 +7,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title><spring:message code="sitename"/></title>
 
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>" />
 
-<title><spring:message code="sitename"/></title>
-
-<script type="text/javascript"
-	src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
 
 
 </head>
 <body>
-<div class="navigation"><a href="<c:url value="/school/add" />">Add new</a></div>
+<div class="navigation"><a href="<c:url value="/instructor/add" />">Add new</a></div>
 
-	<table id="schoolsTable">
+	<table id="listTable">
 		<thead>
-			<th><spring:message code="label.sitename"/></th>
-			<th><spring:message code="label.city"/></th>
+			<th><spring:message code="label.firstname"/></th>
+			<th><spring:message code="label.lastname"/></th>
 			<th>-</th>
 		</thead>
 		<tbody>
 			<c:forEach items="${results}" var="result">
 				<tr>
-					<td>${result.nomeSede}</td>
-					<td>${result.citta}</td>
-					<td><a href="<c:url value="/school/${result.id}" />">View</a> | 
-					<a href="<c:url value="/school/delete/${result.id}" />">Remove</a></td>
+				<c:url var="url" value="/school/${result.id}" />
+					<td>${result.firstName}</td>
+					<td>${result.lastName}</td>
+					<td><a href="<c:url value="/instructor/${result.id}" />">View</a> | 
+					<a href="<c:url value="/instructor/delete/${result.id}" />">Remove</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -12,7 +12,7 @@
 <title><spring:message code="sitename"/></title>
 </head>
 <body>
-	<div class="navigation"><a href="<c:url value="/customer" />">Back</a></div>
+	<div class="navigation"><a href="<c:url value="/instructor" />">Back</a></div>
 
 	<table>
 		<tr>
@@ -58,6 +58,10 @@
 		<tr>
 			<td><label><spring:message code="label.datebirth"/>:</label></td>
 			<td><c:out value="${result.dateOfBirth}" /></td>
+		</tr>
+		<tr>
+			<td><label><spring:message code="label.hiringdate"/>:</label></td>
+			<td><c:out value="${result.hiringDate}" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.school"/>:</label></td>

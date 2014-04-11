@@ -9,10 +9,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>" />
+
 <title><spring:message code="sitename"/></title>
 </head>
 <body>
-	<spring:message code="header.addsite"/>
+	<div class="navigation"><a href="<c:url value="/school" />">Back</a></div>
+	
+	<spring:message code="header.addschool"/>
 
 	<c:url var="url" value="/school/add" />
 	<form:form action="${url}" method="post">

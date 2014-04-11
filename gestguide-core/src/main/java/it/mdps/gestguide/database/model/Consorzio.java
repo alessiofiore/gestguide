@@ -10,23 +10,29 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="consorzio")
 @NamedQuery(name="Consorzio.findAll", query="SELECT c FROM Consorzio c")
 public class Consorzio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_consorzio")
+	@Column(name="id_consorzio", unique=true, nullable=false)
 	private int idConsorzio;
 
+	@Column(length=45)
 	private String cap;
 
+	@Column(nullable=false, length=45)
 	private String citta;
 
+	@Column(length=100)
 	private String indirizzo;
 
+	@Column(nullable=false, length=45)
 	private String nome;
 
+	@Column(nullable=false, length=2)
 	private String provincia;
 
 	//bi-directional many-to-one association to Autoscuola

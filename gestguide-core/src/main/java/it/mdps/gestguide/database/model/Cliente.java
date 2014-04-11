@@ -11,47 +11,57 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="cliente")
 @NamedQuery(name="Cliente.findAll", query="SELECT c FROM Cliente c")
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_cliente")
-	private int idCliente;	
+	@Column(name="id_cliente", unique=true, nullable=false)
+	private Long idCliente;
 
+	@Column(length=255)
 	private String cap;
 
+	@Column(length=15)
 	private String cellulare;
 
+	@Column(length=50)
 	private String citta;
 
-	@Column(name="codice_fiscale")
+	@Column(name="codice_fiscale", nullable=false, length=16)
 	private String codiceFiscale;
 
+	@Column(nullable=false, length=50)
 	private String cognome;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_creazione")
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_creazione", nullable=false)
 	private Date dataCreazione;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="data_nascita")
 	private Date dataNascita;
 
+	@Column(length=50)
 	private String email;
 
+	@Column(length=100)
 	private String indirizzo;
 
+	@Column(nullable=false, length=50)
 	private String nome;
 
+	@Column(length=2)
 	private String provincia;
 
+	@Column(length=15)
 	private String telefono;
 
 	//bi-directional many-to-one association to Autoscuola
 	@ManyToOne
-	@JoinColumn(name="id_autoscuola")
+	@JoinColumn(name="id_autoscuola", nullable=false)
 	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Iscrizione
@@ -61,16 +71,16 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public int getIdCliente() {
+	public Long getIdCliente() {
 		return this.idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
-	
+
 	public String getCap() {
-		return cap;
+		return this.cap;
 	}
 
 	public void setCap(String cap) {

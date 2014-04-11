@@ -10,18 +10,20 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="patente")
 @NamedQuery(name="Patente.findAll", query="SELECT p FROM Patente p")
 public class Patente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_patente")
+	@Column(name="id_patente", unique=true, nullable=false)
 	private int idPatente;
 
+	@Column(nullable=false, length=5)
 	private String categoria;
 
-	@Column(name="eta_minima")
+	@Column(name="eta_minima", nullable=false)
 	private byte etaMinima;
 
 	//bi-directional many-to-many association to Istruttore

@@ -7,5 +7,4 @@
 	<import resource="classpath:gestguide-fe.xml"/>
 	<import resource="classpath:locale.xml"/>
 	
-	<bean id="uiFacade" class="it.mdps.gestguide.ui.services.UIFacade" scope="prototype" />
 </beans>

@@ -3,9 +3,10 @@ package it.mdps.gestguide.ui.controller;
 import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.core.services.SchoolService;
 import it.mdps.gestguide.core.utils.SpringComponentFactory;
-import it.mdps.gestguide.ui.services.UIFacade;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class SchoolController {
 		return "schools";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/school", method=RequestMethod.GET)
 	public String getSchools(Model model) {
 		logger.debug("Getting schools...");
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
@@ -72,12 +73,16 @@ public class SchoolController {
 		return "schools";
 	}
 	
-	@RequestMapping(value="/json/schools", method=RequestMethod.GET)
+	@RequestMapping(value="/json", method=RequestMethod.GET)
 	@ResponseBody
-	public List<SchoolBean> schools() {
-		UIFacade uiFacade = componentFactory.getComponent(UIFacade.class);
-		List<SchoolBean> beans = uiFacade.getSchools();
-		return beans;
+	public Map<Long, String> schools() {
+		SchoolService service = componentFactory.getComponent(SchoolService.class);
+		List<SchoolBean> beans = service.getSchools();
+		Map<Long, String> schools = new LinkedHashMap<Long, String>();
+		for(SchoolBean b: beans) {
+			schools.put(b.getId(), b.getNomeSede());
+		}
+		return schools;
 	}
 	
 	

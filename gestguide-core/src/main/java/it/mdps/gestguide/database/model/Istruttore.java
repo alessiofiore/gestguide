@@ -11,40 +11,56 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="istruttore")
 @NamedQuery(name="Istruttore.findAll", query="SELECT i FROM Istruttore i")
 public class Istruttore implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_istruttore")
-	private int idIstruttore;
+	@Column(name="id_istruttore", unique=true, nullable=false)
+	private Long idIstruttore;
 
+	@Column(length=5)
+	private String cap;
+
+	@Column(length=15)
 	private String cellulare;
 
+	@Column(length=50)
 	private String citta;
 
-	@Column(name="codice_fiscale")
+	@Column(name="codice_fiscale", nullable=false, length=16)
 	private String codiceFiscale;
 
+	@Column(nullable=false, length=50)
 	private String cognome;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="data_assunzione")
 	private Date dataAssunzione;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_creazione", nullable=false)
+	private Date dataCreazione;
+
+	@Temporal(TemporalType.DATE)
 	@Column(name="data_nascita")
 	private Date dataNascita;
 
+	@Column(length=50)
 	private String email;
 
+	@Column(length=100)
 	private String indirizzo;
 
+	@Column(nullable=false, length=50)
 	private String nome;
 
+	@Column(length=2)
 	private String provincia;
 
+	@Column(length=15)
 	private String telefono;
 
 	//bi-directional many-to-many association to Patente
@@ -52,17 +68,17 @@ public class Istruttore implements Serializable {
 	@JoinTable(
 		name="abilitazione"
 		, joinColumns={
-			@JoinColumn(name="id_istruttore")
+			@JoinColumn(name="id_istruttore", nullable=false)
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="id_patente")
+			@JoinColumn(name="id_patente", nullable=false)
 			}
 		)
 	private List<Patente> patentes;
 
 	//bi-directional many-to-one association to Autoscuola
 	@ManyToOne
-	@JoinColumn(name="id_autoscuola")
+	@JoinColumn(name="id_autoscuola", nullable=false)
 	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Prenotazione
@@ -72,12 +88,20 @@ public class Istruttore implements Serializable {
 	public Istruttore() {
 	}
 
-	public int getIdIstruttore() {
+	public Long getIdIstruttore() {
 		return this.idIstruttore;
 	}
 
-	public void setIdIstruttore(int idIstruttore) {
+	public void setIdIstruttore(Long idIstruttore) {
 		this.idIstruttore = idIstruttore;
+	}
+
+	public String getCap() {
+		return this.cap;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
 	}
 
 	public String getCellulare() {
@@ -118,6 +142,14 @@ public class Istruttore implements Serializable {
 
 	public void setDataAssunzione(Date dataAssunzione) {
 		this.dataAssunzione = dataAssunzione;
+	}
+
+	public Date getDataCreazione() {
+		return this.dataCreazione;
+	}
+
+	public void setDataCreazione(Date dataCreazione) {
+		this.dataCreazione = dataCreazione;
 	}
 
 	public Date getDataNascita() {

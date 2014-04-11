@@ -1,7 +1,9 @@
 package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,38 +13,55 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="mezzo")
 @NamedQuery(name="Mezzo.findAll", query="SELECT m FROM Mezzo m")
 public class Mezzo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_mezzo")
-	private int idMezzo;
+	@Column(name="id_mezzo", unique=true, nullable=false)
+	private Long idMezzo;
 
+	@Column(nullable=false, length=10)
 	private String alimentazione;
 
+	@Column(nullable=false)
 	private short cavalli;
 
+	@Column(nullable=false)
 	private short cilindrata;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_prima_immatricolazione")
-	private Date dataPrimaImmatricolazione;
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_immatricolazione")
+	private Date dataImmatricolazione;
 
+	@Column(length=45)
 	private String marca;
 
+	@Column(length=45)
 	private String modello;
+
+	private byte rimorchio;
 
 	private byte stato;
 
+	@Column(length=10)
 	private String targa;
 
+	@Column(name="tempo_cambio")
+	private byte tempoCambio;
+
+	@Column(nullable=false, length=45)
 	private String tipo;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_creazione", nullable=false)
+	private Date dataCreazione;
 
 	//bi-directional many-to-one association to Autoscuola
 	@ManyToOne
-	@JoinColumn(name="id_autoscuola")
+	@JoinColumn(name="id_autoscuola", nullable=false)
 	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Prenotazione
@@ -52,11 +71,11 @@ public class Mezzo implements Serializable {
 	public Mezzo() {
 	}
 
-	public int getIdMezzo() {
+	public Long getIdMezzo() {
 		return this.idMezzo;
 	}
 
-	public void setIdMezzo(int idMezzo) {
+	public void setIdMezzo(Long idMezzo) {
 		this.idMezzo = idMezzo;
 	}
 
@@ -84,12 +103,12 @@ public class Mezzo implements Serializable {
 		this.cilindrata = cilindrata;
 	}
 
-	public Date getDataPrimaImmatricolazione() {
-		return this.dataPrimaImmatricolazione;
+	public Date getDataImmatricolazione() {
+		return this.dataImmatricolazione;
 	}
 
-	public void setDataPrimaImmatricolazione(Date dataPrimaImmatricolazione) {
-		this.dataPrimaImmatricolazione = dataPrimaImmatricolazione;
+	public void setDataImmatricolazione(Date dataImmatricolazione) {
+		this.dataImmatricolazione = dataImmatricolazione;
 	}
 
 	public String getMarca() {
@@ -108,6 +127,14 @@ public class Mezzo implements Serializable {
 		this.modello = modello;
 	}
 
+	public byte getRimorchio() {
+		return this.rimorchio;
+	}
+
+	public void setRimorchio(byte rimorchio) {
+		this.rimorchio = rimorchio;
+	}
+
 	public byte getStato() {
 		return this.stato;
 	}
@@ -122,6 +149,14 @@ public class Mezzo implements Serializable {
 
 	public void setTarga(String targa) {
 		this.targa = targa;
+	}
+
+	public byte getTempoCambio() {
+		return this.tempoCambio;
+	}
+
+	public void setTempoCambio(byte tempoCambio) {
+		this.tempoCambio = tempoCambio;
 	}
 
 	public String getTipo() {
@@ -160,6 +195,14 @@ public class Mezzo implements Serializable {
 		prenotazione.setMezzo(null);
 
 		return prenotazione;
+	}
+
+	public Date getDataCreazione() {
+		return dataCreazione;
+	}
+
+	public void setDataCreazione(Date dataCreazione) {
+		this.dataCreazione = dataCreazione;
 	}
 
 }

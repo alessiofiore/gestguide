@@ -2,21 +2,21 @@ package it.mdps.gestguide.core.beans;
 
 import java.util.Date;
 
-public class CustomerBean {
+public class InstructorBean {
 	
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String mobilePhone;
 	private String socialSecurityNumber;
 	private String address;
 	private String city;
 	private String province;
 	private String zipCode;
-	private Date creationDate;
 	private Date dateOfBirth;
+	private Date hiringDate;
 	private String email;
 	private String phone;
+	private String mobilePhone;
 	private Long schoolId;
 	private String schoolName;
 	
@@ -74,17 +74,17 @@ public class CustomerBean {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	public Date getCreationDate() {
-		return creationDate;
-	}
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+	public Date getHiringDate() {
+		return hiringDate;
+	}
+	public void setHiringDate(Date hiringDate) {
+		this.hiringDate = hiringDate;
 	}
 	public String getEmail() {
 		return email;
@@ -109,5 +109,5 @@ public class CustomerBean {
 	}
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
-	}	
+	}
 }

@@ -2,6 +2,7 @@ package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
@@ -10,47 +11,43 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="autoscuola")
 @NamedQuery(name="Autoscuola.findAll", query="SELECT a FROM Autoscuola a")
 public class Autoscuola implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_autoscuola")
-	private long idAutoscuola;
+	@Column(name="id_autoscuola", unique=true, nullable=false)
+	private Long idAutoscuola;
 
-	private String nome;	
+	@Column(nullable=false, length=5)
 	private String cap;
+
+	@Column(nullable=false, length=50)
 	private String citta;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_creazione", nullable=false)
+	private Date dataCreazione;
+
+	@Column(length=50)
+	private String email;
+
+	@Column(length=15)
+	private String fax;
+
+	@Column(nullable=false, length=100)
+	private String indirizzo;
+
+	@Column(nullable=false, length=50)
+	private String nome;
+
+	@Column(length=2)
 	private String provincia;
-	private String indirizzo;	
-	private String telefono;	
-	private String fax;	
-	private String email;	
 
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getFax() {
-		return fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	@Column(length=15)
+	private String telefono;
 
 	//bi-directional many-to-one association to Consorzio
 	@ManyToOne
@@ -80,11 +77,11 @@ public class Autoscuola implements Serializable {
 	public Autoscuola() {
 	}
 
-	public long getIdAutoscuola() {
+	public Long getIdAutoscuola() {
 		return this.idAutoscuola;
 	}
 
-	public void setIdAutoscuola(long idAutoscuola) {
+	public void setIdAutoscuola(Long idAutoscuola) {
 		this.idAutoscuola = idAutoscuola;
 	}
 
@@ -102,6 +99,30 @@ public class Autoscuola implements Serializable {
 
 	public void setCitta(String citta) {
 		this.citta = citta;
+	}
+
+	public Date getDataCreazione() {
+		return this.dataCreazione;
+	}
+
+	public void setDataCreazione(Date dataCreazione) {
+		this.dataCreazione = dataCreazione;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFax() {
+		return this.fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
 	}
 
 	public String getIndirizzo() {
@@ -126,6 +147,14 @@ public class Autoscuola implements Serializable {
 
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
+	}
+
+	public String getTelefono() {
+		return this.telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	public Consorzio getConsorzio() {
