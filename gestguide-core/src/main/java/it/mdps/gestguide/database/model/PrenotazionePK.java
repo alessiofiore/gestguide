@@ -10,46 +10,46 @@ public class PrenotazionePK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="id_autoscuola", insertable=false, updatable=false)
-	private Long idAutoscuola;
+	private Integer idAutoscuola;
 	
 	@Column(name="id_mezzo", insertable=false, updatable=false)
-	private Long idMezzo;
+	private Integer idMezzo;
 	
 	@Column(name="id_istruttore", insertable=false, updatable=false)
-	private Long idIstruttore;
+	private Integer idIstruttore;
 	
 	@Column(name="id_iscrizione", insertable=false, updatable=false)
-	private Long idIscrizione;
+	private Integer idIscrizione;
 
-	public Long getIdAutoscuola() {
+	public Integer getIdAutoscuola() {
 		return idAutoscuola;
 	}
 
-	public void setIdAutoscuola(Long idAutoscuola) {
+	public void setIdAutoscuola(Integer idAutoscuola) {
 		this.idAutoscuola = idAutoscuola;
 	}
 
-	public Long getIdMezzo() {
+	public Integer getIdMezzo() {
 		return idMezzo;
 	}
 
-	public void setIdMezzo(Long idMezzo) {
+	public void setIdMezzo(Integer idMezzo) {
 		this.idMezzo = idMezzo;
 	}
 
-	public Long getIdIstruttore() {
+	public Integer getIdIstruttore() {
 		return idIstruttore;
 	}
 
-	public void setIdIstruttore(Long idIstruttore) {
+	public void setIdIstruttore(Integer idIstruttore) {
 		this.idIstruttore = idIstruttore;
 	}
 
-	public Long getIdIscrizione() {
+	public Integer getIdIscrizione() {
 		return idIscrizione;
 	}
 
-	public void setIdIscrizione(Long idIscrizione) {
+	public void setIdIscrizione(Integer idIscrizione) {
 		this.idIscrizione = idIscrizione;
 	}
 
@@ -60,10 +60,10 @@ public class PrenotazionePK implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idAutoscuola.intValue();
-		result = prime * result + idIscrizione.intValue();
-		result = prime * result + idIstruttore.intValue();
-		result = prime * result + idMezzo.intValue();
+		result = prime * result + idAutoscuola;
+		result = prime * result + idIscrizione;
+		result = prime * result + idIstruttore;
+		result = prime * result + idMezzo;
 		return result;
 	}
 

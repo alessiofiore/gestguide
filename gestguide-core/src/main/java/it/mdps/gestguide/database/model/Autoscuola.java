@@ -19,7 +19,7 @@ public class Autoscuola implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_autoscuola", unique=true, nullable=false)
-	private Long idAutoscuola;
+	private int idAutoscuola;
 
 	@Column(nullable=false, length=5)
 	private String cap;
@@ -77,11 +77,11 @@ public class Autoscuola implements Serializable {
 	public Autoscuola() {
 	}
 
-	public Long getIdAutoscuola() {
+	public int getIdAutoscuola() {
 		return this.idAutoscuola;
 	}
 
-	public void setIdAutoscuola(Long idAutoscuola) {
+	public void setIdAutoscuola(int idAutoscuola) {
 		this.idAutoscuola = idAutoscuola;
 	}
 

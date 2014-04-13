@@ -2,10 +2,12 @@ package it.mdps.gestguide.core.services;
 
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.InstructorBean;
+import it.mdps.gestguide.core.beans.LicenseBean;
 import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.IstruttoreDao;
+import it.mdps.gestguide.database.model.Abilitazione;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Istruttore;
 
@@ -16,6 +18,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Scope("prototype")
@@ -56,14 +59,27 @@ public class InstructorService {
 	}
 	
 	// Find
-	public InstructorBean get(Long id) {
+	@Transactional(readOnly=true)
+	public InstructorBean get(Integer id) {
 		IstruttoreDao dao = daoFactory.getIstruttoreDao();
 		Istruttore c = dao.find(Istruttore.class, id);
-		return BeanConverter.toInstructorBean(c);
+		
+		InstructorBean instructor = BeanConverter.toInstructorBean(c);
+		
+		// set licenses owned
+		List<Abilitazione> abilitazioni = c.getAbilitaziones();
+		List<LicenseBean> licenses = new ArrayList<LicenseBean>();
+		for(Abilitazione a: abilitazioni) {
+			LicenseBean bean = BeanConverter.toLicenseBean(a);
+			licenses.add(bean);
+		}
+		instructor.setLicenses(licenses);
+		
+		return instructor;
 	}
 	
 	// Delete
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		IstruttoreDao dao = daoFactory.getIstruttoreDao();
 		dao.delete(id);
 	}

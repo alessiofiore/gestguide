@@ -1,10 +1,11 @@
 package it.mdps.gestguide.core.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class InstructorBean {
 	
-	private Long id;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String socialSecurityNumber;
@@ -17,13 +18,14 @@ public class InstructorBean {
 	private String email;
 	private String phone;
 	private String mobilePhone;
-	private Long schoolId;
+	private Integer schoolId;
 	private String schoolName;
+	private List<LicenseBean> licenses;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -98,10 +100,10 @@ public class InstructorBean {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Long getSchoolId() {
+	public Integer getSchoolId() {
 		return schoolId;
 	}
-	public void setSchoolId(Long schoolId) {
+	public void setSchoolId(Integer schoolId) {
 		this.schoolId = schoolId;
 	}
 	public String getSchoolName() {
@@ -109,5 +111,11 @@ public class InstructorBean {
 	}
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
+	}
+	public List<LicenseBean> getLicenses() {
+		return licenses;
+	}
+	public void setLicenses(List<LicenseBean> licenses) {
+		this.licenses = licenses;
 	}
 }

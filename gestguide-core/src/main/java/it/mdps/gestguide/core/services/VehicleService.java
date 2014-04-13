@@ -58,14 +58,14 @@ public class VehicleService {
 	}
 	
 	// Find
-	public VehicleBean get(Long id) {
+	public VehicleBean get(Integer id) {
 		MezzoDao dao = daoFactory.getMezzoDao();
 		Mezzo c = dao.find(Mezzo.class, id);
 		return BeanConverter.toVehicleBean(c);
 	}
 	
 	// Delete
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		MezzoDao dao = daoFactory.getMezzoDao();
 		dao.delete(id);
 	}

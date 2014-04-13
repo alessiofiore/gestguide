@@ -1,7 +1,9 @@
 package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +21,9 @@ public class Istruttore implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_istruttore", unique=true, nullable=false)
-	private Long idIstruttore;
+	private int idIstruttore;
 
-	@Column(length=5)
+	@Column(nullable=false, length=5)
 	private String cap;
 
 	@Column(length=15)
@@ -63,6 +65,15 @@ public class Istruttore implements Serializable {
 	@Column(length=15)
 	private String telefono;
 
+	//bi-directional many-to-one association to Abilitazione
+	@OneToMany(mappedBy="istruttore")
+	private List<Abilitazione> abilitaziones;
+
+	//bi-directional many-to-one association to Autoscuola
+	@ManyToOne
+	@JoinColumn(name="id_autoscuola", nullable=false)
+	private Autoscuola autoscuola;
+
 	//bi-directional many-to-many association to Patente
 	@ManyToMany
 	@JoinTable(
@@ -76,11 +87,6 @@ public class Istruttore implements Serializable {
 		)
 	private List<Patente> patentes;
 
-	//bi-directional many-to-one association to Autoscuola
-	@ManyToOne
-	@JoinColumn(name="id_autoscuola", nullable=false)
-	private Autoscuola autoscuola;
-
 	//bi-directional many-to-one association to Prenotazione
 	@OneToMany(mappedBy="istruttore")
 	private List<Prenotazione> prenotaziones;
@@ -88,11 +94,11 @@ public class Istruttore implements Serializable {
 	public Istruttore() {
 	}
 
-	public Long getIdIstruttore() {
+	public int getIdIstruttore() {
 		return this.idIstruttore;
 	}
 
-	public void setIdIstruttore(Long idIstruttore) {
+	public void setIdIstruttore(int idIstruttore) {
 		this.idIstruttore = idIstruttore;
 	}
 
@@ -200,12 +206,26 @@ public class Istruttore implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<Patente> getPatentes() {
-		return this.patentes;
+	public List<Abilitazione> getAbilitaziones() {
+		return this.abilitaziones;
 	}
 
-	public void setPatentes(List<Patente> patentes) {
-		this.patentes = patentes;
+	public void setAbilitaziones(List<Abilitazione> abilitaziones) {
+		this.abilitaziones = abilitaziones;
+	}
+
+	public Abilitazione addAbilitazione(Abilitazione abilitazione) {
+		getAbilitaziones().add(abilitazione);
+		abilitazione.setIstruttore(this);
+
+		return abilitazione;
+	}
+
+	public Abilitazione removeAbilitazione(Abilitazione abilitazione) {
+		getAbilitaziones().remove(abilitazione);
+		abilitazione.setIstruttore(null);
+
+		return abilitazione;
 	}
 
 	public Autoscuola getAutoscuola() {
@@ -214,6 +234,14 @@ public class Istruttore implements Serializable {
 
 	public void setAutoscuola(Autoscuola autoscuola) {
 		this.autoscuola = autoscuola;
+	}
+
+	public List<Patente> getPatentes() {
+		return this.patentes;
+	}
+
+	public void setPatentes(List<Patente> patentes) {
+		this.patentes = patentes;
 	}
 
 	public List<Prenotazione> getPrenotaziones() {

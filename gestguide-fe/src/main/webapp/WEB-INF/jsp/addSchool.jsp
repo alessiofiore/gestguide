@@ -24,35 +24,35 @@
 		<table>
 		<tr>
 			<td><label><spring:message code="label.sitename"/>:</label></td>
-			<td><form:input path="nomeSede" /></td>
+			<td><form:input path="nomeSede" maxlength="50" size="20" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.address"/>:</label></td>
-			<td><form:input path="indirizzo" /></td>
+			<td><form:input path="indirizzo" maxlength="100" size="30" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.city"/>:</label></td>
-			<td><form:input path="citta" /></td>
+			<td><form:input path="citta" maxlength="50" size="20" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.province"/>:</label></td>
-			<td><form:input path="provincia" /></td>
+			<td><form:input path="provincia" maxlength="2" size="2" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.zip"/>:</label></td>
-			<td><form:input path="cap" /></td>
+			<td><form:input path="cap" maxlength="5" size="5" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.phone"/>:</label></td>
-			<td><form:input path="telefono" /></td>
+			<td><form:input path="telefono" maxlength="16" size="16" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.fax"/>:</label></td>
-			<td><form:input path="fax" /></td>
+			<td><form:input path="fax" maxlength="16" size="16" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.email"/>:</label></td>
-			<td><form:input path="email" /></td>
+			<td><form:input path="email" maxlength="50" size="20" /></td>
 		</tr>
 		<tr>
 		<td colspan="2"><input type="submit" /></td>

@@ -1,5 +1,6 @@
 package it.mdps.gestguide.core.beans;
 
+import it.mdps.gestguide.database.model.Abilitazione;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
 import it.mdps.gestguide.database.model.Istruttore;
@@ -23,6 +24,8 @@ public class BeanConverter {
 	
 	public static Mezzo fromVehicleBean(VehicleBean bean) {
 		Mezzo m = new Mezzo();
+		if(bean.getId() != null)
+			m.setIdMezzo(bean.getId());
 		m.setAlimentazione(bean.getAlimentazione());
 		m.setMarca(bean.getMarca());
 		m.setModello(bean.getModello());
@@ -67,7 +70,8 @@ public class BeanConverter {
 		c.setDataNascita(bean.getDateOfBirth());
 		c.setDataAssunzione(bean.getHiringDate());
 		c.setEmail(bean.getEmail());
-		c.setIdIstruttore(bean.getId());
+		if(bean.getId() != null)
+			c.setIdIstruttore(bean.getId());
 		c.setIndirizzo(bean.getAddress());
 		c.setNome(bean.getFirstName());
 		c.setProvincia(bean.getProvince());
@@ -96,7 +100,8 @@ public class BeanConverter {
 		a.setCitta(bean.getCitta());
 		a.setEmail(bean.getEmail());
 		a.setFax(bean.getFax());
-		a.setIdAutoscuola(bean.getId());
+		if(bean.getId() != null)
+			a.setIdAutoscuola(bean.getId());
 		a.setIndirizzo(bean.getIndirizzo());
 		a.setNome(bean.getNomeSede());
 		a.setProvincia(bean.getProvincia());
@@ -137,12 +142,21 @@ public class BeanConverter {
 		c.setDataCreazione(bean.getCreationDate());
 		c.setDataNascita(bean.getDateOfBirth());
 		c.setEmail(bean.getEmail());
-		c.setIdCliente(bean.getId());
+		if(bean.getId() != null)
+			c.setIdCliente(bean.getId());
 		c.setIndirizzo(bean.getAddress());
 		c.setNome(bean.getFirstName());
 		c.setProvincia(bean.getProvince());
 		c.setTelefono(bean.getPhone());		
 		return c;
+	}
+	
+	public static LicenseBean toLicenseBean(Abilitazione a) {
+		LicenseBean licenseBean = new LicenseBean();
+		licenseBean.setIdLicense(a.getPatente().getIdPatente());
+		licenseBean.setCategory(a.getPatente().getCategoria());
+		licenseBean.setCostPerHour(a.getCostoOra());
+		return licenseBean;
 	}
 
 }

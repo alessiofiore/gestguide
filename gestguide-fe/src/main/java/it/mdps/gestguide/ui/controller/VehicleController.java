@@ -33,7 +33,7 @@ public class VehicleController {
 	public ModelAndView viewAddPage(Model model) {
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		List<SchoolBean> beans = service.getSchools();
-		Map<Long, String> schools = new LinkedHashMap<Long, String>();
+		Map<Integer, String> schools = new LinkedHashMap<Integer, String>();
 		for(SchoolBean b: beans) {
 			schools.put(b.getId(), b.getNomeSede());
 		}
@@ -62,7 +62,7 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String getVehicle(Model model, @PathVariable long id) {
+	public String getVehicle(Model model, @PathVariable Integer id) {
 		logger.debug("Getting vehicle " + id + " ...");
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
 		VehicleBean bean = service.get(id);
@@ -71,7 +71,7 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public String delete(Model model, @PathVariable long id) {
+	public String delete(Model model, @PathVariable Integer id) {
 		logger.debug("Getting vehicle " + id + " ...");
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
 		service.delete(id);

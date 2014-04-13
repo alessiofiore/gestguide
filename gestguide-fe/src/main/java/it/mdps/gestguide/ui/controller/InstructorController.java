@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -33,7 +34,7 @@ public class InstructorController {
 	public ModelAndView viewAddPage(Model model) {
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		List<SchoolBean> beans = service.getSchools();
-		Map<Long, String> schools = new LinkedHashMap<Long, String>();
+		Map<Integer, String> schools = new LinkedHashMap<Integer, String>();
 		for(SchoolBean b: beans) {
 			schools.put(b.getId(), b.getNomeSede());
 		}
@@ -62,7 +63,7 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String getInstructor(Model model, @PathVariable long id) {
+	public String getInstructor(Model model, @PathVariable Integer id) {
 		logger.debug("Getting instructor " + id + " ...");
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		InstructorBean bean = service.get(id);
@@ -71,7 +72,7 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public String delete(Model model, @PathVariable long id) {
+	public String delete(Model model, @PathVariable Integer id) {
 		logger.debug("Getting instructor " + id + " ...");
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		service.delete(id);
@@ -79,6 +80,15 @@ public class InstructorController {
 		List<InstructorBean> beans = service.getList();
 		model.addAttribute("results", beans);
 		return "instructors";
+	}
+	
+	@RequestMapping(value="/removeLicense", method=RequestMethod.POST)
+	public void removeLicense(
+			@RequestParam("licenseId") int licenseId, 
+			@RequestParam("instructorId") int instructorId) {
+		logger.debug("Removing license " + licenseId + " for instructor " + instructorId);
+		
+		
 	}
 	
 }

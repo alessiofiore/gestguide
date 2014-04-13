@@ -6,6 +6,7 @@ import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.model.Autoscuola;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class SchoolService {
 	@Autowired
 	private DaoFactory daoFactory;
 	
-	public void deleteSchool(Long id) {
+	public void deleteSchool(Integer id) {
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		autoscuolaDao.delete(id);
 	}
@@ -34,7 +35,7 @@ public class SchoolService {
 		autoscuola.setNome(schoolBean.getNomeSede());
 		autoscuola.setProvincia(schoolBean.getProvincia());
 		autoscuola.setTelefono(schoolBean.getTelefono());
-
+		autoscuola.setDataCreazione(new Date());
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		autoscuolaDao.save(autoscuola);
 	}
@@ -62,7 +63,7 @@ public class SchoolService {
 		return schoolBeans;
 	}
 
-	public SchoolBean getSchool(Long id) {
+	public SchoolBean getSchool(Integer id) {
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		Autoscuola a = autoscuolaDao.find(Autoscuola.class, id);
 

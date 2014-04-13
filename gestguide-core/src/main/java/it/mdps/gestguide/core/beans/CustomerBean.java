@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class CustomerBean {
 	
-	private Long id;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String mobilePhone;
@@ -17,13 +17,13 @@ public class CustomerBean {
 	private Date dateOfBirth;
 	private String email;
 	private String phone;
-	private Long schoolId;
+	private Integer schoolId;
 	private String schoolName;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -98,10 +98,10 @@ public class CustomerBean {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Long getSchoolId() {
+	public Integer getSchoolId() {
 		return schoolId;
 	}
-	public void setSchoolId(Long schoolId) {
+	public void setSchoolId(Integer schoolId) {
 		this.schoolId = schoolId;
 	}
 	public String getSchoolName() {

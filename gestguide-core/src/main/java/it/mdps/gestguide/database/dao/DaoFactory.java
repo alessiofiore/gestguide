@@ -12,6 +12,9 @@ public class DaoFactory implements ApplicationContextAware {
 	private ApplicationContext context;
 
 	@Autowired
+	private AbilitazioneDao abilitazioneDao;
+	
+	@Autowired
 	private AutoscuolaDao autoscuolaDao;
 	
 	@Autowired
@@ -34,6 +37,13 @@ public class DaoFactory implements ApplicationContextAware {
 		this.context = context;
 	}
 	
+	/**
+	 * @return the abilitazioneDao
+	 */
+	public AbilitazioneDao getAbilitazioneDao() {
+		return abilitazioneDao;
+	}
+
 	public AutoscuolaDao getAutoscuolaDao() {
 		return autoscuolaDao; //context.getBean(AutoscuolaDao.class);
 	}

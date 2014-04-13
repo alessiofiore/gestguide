@@ -56,14 +56,14 @@ public class CustomerService {
 	}
 	
 	// Find
-	public CustomerBean get(Long id) {
+	public CustomerBean get(Integer id) {
 		ClienteDao dao = daoFactory.getClienteDao();
 		Cliente c = dao.find(Cliente.class, id);
 		return BeanConverter.toCustomerBean(c);
 	}
 	
 	// Delete
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		ClienteDao dao = daoFactory.getClienteDao();
 		dao.delete(id);
 	}

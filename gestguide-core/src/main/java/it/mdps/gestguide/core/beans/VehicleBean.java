@@ -3,11 +3,11 @@ package it.mdps.gestguide.core.beans;
 
 public class VehicleBean {
 	
-	private Long id;
+	private Integer id;
 	private String alimentazione;
 	private String marca;
 	private String modello;
-	private byte rimorchio;
+	private boolean rimorchio;
 	private byte stato;
 	private String targa;
 	private byte tempoCambio;
@@ -17,10 +17,10 @@ public class VehicleBean {
 	private Long schoolId;
 	private String schoolName;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getAlimentazione() {
@@ -41,10 +41,10 @@ public class VehicleBean {
 	public void setModello(String modello) {
 		this.modello = modello;
 	}
-	public byte getRimorchio() {
+	public boolean getRimorchio() {
 		return rimorchio;
 	}
-	public void setRimorchio(byte rimorchio) {
+	public void setRimorchio(boolean rimorchio) {
 		this.rimorchio = rimorchio;
 	}
 	public byte getStato() {

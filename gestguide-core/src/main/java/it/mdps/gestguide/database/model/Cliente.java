@@ -19,7 +19,7 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_cliente", unique=true, nullable=false)
-	private Long idCliente;
+	private int idCliente;
 
 	@Column(length=255)
 	private String cap;
@@ -71,11 +71,11 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public Long getIdCliente() {
+	public int getIdCliente() {
 		return this.idCliente;
 	}
 
-	public void setIdCliente(Long idCliente) {
+	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
 

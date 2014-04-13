@@ -1,9 +1,7 @@
 package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class Mezzo implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_mezzo", unique=true, nullable=false)
-	private Long idMezzo;
+	private int idMezzo;
 
 	@Column(nullable=false, length=10)
 	private String alimentazione;
@@ -33,6 +31,10 @@ public class Mezzo implements Serializable {
 	private short cilindrata;
 
 	@Temporal(TemporalType.DATE)
+	@Column(name="data_creazione", nullable=false)
+	private Date dataCreazione;
+
+	@Temporal(TemporalType.DATE)
 	@Column(name="data_immatricolazione")
 	private Date dataImmatricolazione;
 
@@ -42,7 +44,7 @@ public class Mezzo implements Serializable {
 	@Column(length=45)
 	private String modello;
 
-	private byte rimorchio;
+	private boolean rimorchio;
 
 	private byte stato;
 
@@ -54,10 +56,6 @@ public class Mezzo implements Serializable {
 
 	@Column(nullable=false, length=45)
 	private String tipo;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="data_creazione", nullable=false)
-	private Date dataCreazione;
 
 	//bi-directional many-to-one association to Autoscuola
 	@ManyToOne
@@ -71,11 +69,11 @@ public class Mezzo implements Serializable {
 	public Mezzo() {
 	}
 
-	public Long getIdMezzo() {
+	public int getIdMezzo() {
 		return this.idMezzo;
 	}
 
-	public void setIdMezzo(Long idMezzo) {
+	public void setIdMezzo(int idMezzo) {
 		this.idMezzo = idMezzo;
 	}
 
@@ -103,6 +101,14 @@ public class Mezzo implements Serializable {
 		this.cilindrata = cilindrata;
 	}
 
+	public Date getDataCreazione() {
+		return this.dataCreazione;
+	}
+
+	public void setDataCreazione(Date dataCreazione) {
+		this.dataCreazione = dataCreazione;
+	}
+
 	public Date getDataImmatricolazione() {
 		return this.dataImmatricolazione;
 	}
@@ -127,11 +133,11 @@ public class Mezzo implements Serializable {
 		this.modello = modello;
 	}
 
-	public byte getRimorchio() {
+	public boolean getRimorchio() {
 		return this.rimorchio;
 	}
 
-	public void setRimorchio(byte rimorchio) {
+	public void setRimorchio(boolean rimorchio) {
 		this.rimorchio = rimorchio;
 	}
 
@@ -195,14 +201,6 @@ public class Mezzo implements Serializable {
 		prenotazione.setMezzo(null);
 
 		return prenotazione;
-	}
-
-	public Date getDataCreazione() {
-		return dataCreazione;
-	}
-
-	public void setDataCreazione(Date dataCreazione) {
-		this.dataCreazione = dataCreazione;
 	}
 
 }

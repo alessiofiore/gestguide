@@ -34,11 +34,11 @@
 		<table>
 		<tr>
 			<td><label><spring:message code="label.firstname"/>:</label></td>
-			<td><form:input path="firstName" maxlength="30" size="20" /></td>
+			<td><form:input path="firstName" maxlength="50" size="20" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.lastname"/>:</label></td>
-			<td><form:input path="lastName" maxlength="30" size="20" /></td>
+			<td><form:input path="lastName" maxlength="50" size="20" /></td>
 		</tr>
 		<tr>
 			<td><label><spring:message code="label.ssn"/>:</label></td>

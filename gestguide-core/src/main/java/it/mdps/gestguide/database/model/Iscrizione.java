@@ -25,6 +25,11 @@ public class Iscrizione implements Serializable {
 	@Column(nullable=false)
 	private Date data;
 
+	//bi-directional many-to-one association to Autoscuola
+	@ManyToOne
+	@JoinColumn(name="id_autoscuola", nullable=false)
+	private Autoscuola autoscuola;
+
 	//bi-directional many-to-one association to Cliente
 	@ManyToOne
 	@JoinColumn(name="id_cliente", nullable=false)
@@ -34,11 +39,6 @@ public class Iscrizione implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_patente", nullable=false)
 	private Patente patente;
-
-	//bi-directional many-to-one association to Autoscuola
-	@ManyToOne
-	@JoinColumn(name="id_autoscuola", nullable=false)
-	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Prenotazione
 	@OneToMany(mappedBy="iscrizione")
@@ -63,6 +63,14 @@ public class Iscrizione implements Serializable {
 		this.data = data;
 	}
 
+	public Autoscuola getAutoscuola() {
+		return this.autoscuola;
+	}
+
+	public void setAutoscuola(Autoscuola autoscuola) {
+		this.autoscuola = autoscuola;
+	}
+
 	public Cliente getCliente() {
 		return this.cliente;
 	}
@@ -77,14 +85,6 @@ public class Iscrizione implements Serializable {
 
 	public void setPatente(Patente patente) {
 		this.patente = patente;
-	}
-
-	public Autoscuola getAutoscuola() {
-		return this.autoscuola;
-	}
-
-	public void setAutoscuola(Autoscuola autoscuola) {
-		this.autoscuola = autoscuola;
 	}
 
 	public List<Prenotazione> getPrenotaziones() {

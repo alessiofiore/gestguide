@@ -23,16 +23,20 @@ public class Patente implements Serializable {
 	@Column(nullable=false, length=5)
 	private String categoria;
 
-	@Column(name="eta_minima", nullable=false)
+	@Column(name="eta_minima")
 	private byte etaMinima;
 
-	//bi-directional many-to-many association to Istruttore
-	@ManyToMany(mappedBy="patentes")
-	private List<Istruttore> istruttores;
+	//bi-directional many-to-one association to Abilitazione
+	@OneToMany(mappedBy="patente")
+	private List<Abilitazione> abilitaziones;
 
 	//bi-directional many-to-one association to Iscrizione
 	@OneToMany(mappedBy="patente")
 	private List<Iscrizione> iscriziones;
+
+	//bi-directional many-to-many association to Istruttore
+	@ManyToMany(mappedBy="patentes")
+	private List<Istruttore> istruttores;
 
 	public Patente() {
 	}
@@ -61,12 +65,26 @@ public class Patente implements Serializable {
 		this.etaMinima = etaMinima;
 	}
 
-	public List<Istruttore> getIstruttores() {
-		return this.istruttores;
+	public List<Abilitazione> getAbilitaziones() {
+		return this.abilitaziones;
 	}
 
-	public void setIstruttores(List<Istruttore> istruttores) {
-		this.istruttores = istruttores;
+	public void setAbilitaziones(List<Abilitazione> abilitaziones) {
+		this.abilitaziones = abilitaziones;
+	}
+
+	public Abilitazione addAbilitazione(Abilitazione abilitazione) {
+		getAbilitaziones().add(abilitazione);
+		abilitazione.setPatente(this);
+
+		return abilitazione;
+	}
+
+	public Abilitazione removeAbilitazione(Abilitazione abilitazione) {
+		getAbilitaziones().remove(abilitazione);
+		abilitazione.setPatente(null);
+
+		return abilitazione;
 	}
 
 	public List<Iscrizione> getIscriziones() {
@@ -89,6 +107,14 @@ public class Patente implements Serializable {
 		iscrizione.setPatente(null);
 
 		return iscrizione;
+	}
+
+	public List<Istruttore> getIstruttores() {
+		return this.istruttores;
+	}
+
+	public void setIstruttores(List<Istruttore> istruttores) {
+		this.istruttores = istruttores;
 	}
 
 }

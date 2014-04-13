@@ -44,7 +44,7 @@ public class SchoolController {
 		return "schools";
 	}
 	
-	@RequestMapping(value="/school", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public String getSchools(Model model) {
 		logger.debug("Getting schools...");
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
@@ -54,7 +54,7 @@ public class SchoolController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String getSchool(Model model, @PathVariable long id) {
+	public String getSchool(Model model, @PathVariable Integer id) {
 		logger.debug("Getting school " + id + " ...");
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		SchoolBean bean = service.getSchool(id);
@@ -63,7 +63,7 @@ public class SchoolController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public String delete(Model model, @PathVariable long id) {
+	public String delete(Model model, @PathVariable Integer id) {
 		logger.debug("Getting school " + id + " ...");
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		service.deleteSchool(id);
@@ -75,10 +75,10 @@ public class SchoolController {
 	
 	@RequestMapping(value="/json", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<Long, String> schools() {
+	public Map<Integer, String> schools() {
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		List<SchoolBean> beans = service.getSchools();
-		Map<Long, String> schools = new LinkedHashMap<Long, String>();
+		Map<Integer, String> schools = new LinkedHashMap<Integer, String>();
 		for(SchoolBean b: beans) {
 			schools.put(b.getId(), b.getNomeSede());
 		}

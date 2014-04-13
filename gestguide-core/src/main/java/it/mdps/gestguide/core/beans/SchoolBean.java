@@ -6,7 +6,7 @@ public class SchoolBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Integer id;
 	private String nomeSede = "";	
 	private String cap = "";
 	private String citta = "";
@@ -16,11 +16,11 @@ public class SchoolBean implements Serializable {
 	private String fax = "";
 	private String email = "";
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
