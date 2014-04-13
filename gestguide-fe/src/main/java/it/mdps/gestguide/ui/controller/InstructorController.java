@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -83,12 +84,14 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/removeLicense", method=RequestMethod.POST)
-	public void removeLicense(
+	@ResponseBody
+	public String removeLicense(
 			@RequestParam("licenseId") int licenseId, 
-			@RequestParam("instructorId") int instructorId) {
+			@RequestParam("instructorId") int instructorId
+			) {
 		logger.debug("Removing license " + licenseId + " for instructor " + instructorId);
-		
-		
+				
+		return new String("SUCCESS");
 	}
 	
 }

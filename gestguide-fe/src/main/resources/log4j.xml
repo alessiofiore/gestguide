@@ -9,7 +9,7 @@
     </layout> 
   </appender>
   
-  <category name="it.sas.dss" additivity="false">
+  <category name="it.mdps.gestguide" additivity="false">
   	<priority value="DEBUG" />
   	<appender-ref ref="console" />
   </category>

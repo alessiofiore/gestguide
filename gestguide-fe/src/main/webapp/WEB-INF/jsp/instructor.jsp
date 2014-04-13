@@ -21,7 +21,7 @@ $( document ).ready(function() {
 
 	$('.myLink').click(
 		function removeLicense(licenseId, instructorId){
-		    $.post("../removeLicense", { licenseId: "1", instructorId: "2" },
+		    $.post("../instructor/removeLicense", { licenseId: "1", instructorId: "2" },
 		       function(data) {
 		         alert("Data Loaded: " + data);
 		       });
