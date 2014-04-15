@@ -5,6 +5,7 @@ import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
 import it.mdps.gestguide.database.model.Istruttore;
 import it.mdps.gestguide.database.model.Mezzo;
+import it.mdps.gestguide.database.model.Patente;
 
 public class BeanConverter {
 	
@@ -153,9 +154,16 @@ public class BeanConverter {
 	
 	public static LicenseBean toLicenseBean(Abilitazione a) {
 		LicenseBean licenseBean = new LicenseBean();
-		licenseBean.setIdLicense(a.getPatente().getIdPatente());
+		licenseBean.setId(a.getPatente().getIdPatente());
 		licenseBean.setCategory(a.getPatente().getCategoria());
 		licenseBean.setCostPerHour(a.getCostoOra());
+		return licenseBean;
+	}
+	
+	public static LicenseBean toLicenseBean(Patente p) {
+		LicenseBean licenseBean = new LicenseBean();
+		licenseBean.setId(p.getIdPatente());
+		licenseBean.setCategory(p.getCategoria());
 		return licenseBean;
 	}
 

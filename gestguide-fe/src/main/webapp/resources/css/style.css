@@ -13,6 +13,9 @@ div#wrapper{
 	background-color: #f8f8f8;
 }
 
+.clear {
+	clear: both;
+}
 .table {
 	display: table;
 }

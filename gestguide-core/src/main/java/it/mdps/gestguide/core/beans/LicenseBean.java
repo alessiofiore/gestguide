@@ -2,15 +2,15 @@ package it.mdps.gestguide.core.beans;
 
 public class LicenseBean {
 
-	private int idLicense;
+	private int id;
 	private String category;
 	private short costPerHour;
 	
-	public int getIdLicense() {
-		return idLicense;
+	public int getId() {
+		return id;
 	}
-	public void setIdLicense(int idLicense) {
-		this.idLicense = idLicense;
+	public void setId(int idLicense) {
+		this.id = idLicense;
 	}
 	public String getCategory() {
 		return category;
