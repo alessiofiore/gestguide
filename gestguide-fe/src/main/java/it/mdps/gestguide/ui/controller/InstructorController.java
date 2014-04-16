@@ -83,14 +83,29 @@ public class InstructorController {
 		return "instructors";
 	}
 	
-	@RequestMapping(value="/removeLicense", method=RequestMethod.POST)
+	@RequestMapping(value="/deleteLicense", method=RequestMethod.POST)
 	@ResponseBody
-	public String removeLicense(
+	public String deleteLicense(
 			@RequestParam("licenseId") int licenseId, 
 			@RequestParam("instructorId") int instructorId
 			) {
-		logger.debug("Removing license " + licenseId + " for instructor " + instructorId);
-				
+		logger.debug("Deleting license " + licenseId + " for instructor " + instructorId);
+		InstructorService service = componentFactory.getComponent(InstructorService.class);
+		service.deleteLicence(licenseId, instructorId);
+		return new String("SUCCESS");
+	}
+	
+	@RequestMapping(value="/addLicense", method=RequestMethod.POST)
+	@ResponseBody
+	public String addLicense(
+			@RequestParam("licenseId") int licenseId, 
+			@RequestParam("instructorId") int instructorId,
+			@RequestParam("costPerHour") short costPerHour
+			) {
+		logger.debug("Adding license " + licenseId + " for instructor " + instructorId);
+		InstructorService service = componentFactory.getComponent(InstructorService.class);
+		service.addLicence(licenseId, instructorId, costPerHour);
+		logger.debug("Added license " + licenseId + " for instructor " + instructorId);
 		return new String("SUCCESS");
 	}
 	

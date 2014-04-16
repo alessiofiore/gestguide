@@ -9,8 +9,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><spring:message code="sitename" /></title>
 
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>" />
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/style.css"/>" />
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -20,46 +22,64 @@
 		$("#availableLicensesList").append("<option value='" + licenseId + "'>" + category + "</option>");
 	}
 	
-	// add license
-	function addLicense(licenseId) {
+	// edit license
+	function editLicense(licenseId) {
+				
+	}
+	
+	// save license
+	function saveLicense(licenseId) {
 		cost = $("#licenseRow" + licenseId + " input.costPerHour").val();
 		instructorId = ${result.id};
-		alert(licenseId + " - " + cost + " - " + instructorId);
+		
+		$.post("../instructor/addLicense", { licenseId: licenseId, instructorId: instructorId,  costPerHour: cost},
+       		function(data) {
+    		if(data == 'SUCCESS') {
+    			$("#licenseRow" + licenseId + " .costPerHour").replaceWith(cost);
+    			
+    			editLink = "<a class='editLink' href='#' onclick='editLicense(<c:out value='" + licenseId + "' />);return false;'>Edit</a>";
+    			$("#licenseRow" + licenseId + " .saveLink").replaceWith(editLink);
+    			
+    			deleteLink = "<a class='deleteLink' href='#' onclick='deleteLicense(<c:out value='" + licenseId + "' />, <c:out value='" + instructorId + "' />);return false;'>Delete</a>";
+    			$("#licenseRow" + licenseId + " .cancelLink").replaceWith(deleteLink);
+    		} else {
+    			alert(data);
+    		}
+		});
+	}
+	
+	// delete license
+	function deleteLicense(licenseId, instructorId){
+	    $.post("../instructor/deleteLicense", { licenseId: licenseId, instructorId: instructorId },
+	       function(data) {
+	    	if(data == 'SUCCESS') {
+	    		$("#licenseRow" + licenseId).remove();
+	    	} else {
+	    		alert(data);
+	    	}
+	       });
 	}
 
 $( document ).ready(function() {
-	$('#myLink2').click(function() {
-		alert("ciao");
-		}
-	);
-
-	$('.myLink').click(
-		function removeLicense(licenseId, instructorId){
-		    $.post("../instructor/removeLicense", { licenseId: "1", instructorId: "2" },
-		       function(data) {
-		         alert("Data Loaded: " + data);
-		       });
-		}
-	);
-	
+		
 	// get list of licenses
 	$.getJSON( "../json/licenses", function( data ) {
 		  var items = [];
 		  items.push( "<option value=-1>Add license</option>");
 		  $.each( data, function( key, val ) {
-			 $("#availableLicensesList").append("<option value='" + key + "'>" + val.category + "</option>");
+			 $("#availableLicensesList").append("<option value='" + val.id + "'>" + val.category + "</option>");
 		  });
 		});
 	
-	// onClick select
+	// licenses SELECT onClick action
 	$('#availableLicensesList').on('change', function() {
 		if(this.value > -1) {
 			text = $('#availableLicensesList option:selected').text();
 			cat = "<td>"+ text +"</td>";
 			costH = "<td><input type='text' maxlength='4' size='4' class='costPerHour' value=0></td>";
 			
-			linkSave = "<a href='#' onclick='addLicense(" + this.value + ");return false;'>Save</a>";
-			linkCancel = "<a href='#' onclick='cancel(" + this.value + ",\"" + text + "\");return false;'>Cancel</a>";
+			linkSave = "<a class='saveLink' href='#' onclick='saveLicense(" + this.value + ");return false;'>Save</a>";
+			linkCancel = "<a class='cancelLink' href='#' onclick='cancel(" + this.value + ",\"" + text + "\");return false;'>Cancel</a>";
 			links = "<td>" + linkSave + " | " + linkCancel + "</td>";
 			row = "<tr id='licenseRow" + this.value + "'> " + cat + costH + links + "</tr>";
 			$('#ownedLicenses tbody').append(row);
@@ -135,7 +155,9 @@ $( document ).ready(function() {
 			</table>
 		</div>
 		<div id="right_panel">
-			<h3><spring:message code="header.licenses" /></h3>
+			<h3>
+				<spring:message code="header.licenses" />
+			</h3>
 			<table id="ownedLicenses">
 				<thead>
 					<th><spring:message code="label.license.category" /></th>
@@ -143,19 +165,18 @@ $( document ).ready(function() {
 					<th></th>
 				</thead>
 				<tbody>
-				<c:forEach items="${result.licenses}" var="license">
-					<tr>
-						<td><c:out value="${license.category}" /></td>
-						<td><c:out value="${license.costPerHour}" /></td>
-						<td><a id="myLink2" href="#" onclick="ciao();return false;">Edit</a> | 
-						
-						<a class="myLink" href="#" onclick="removeLicense(<c:out value="${license.id}" />, <c:out value="${result.id}" />);return false;">Remove</a></td>
-					</tr>
-				</c:forEach>
-				</tbody>			
+					<c:forEach items="${result.licenses}" var="license">
+						<tr>
+							<td><c:out value="${license.category}" /></td>
+							<td><c:out value="${license.costPerHour}" /></td>
+							<td><a class='editLink' href="#" onclick="editLicense(<c:out value="${license.id}" />);return false;">Edit</a>
+								| <a class='deleteLink' href="#" onclick="deleteLicense(<c:out value="${license.id}" />, <c:out value="${result.id}" />);return false;">Delete</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
-			
-			
+
+
 			<div id="availableLicenses">
 				<select id="availableLicensesList">
 					<option value=-1>Add license</option>

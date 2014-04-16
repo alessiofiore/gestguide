@@ -3,6 +3,7 @@ package it.mdps.gestguide.database.dao.hibernate;
 import it.mdps.gestguide.database.dao.AbilitazioneDao;
 import it.mdps.gestguide.database.dao.GenericDao;
 import it.mdps.gestguide.database.model.Abilitazione;
+import it.mdps.gestguide.database.model.AbilitazionePK;
 
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class AbilitazioneDaoImpl extends GenericDao<Abilitazione> implements Abi
 	@Transactional
 	public void delete(Object id) {
 		Session session = super.sessionFactory.getCurrentSession();
-		Query q = session.createQuery("delete from Abilitazione where idAbilitazione = :id");
-		q.setInteger("id", (Integer) id);
+		Query q = session.createQuery("delete from Abilitazione where id = :id");
+		q.setParameter("id", (AbilitazionePK) id);
 		q.executeUpdate();
 	}
 }

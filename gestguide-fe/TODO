@@ -1,1 +1,1 @@
-Metodo add e remove patente nel controller Istruttore
+Correggere il metodo saveLicense in instructor.jsp per sostituire i link dei testi Edit e Delete

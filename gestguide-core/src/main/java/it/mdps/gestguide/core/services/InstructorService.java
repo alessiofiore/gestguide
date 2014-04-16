@@ -4,12 +4,18 @@ import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.InstructorBean;
 import it.mdps.gestguide.core.beans.LicenseBean;
 import it.mdps.gestguide.core.beans.SchoolBean;
+import it.mdps.gestguide.core.exception.ServiceException;
+import it.mdps.gestguide.core.exception.ServiceException.ErrorType;
+import it.mdps.gestguide.database.dao.AbilitazioneDao;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.IstruttoreDao;
+import it.mdps.gestguide.database.dao.PatenteDao;
 import it.mdps.gestguide.database.model.Abilitazione;
+import it.mdps.gestguide.database.model.AbilitazionePK;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Istruttore;
+import it.mdps.gestguide.database.model.Patente;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,4 +90,43 @@ public class InstructorService {
 		dao.delete(id);
 	}
 	
+	// Add license
+	@Transactional
+	public void addLicence(int licenseId, int instructorId, short costPerHour) {
+		
+		IstruttoreDao iDao = daoFactory.getIstruttoreDao();
+		Istruttore i = iDao.find(Istruttore.class, instructorId);
+		
+		PatenteDao pDao = daoFactory.getPatenteDao();
+		Patente p = pDao.find(Patente.class, licenseId);
+		
+		if(i == null) 
+			throw new ServiceException(ErrorType.INSTRUCTOR_NOT_FOUND);		
+		if(p == null)
+			throw new ServiceException(ErrorType.LICENCE_NOT_FOUND);
+		
+		Abilitazione a = new Abilitazione();
+		a.setIstruttore(i);
+		a.setPatente(p);
+		AbilitazionePK pk = new AbilitazionePK();
+		pk.setIdIstruttore(instructorId);
+		pk.setIdPatente(licenseId);
+		a.setId(pk);
+		a.setCostoOra(costPerHour);
+		
+		AbilitazioneDao dao = daoFactory.getAbilitazioneDao();
+		dao.saveOrUpdate(a);
+	}
+	
+	// Add license
+	@Transactional
+	public void deleteLicence(int licenseId, int instructorId) {
+		
+		AbilitazionePK pk = new AbilitazionePK();
+		pk.setIdIstruttore(instructorId);
+		pk.setIdPatente(licenseId);
+		
+		AbilitazioneDao dao = daoFactory.getAbilitazioneDao();
+		dao.delete(pk);
+	}	
 }
