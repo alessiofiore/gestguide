@@ -1,5 +1,6 @@
 package it.mdps.gestguide.ui.controller;
 
+import it.mdps.gestguide.common.StaticValues;
 import it.mdps.gestguide.core.beans.InstructorBean;
 import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.core.services.InstructorService;
@@ -92,7 +93,7 @@ public class InstructorController {
 		logger.debug("Deleting license " + licenseId + " for instructor " + instructorId);
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		service.deleteLicence(licenseId, instructorId);
-		return new String("SUCCESS");
+		return StaticValues.SUCCESS;
 	}
 	
 	@RequestMapping(value="/addLicense", method=RequestMethod.POST)
@@ -106,7 +107,7 @@ public class InstructorController {
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		service.addLicence(licenseId, instructorId, costPerHour);
 		logger.debug("Added license " + licenseId + " for instructor " + instructorId);
-		return new String("SUCCESS");
+		return StaticValues.SUCCESS;
 	}
 	
 }

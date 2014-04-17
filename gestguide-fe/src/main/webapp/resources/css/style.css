@@ -13,6 +13,50 @@ div#wrapper{
 	background-color: #f8f8f8;
 }
 
+/* Navigation Menu */
+
+div#navMenu{
+    background-color: #fff;
+    border-bottom: 1px solid #787878;
+    padding-left: 20px
+}
+
+div#navMenu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap
+}
+
+div#navMenu li{
+    display: inline;
+    margin: 0;
+    padding:0
+}
+
+div#navMenu li a{
+    text-decoration: none;
+    border: 1px solid #f00;
+    padding: 0 0.3em
+}
+
+div#navMenu li a{
+    text-decoration: none;
+    border: 1px solid #787878;
+    padding: 0px 0.3em;
+    background: #ccc;color: #036
+}
+
+div#navMenu li a:hover{
+    background-color: #f0f0f0
+}
+    
+div#navMenu li#activelink a{
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+    color: #603
+}
+
 .clear {
 	clear: both;
 }

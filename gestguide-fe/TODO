@@ -1,1 +1,5 @@
 Correggere il metodo saveLicense in instructor.jsp per sostituire i link dei testi Edit e Delete
+
+Aggiungere un id chiave nella tabella Prenotazioni
+Completare il bean Reservation in accordo a sopra
+Terminare la parte di prenotazioni con calendar

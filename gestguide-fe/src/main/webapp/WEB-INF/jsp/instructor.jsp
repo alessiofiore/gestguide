@@ -11,8 +11,8 @@
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/style.css"/>" />
-<script type="text/javascript"
-	src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/init.js"/>"></script>
 
 <script type="text/javascript">
 
@@ -61,7 +61,7 @@
 	}
 
 $( document ).ready(function() {
-		
+	
 	// get list of licenses
 	$.getJSON( "../json/licenses", function( data ) {
 		  var items = [];
@@ -94,6 +94,7 @@ $( document ).ready(function() {
 </head>
 <body>
 	<div id="wrapper">
+		<div id="navMenu"></div>
 		<div class="navigation">
 			<a href="<c:url value="/instructor" />">Back</a>
 		</div>

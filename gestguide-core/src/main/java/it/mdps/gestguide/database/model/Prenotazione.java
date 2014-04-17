@@ -101,4 +101,11 @@ public class Prenotazione implements Serializable {
 		this.mezzo = mezzo;
 	}
 
+	public PrenotazionePK getId() {
+		return id;
+	}
+
+	public void setId(PrenotazionePK id) {
+		this.id = id;
+	}
 }

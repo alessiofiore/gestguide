@@ -1,6 +1,7 @@
 package it.mdps.gestguide.core.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class CustomerBean {
 	
@@ -19,6 +20,7 @@ public class CustomerBean {
 	private String phone;
 	private Integer schoolId;
 	private String schoolName;
+	private List<RegistrationBean> registrations;
 	
 	public Integer getId() {
 		return id;
@@ -109,5 +111,11 @@ public class CustomerBean {
 	}
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
-	}	
+	}
+	public List<RegistrationBean> getRegistrations() {
+		return registrations;
+	}
+	public void setRegistrations(List<RegistrationBean> registrations) {
+		this.registrations = registrations;
+	}
 }

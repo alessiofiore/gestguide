@@ -11,10 +11,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>" />
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-ui-1.10.4.custom.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/init.js"/>"></script>
 
 <title><spring:message code="sitename"/></title>
 </head>
 <body>
+<div id="wrapper">
+		<div id="navMenu"></div>
 	<div class="navigation"><a href="<c:url value="/school" />">Back</a></div>
 	
 	<spring:message code="header.addschool"/>
@@ -59,5 +64,6 @@
 		</tr>
 		</table>
 	</form:form>	
+	</div>
 </body>
 </html>

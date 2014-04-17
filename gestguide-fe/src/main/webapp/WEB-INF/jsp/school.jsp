@@ -9,9 +9,14 @@
 
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>" />
 
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/init.js"/>"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
+<div id="wrapper">
+		<div id="navMenu"></div>
 	<div class="navigation"><a href="<c:url value="/school" />">Back</a></div>
 
 	<table>
@@ -48,5 +53,6 @@
 			<td><c:out value="${result.email}" /></td>
 		</tr>
 	</table>
+</div>
 </body>
 </html>

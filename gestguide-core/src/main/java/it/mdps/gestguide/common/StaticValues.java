@@ -1,6 +1,8 @@
 package it.mdps.gestguide.common;
 
 public class StaticValues {
+	public static final String SUCCESS = "SUCCESS";
+	
 	public static final String ID = "ID";
 	public static final String AUTOSCUOLA = "Autoscuola";
 	public static final String CAP = "CAP";

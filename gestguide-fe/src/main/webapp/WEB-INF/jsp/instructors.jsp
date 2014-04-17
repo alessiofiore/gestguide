@@ -12,10 +12,12 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>" />
 
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
-
+<script type="text/javascript" src="<c:url value="/resources/js/init.js"/>"></script>
 
 </head>
 <body>
+<div id="wrapper">
+		<div id="navMenu"></div>
 <div class="navigation"><a href="<c:url value="/instructor/add" />">Add new</a></div>
 
 	<table id="listTable">
@@ -36,5 +38,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+</div>
 </body>
 </html>

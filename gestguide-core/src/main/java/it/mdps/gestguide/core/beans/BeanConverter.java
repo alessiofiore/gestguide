@@ -1,11 +1,15 @@
 package it.mdps.gestguide.core.beans;
 
+import java.util.Date;
+
 import it.mdps.gestguide.database.model.Abilitazione;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
+import it.mdps.gestguide.database.model.Iscrizione;
 import it.mdps.gestguide.database.model.Istruttore;
 import it.mdps.gestguide.database.model.Mezzo;
 import it.mdps.gestguide.database.model.Patente;
+import it.mdps.gestguide.database.model.Prenotazione;
 
 public class BeanConverter {
 	
@@ -166,5 +170,25 @@ public class BeanConverter {
 		licenseBean.setCategory(p.getCategoria());
 		return licenseBean;
 	}
+	
+	public static RegistrationBean toRegistrationBean(Iscrizione i) {
+		RegistrationBean bean = new RegistrationBean();
+		bean.setId(i.getIdIscrizione());
+		bean.setLicenseId(i.getPatente().getIdPatente());
+		bean.setLicenseCategory(i.getPatente().getCategoria());
+		bean.setRegistrationDate(i.getData());
+		bean.setSchoolId(i.getAutoscuola().getIdAutoscuola());
+		bean.setSchoolName(i.getAutoscuola().getNome());
+		return bean;
+	}
 
+	
+	public static ReservationBean toReservationBean(Prenotazione p) {
+		ReservationBean bean = new ReservationBean();
+		bean.setInstructorId(p.getIstruttore().);
+		
+		private String title;
+		private Date startDate;
+		private Date endDate;
+	}
 }

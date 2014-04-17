@@ -29,9 +29,6 @@ public abstract class GenericDao<T> implements IGenericDao<T> {
 		session.saveOrUpdate(t);
 	}
 
-	@Override
-	public abstract void delete(Object id);
-
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly=true)
@@ -46,6 +43,8 @@ public abstract class GenericDao<T> implements IGenericDao<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+//	public abstract void delete(Object id);
 
 	@Override
 	public abstract List<T> findAll();

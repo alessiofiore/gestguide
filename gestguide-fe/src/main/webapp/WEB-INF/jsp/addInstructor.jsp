@@ -16,6 +16,8 @@
 
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.0.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-ui-1.10.4.custom.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/init.js"/>"></script>
+
 <script>
   $(function() {
 	$.datepicker.setDefaults($.datepicker.regional["it"]);	
@@ -25,6 +27,8 @@
   </script>
 </head>
 <body>
+<div id="wrapper">
+		<div id="navMenu"></div>
 	<div class="navigation"><a href="<c:url value="/instructor" />">Back</a></div>
 	
 	<h1><spring:message code="header.addinstructor"/></h1>
@@ -92,5 +96,6 @@
 		</tr>
 		</table>
 	</form:form>	
+	</div>
 </body>
 </html>

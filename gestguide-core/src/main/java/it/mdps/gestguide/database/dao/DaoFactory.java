@@ -31,6 +31,9 @@ public class DaoFactory implements ApplicationContextAware {
 	
 	@Autowired
 	private PatenteDao patenteDao;
+	
+	@Autowired
+	private PrenotazioneDao prenotazioneDao;
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
@@ -66,5 +69,9 @@ public class DaoFactory implements ApplicationContextAware {
 
 	public PatenteDao getPatenteDao() {
 		return patenteDao;
+	}
+
+	public PrenotazioneDao getPrenotazioneDao() {
+		return prenotazioneDao;
 	}
 }
