@@ -1,7 +1,5 @@
 package it.mdps.gestguide.core.beans;
 
-import java.util.Date;
-
 import it.mdps.gestguide.database.model.Abilitazione;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
@@ -185,10 +183,13 @@ public class BeanConverter {
 	
 	public static ReservationBean toReservationBean(Prenotazione p) {
 		ReservationBean bean = new ReservationBean();
-		bean.setInstructorId(p.getIstruttore().);
-		
-		private String title;
-		private Date startDate;
-		private Date endDate;
+		bean.setInstructorId(p.getIstruttore().getIdIstruttore());
+		bean.setVehicleId(p.getMezzo().getIdMezzo());
+		bean.setRegistrationId(p.getIdPrenotazione());
+		bean.setStartDate(p.getDataInizio());
+		bean.setEndDate(p.getDataFine());
+		Cliente c = p.getIscrizione().getCliente();
+		bean.setTitle(c.getNome() + " " + c.getCognome());
+		return bean;
 	}
 }

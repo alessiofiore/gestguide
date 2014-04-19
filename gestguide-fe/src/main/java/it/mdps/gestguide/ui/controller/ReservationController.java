@@ -1,20 +1,27 @@
 package it.mdps.gestguide.ui.controller;
 
 import it.mdps.gestguide.core.beans.ReservationBean;
+import it.mdps.gestguide.core.services.ReservationService;
 import it.mdps.gestguide.core.utils.SpringComponentFactory;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
+	
+	Logger logger = Logger.getLogger(this.getClass());
 	
 	@Autowired
 	private SpringComponentFactory componentFactory;
@@ -24,9 +31,35 @@ public class ReservationController {
 		return "reservations";
 	}
 	
-	@RequestMapping(value="/json/reservations/{schoolId}", method=RequestMethod.GET)
-	public List<ReservationBean> getReservations(@PathVariable int schoolId) {
+	@RequestMapping(value="/json/reservations", method=RequestMethod.GET)
+	@ResponseBody
+	public List<ReservationBean> getReservations(
+			@RequestParam("schoolId") int schoolId) {
 		
+		Calendar c = Calendar.getInstance();
+		c.getActualMinimum(Calendar.DAY_OF_MONTH);
+		Date from = c.getTime();
+		c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		Date to = c.getTime();
+		
+		return this.getReservations(schoolId, from, to);
+		
+//		ReservationService service = componentFactory.getComponent(ReservationService.class);
+//		return service.getReservations(schoolId, from, to);
+	}
+	
+	@RequestMapping(value="/json/reservationsInterval", method=RequestMethod.GET)
+	@ResponseBody
+	public List<ReservationBean> getReservations(
+			@RequestParam("schoolId") int schoolId, 
+			@RequestParam("from") Date from, 
+			@RequestParam("to") Date to) {
+		
+
+		logger.debug("Getting reservation for " + schoolId + " from " + from + " to " + to);
+		
+		ReservationService service = componentFactory.getComponent(ReservationService.class);
+		return service.getReservations(schoolId, from, to);
 	}
 
 }

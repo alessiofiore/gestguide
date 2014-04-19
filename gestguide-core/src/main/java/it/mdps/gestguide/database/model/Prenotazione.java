@@ -1,7 +1,9 @@
 package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -14,9 +16,14 @@ import java.util.Date;
 public class Prenotazione implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId
-	@Column(insertable=false, updatable=false)
-	private PrenotazionePK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_patente", unique=true, nullable=false)	
+	private int idPrenotazione;
+	
+//	@EmbeddedId
+//	@Column(insertable=false, updatable=false)
+//	private PrenotazionePK id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_fine")
@@ -28,29 +35,37 @@ public class Prenotazione implements Serializable {
 
 	//bi-directional many-to-one association to Autoscuola
 	@ManyToOne
-	@MapsId("idAutoscuola")
+//	@MapsId("idAutoscuola")
 	@JoinColumn(name="id_autoscuola", nullable=false, insertable=false, updatable=false)
 	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Iscrizione
 	@ManyToOne
-	@MapsId("idIscrizione")
+//	@MapsId("idIscrizione")
 	@JoinColumn(name="id_iscrizione", nullable=false, insertable=false, updatable=false)
 	private Iscrizione iscrizione;
 
 	//bi-directional many-to-one association to Istruttore
 	@ManyToOne
-	@MapsId("idIstruttore")
+//	@MapsId("idIstruttore")
 	@JoinColumn(name="id_istruttore", nullable=false, insertable=false, updatable=false)
 	private Istruttore istruttore;
 
 	//bi-directional many-to-one association to Mezzo
 	@ManyToOne
-	@MapsId("idMezzo")
+//	@MapsId("idMezzo")
 	@JoinColumn(name="id_mezzo", nullable=false, insertable=false, updatable=false)
 	private Mezzo mezzo;
 
 	public Prenotazione() {
+	}
+
+	public int getIdPrenotazione() {
+		return idPrenotazione;
+	}
+
+	public void setIdPrenotazione(int idPrenotazione) {
+		this.idPrenotazione = idPrenotazione;
 	}
 
 	public Date getDataFine() {
@@ -99,13 +114,5 @@ public class Prenotazione implements Serializable {
 
 	public void setMezzo(Mezzo mezzo) {
 		this.mezzo = mezzo;
-	}
-
-	public PrenotazionePK getId() {
-		return id;
-	}
-
-	public void setId(PrenotazionePK id) {
-		this.id = id;
 	}
 }
