@@ -14,7 +14,7 @@ public class VehicleBean {
 	private String tipo;
 	private short cavalli;
 	private short cilindrata;
-	private Long schoolId;
+	private Integer schoolId;
 	private String schoolName;
 	
 	public Integer getId() {
@@ -71,10 +71,10 @@ public class VehicleBean {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public Long getSchoolId() {
+	public Integer getSchoolId() {
 		return schoolId;
 	}
-	public void setSchoolId(Long schoolId) {
+	public void setSchoolId(Integer schoolId) {
 		this.schoolId = schoolId;
 	}
 	public String getSchoolName() {

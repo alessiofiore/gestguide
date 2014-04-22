@@ -37,9 +37,16 @@ public class ReservationController {
 			@RequestParam("schoolId") int schoolId) {
 		
 		Calendar c = Calendar.getInstance();
-		c.getActualMinimum(Calendar.DAY_OF_MONTH);
+		c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
+		c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
+		c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
+		c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));		
 		Date from = c.getTime();
-		c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+		c.set(Calendar.HOUR_OF_DAY, c.getActualMaximum(Calendar.HOUR_OF_DAY));
+		c.set(Calendar.MINUTE, c.getActualMaximum(Calendar.MINUTE));
+		c.set(Calendar.SECOND, c.getActualMaximum(Calendar.SECOND));
 		Date to = c.getTime();
 		
 		return this.getReservations(schoolId, from, to);
