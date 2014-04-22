@@ -28,7 +28,7 @@ public class ReservationController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String reservation(Model model) {
-		return "reservations";
+		return "pages_calendar";
 	}
 	
 	@RequestMapping(value="/json/reservations", method=RequestMethod.GET)

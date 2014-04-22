@@ -16,12 +16,22 @@ public class HomeController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String welcome(Model model) {
-		return "reservations";
+		return "index";
 	}
 	
-	@RequestMapping(value="/navigation", method=RequestMethod.GET)
-	public String getNavMenu() {
-		return "navigation";
+	@RequestMapping(value="/index", method=RequestMethod.GET)
+	public String index(Model model) {
+		return "index";
+	}
+	
+	@RequestMapping(value="/nav-topbar", method=RequestMethod.GET)
+	public String getNavTopbar() {
+		return "nav-topbar";
+	}
+	
+	@RequestMapping(value="/nav-sidebar", method=RequestMethod.GET)
+	public String getNavSidebar() {
+		return "nav-sidebar";
 	}
 	
 	
