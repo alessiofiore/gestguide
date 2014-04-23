@@ -152,15 +152,15 @@
 					<ul id="breadcrumbs" class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="index.html">Dashboard</a>
+							<a href='<c:url value="/" />'>Dashboard</a>
 						</li>
 						<li class="current">
-							<a href="calendar.html" title="">Calendar</a>
+							<spring:message code="label.schools"/>
 						</li>
 					</ul>
 
 					<ul class="crumb-buttons">
-						<li><a href="charts.html" title=""><i class="icon-signal"></i><span>Statistics</span></a></li>
+						<li><a href="<c:url value="/school/add" />" title=""><i class="icon-plus"></i><span><spring:message code="action.add"/></span></a></li>
 					</ul>
 				</div>
 				<!-- /Breadcrumbs line -->
@@ -168,8 +168,7 @@
 				<!--=== Page Header ===-->
 				<div class="page-header">
 					<div class="page-title">
-						<h3>Dashboard</h3>
-						<span>Good morning, John!</span>
+						<h3><spring:message code="header.schools"/></h3>
 					</div>
 				</div>
 				<!-- /Page Header -->

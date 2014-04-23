@@ -3,3 +3,6 @@ Correggere il metodo saveLicense in instructor.jsp per sostituire i link dei tes
 Aggiungere un id chiave nella tabella Prenotazioni
 Completare il bean Reservation in accordo a sopra
 Terminare la parte di prenotazioni con calendar
+
+Campo di ricerca e paginazione tabella CLienti/Scuole
+Aggiungere colonna Iscrizioni a vista Cliente

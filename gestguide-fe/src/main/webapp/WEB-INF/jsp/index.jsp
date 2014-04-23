@@ -206,25 +206,31 @@
 								</div>
 							</div>
 							<div class="widget-content no-padding">
-								<form class="form-vertical" action="#">
+								<form class="form-vertical row-border" action="#">
+									<div class="form-group">
+										<input class="form-control" type="text" name="placeholder" placeholder="<spring:message code="input.search.customer" />">
+									</div>
+									<div class="form-group">
+								        <select class="form-control">
+								        	<option selected="selected">Iscrizione</option>
+								        	<option>ciao2</option>
+								        </select>
+								    </div>
 								    <div class="form-group">
 								        <select class="form-control">
-								        	<option selected="selected">ciao1</option>
+								        	<option selected="selected">Istruttore</option>
+								        	<option>ciao2</option>
+								        </select>
+								    </div>
+								    <div class="form-group">
+								        <select class="form-control">
+								        	<option selected="selected">Mezzo</option>
 								        	<option>ciao2</option>
 								        </select>
 								    </div>
 								</form>
 							</div>
 						</div>
-						
-						<%-- <div class="widget">
-							<div class="widget-header">
-								<h4><i class="icon-plus"></i> <spring:message code="header.reservation.add" /></h4>
-							</div>
-							<div class="widget-content">
-								<div>ciao</div>
-							</div>
-						</div> <!-- /.widget box --> --%>
 					</div> <!-- /.col-md-4 -->
 					<!-- /Calendar -->
 				</div> <!-- /.row -->

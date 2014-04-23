@@ -152,25 +152,24 @@
 					<ul id="breadcrumbs" class="breadcrumb">
 						<li>
 							<i class="icon-home"></i>
-							<a href="index.html">Dashboard</a>
+							<a href='<c:url value="/" />'>Dashboard</a>
 						</li>
 						<li class="current">
-							<a href="calendar.html" title="">Calendar</a>
+							<a href="<c:url value="/school" />" title=""><spring:message code="label.schools"/></a>
 						</li>
 					</ul>
 
-					<ul class="crumb-buttons">
+					<!-- <ul class="crumb-buttons">
 						<li><a href="charts.html" title=""><i class="icon-signal"></i><span>Statistics</span></a></li>
-					</ul>
+					</ul> -->
 				</div>
 				<!-- /Breadcrumbs line -->
 
 				<!--=== Page Header ===-->
 				<div class="page-header">
-					<div class="page-title">
+					<!-- <div class="page-title">
 						<h3>Dashboard</h3>
-						<span>Good morning, John!</span>
-					</div>
+					</div> -->
 				</div>
 				<!-- /Page Header -->
 
