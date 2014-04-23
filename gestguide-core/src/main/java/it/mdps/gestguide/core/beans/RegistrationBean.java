@@ -1,6 +1,7 @@
 package it.mdps.gestguide.core.beans;
 
 import java.util.Date;
+import java.util.List;
 
 public class RegistrationBean {
 

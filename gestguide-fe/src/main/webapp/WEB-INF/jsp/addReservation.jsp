@@ -64,23 +64,13 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
 
 	<!-- Page specific plugins -->
-	<!-- Charts -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
 
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/daterangepicker.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/blockui/jquery.blockUI.min.js"></script>
 
 	<!-- Forms -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/uniform/jquery.uniform.min.js"></script> <!-- Styled radio and checkboxes -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/select2/select2.min.js"></script> <!-- Styled select boxes -->
-
-	<!-- DataTables -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/tabletools/TableTools.min.js"></script> <!-- optional -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/colvis/ColVis.min.js"></script> <!-- optional -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/columnfilter/jquery.dataTables.columnFilter.js"></script> <!-- optional -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/DT_bootstrap.js"></script>
 
 	<!-- App -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/app.js"></script>
@@ -178,12 +168,8 @@
 							<a href='<c:url value="/" />'>Dashboard</a>
 						</li>
 						<li class="current">
-							<a href="<c:url value="/customer" />" title=""><spring:message code="label.customers"/></a>
+							<spring:message code="header.reservations"/>
 						</li>
-					</ul>
-
-					<ul class="crumb-buttons">
-						<li><a href="<c:url value="/customer/add" />" title=""><i class="icon-plus"></i><span><spring:message code="action.add"/></span></a></li>
 					</ul>
 				</div>
 				<!-- /Breadcrumbs line -->
@@ -191,45 +177,39 @@
 				<!--=== Page Header ===-->
 				<div class="page-header">
 					<div class="page-title">
-						<h3><spring:message code="header.customers"/></h3>
+						<h3><spring:message code="header.reservations"/></h3>
 					</div>
 				</div>
 				<!-- /Page Header -->
 
 				<!--=== Page Content ===-->
 				<div class="row">
-					<div class="col-md-12">					
+					<div class="col-md-8">					
 						<div class="widget box">
 							<div class="widget-header">
-								<h4><i class="icon-reorder"></i> <spring:message code="label.schools"/></h4>
-								<div class="toolbar no-padding">
-									<div class="btn-group">
-										<span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
-									</div>
-								</div>
+								<h4><i class="icon-reorder"></i> <spring:message code="header.reservations.availability" arguments="a" /></h4>								
 							</div>
 							<div class="widget-content">
-								<table class="table table-striped table-bordered table-hover table-checkable datatable">
-									<thead>
-										<tr>
-											<th><spring:message code="label.firstname"/></th>
-											<th><spring:message code="label.lastname"/></th>
-											<th><spring:message code="label.datebirth"/></th>
-											<th>-</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach items="${results}" var="result">
-											<tr>
-												<td>${result.firstName}</td>
-												<td>${result.lastName}</td>
-												<td>${result.dateOfBirth}</td>
-												<td><a href="<c:url value="/customer/${result.id}" />">View</a> | 
-												<a href="<c:url value="/customer/delete/${result.id}" />">Remove</a></td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>			
+								<form class="form-vertical" action="#">
+									<div class="form-group">
+								        <select class="form-control">
+								        	<option selected="selected">Istruttore</option>
+								        	<option>ciao2</option>
+								        </select>
+								    </div>
+								    <div class="form-group">
+								        <select class="form-control">
+								        	<option selected="selected">Mezzo</option>
+								        	<option>ciao2</option>
+								        </select>
+								    </div>
+								    <div class="form-group">
+								    
+								    </div>
+								    <div class="form-group">
+								    	<input type="submit" value="<spring:message code="input.button.search"/>"/>
+								    </div>
+								</form>
 							</div>
 						</div> <!-- /.widget box -->
 					</div> <!-- /.col-md-12 -->

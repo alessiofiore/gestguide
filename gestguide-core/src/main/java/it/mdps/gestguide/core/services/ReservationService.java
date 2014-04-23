@@ -2,6 +2,7 @@ package it.mdps.gestguide.core.services;
 
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.ReservationBean;
+import it.mdps.gestguide.core.beans.SearchReservationBean;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.PrenotazioneDao;
 import it.mdps.gestguide.database.model.Prenotazione;
@@ -32,5 +33,11 @@ public class ReservationService {
 			beans.add(BeanConverter.toReservationBean(p));
 			
 		return beans;
+	}
+	
+	public SearchReservationBean searchReservation(int schoolId, int licenseId) {
+		SearchReservationBean searchBean = new SearchReservationBean();
+		
+		return searchBean;
 	}
 }

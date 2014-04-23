@@ -87,7 +87,7 @@
 	
 </head>
 
-<body class="theme-dark">
+<body>
 
 	<!-- Header -->
 	<header class="header navbar navbar-fixed-top" role="banner">
@@ -157,18 +157,15 @@
 				<!-- Breadcrumbs line -->
 				<div class="crumbs">
 					<ul id="breadcrumbs" class="breadcrumb">
-						<li>
-							<i class="icon-home"></i>
-							<a href="index.html">Dashboard</a>
-						</li>
 						<li class="current">
-							<a href="calendar.html" title=""><spring:message code="header.reservations" /></a>
+							<i class="icon-home"></i>
+							Dashboard
 						</li>
 					</ul>
 					
-					<ul class="crumb-buttons">
-						<li><a href="charts.html" title=""><i class="icon-plus"></i><span><spring:message code="action.add" /></span></a></li>
-					</ul>
+					<%-- <ul class="crumb-buttons">
+						<li><a href="<c:url value="/reservation/add" />" title=""><i class="icon-plus"></i><span><spring:message code="action.add" /></span></a></li>
+					</ul> --%>
 				</div>
 				<!-- /Breadcrumbs line -->
 
@@ -195,7 +192,7 @@
 					</div> <!-- /.col-md-8 -->
 					<!-- /Calendar -->
 					
-					<div class="col-md-4">
+					<%-- <div class="col-md-4">
 						<div class="widget box widget-closed">
 							<div class="widget-header">
 								<h4><i class="icon-calendar-empty"></i> <spring:message code="header.reservation.add" /></h4>
@@ -206,32 +203,10 @@
 								</div>
 							</div>
 							<div class="widget-content no-padding">
-								<form class="form-vertical row-border" action="#">
-									<div class="form-group">
-										<input class="form-control" type="text" name="placeholder" placeholder="<spring:message code="input.search.customer" />">
-									</div>
-									<div class="form-group">
-								        <select class="form-control">
-								        	<option selected="selected">Iscrizione</option>
-								        	<option>ciao2</option>
-								        </select>
-								    </div>
-								    <div class="form-group">
-								        <select class="form-control">
-								        	<option selected="selected">Istruttore</option>
-								        	<option>ciao2</option>
-								        </select>
-								    </div>
-								    <div class="form-group">
-								        <select class="form-control">
-								        	<option selected="selected">Mezzo</option>
-								        	<option>ciao2</option>
-								        </select>
-								    </div>
-								</form>
+								
 							</div>
 						</div>
-					</div> <!-- /.col-md-4 -->
+					</div> <!-- /.col-md-4 --> --%>
 					<!-- /Calendar -->
 				</div> <!-- /.row -->
 				<!-- /Page Content -->

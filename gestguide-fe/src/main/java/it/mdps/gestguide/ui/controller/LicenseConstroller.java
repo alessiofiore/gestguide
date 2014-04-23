@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/licence")
 public class LicenseConstroller {
 
 	private Logger logger = Logger.getLogger(this.getClass());

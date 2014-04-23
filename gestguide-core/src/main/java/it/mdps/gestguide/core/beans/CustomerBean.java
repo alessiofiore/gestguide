@@ -2,6 +2,7 @@ package it.mdps.gestguide.core.beans;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerBean {
 	
@@ -21,6 +22,7 @@ public class CustomerBean {
 	private Integer schoolId;
 	private String schoolName;
 	private List<RegistrationBean> registrations;
+	private Map<Integer, String> availableLicenses;
 	
 	public Integer getId() {
 		return id;
@@ -118,4 +120,11 @@ public class CustomerBean {
 	public void setRegistrations(List<RegistrationBean> registrations) {
 		this.registrations = registrations;
 	}
+	public Map<Integer, String> getAvailableLicenses() {
+		return availableLicenses;
+	}
+	public void setAvailableLicenses(Map<Integer, String> availableLicenses) {
+		this.availableLicenses = availableLicenses;
+	}
+	
 }

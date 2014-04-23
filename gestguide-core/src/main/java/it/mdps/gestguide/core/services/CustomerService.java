@@ -5,15 +5,20 @@ import it.mdps.gestguide.core.beans.CustomerBean;
 import it.mdps.gestguide.core.beans.RegistrationBean;
 import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
-import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.ClienteDao;
+import it.mdps.gestguide.database.dao.DaoFactory;
+import it.mdps.gestguide.database.dao.PatenteDao;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
 import it.mdps.gestguide.database.model.Iscrizione;
+import it.mdps.gestguide.database.model.Patente;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -63,13 +68,28 @@ public class CustomerService {
 	public CustomerBean get(Integer id) {
 		ClienteDao dao = daoFactory.getClienteDao();
 		Cliente c = dao.find(Cliente.class, id);
+		CustomerBean bean = BeanConverter.toCustomerBean(c);
 		
 		List<RegistrationBean> registrations = new ArrayList<RegistrationBean>();
-		for(Iscrizione i: c.getIscriziones())
+		HashSet<String> activeLicenses = new HashSet<String>();
+		for(Iscrizione i: c.getIscriziones()) {
 			registrations.add(BeanConverter.toRegistrationBean(i));
-		
-		CustomerBean bean = BeanConverter.toCustomerBean(c);
+			activeLicenses.add(i.getPatente().getCategoria());
+		}
 		bean.setRegistrations(registrations);
+		
+		// get all licenses
+		PatenteDao pDao = daoFactory.getPatenteDao();
+		List<Patente> patenti = pDao.findAll();
+		
+		// calculate licenses non already used
+		Map<Integer, String> availableLicenses = new LinkedHashMap<Integer, String>();
+		for(Patente p: patenti) {
+			if(!activeLicenses.contains(p.getCategoria()))
+				availableLicenses.put(p.getIdPatente(), p.getCategoria());
+		}
+		bean.setAvailableLicenses(availableLicenses);
+		
 		return bean;
 	}
 	

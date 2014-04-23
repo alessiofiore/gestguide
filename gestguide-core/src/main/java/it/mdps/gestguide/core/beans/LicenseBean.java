@@ -1,6 +1,6 @@
 package it.mdps.gestguide.core.beans;
 
-public class LicenseBean {
+public class LicenseBean implements Comparable<LicenseBean> {
 
 	private int id;
 	private String category;
@@ -23,5 +23,10 @@ public class LicenseBean {
 	}
 	public void setCostPerHour(short costPerHour) {
 		this.costPerHour = costPerHour;
+	}
+	
+	@Override
+	public int compareTo(LicenseBean bean) {
+		return this.category.compareToIgnoreCase(bean.getCategory());
 	}
 }

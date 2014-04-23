@@ -1,13 +1,13 @@
 package it.mdps.gestguide.core.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.LicenseBean;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.PatenteDao;
 import it.mdps.gestguide.database.model.Patente;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

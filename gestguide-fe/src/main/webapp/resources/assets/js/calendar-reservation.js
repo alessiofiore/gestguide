@@ -14,9 +14,9 @@ $(document).ready(function() {
 			$.ajax({
 				url: '/gestguide/reservation/json/reservations',
 				dataType: 'json',
-				data: {
-					schoolId: '1'
-				},
+//				data: {
+//					schoolId: '1'
+//				},
 				success: function(data) {
 					var events = [];
 					$.each( data, function( key, val ) {

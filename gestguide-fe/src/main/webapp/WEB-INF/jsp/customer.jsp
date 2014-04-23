@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,16 +67,59 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/plugins.form-components.js"></script>
 	
 	<script>
-	$(document).ready(function(){
-		"use strict";
-
-		App.init(); // Init layout and core plugins
-		Plugins.init(); // Init all plugins
-		FormComponents.init(); // Init all form-specific plugins
+		$(document).ready(function(){
+			"use strict";
+	
+			App.init(); // Init layout and core plugins
+			Plugins.init(); // Init all plugins
+			FormComponents.init(); // Init all form-specific plugins
+			
+			$("#top-nav-menu").load("${pageContext.request.contextPath}/nav-topbar");
+			$("#nav").load("${pageContext.request.contextPath}/nav-sidebar");
+			
+			// licenses SELECT onClick action
+			$('#availableLicensesList').on('change', function() {
+				if(this.value > -1) {
+					var text = $('#availableLicensesList option:selected').text();
+					var cat = "<td>"+ text +"</td>";
+					var registrationDate = "<td>" + new Date() + "</td>";
+					var schoolName = "<td></td>";
+					
+					var linkSave = "<a class='saveLink' href='#' onclick='saveLicense(" + this.value + ");return false;'>Save</a>";
+					var linkCancel = "<a class='cancelLink' href='#' onclick='cancel(" + this.value + ",\"" + text + "\");return false;'>Cancel</a>";
+					var links = "<td>" + linkSave + " | " + linkCancel + "</td>";
+					var row = "<tr id='licenseRow" + this.value + "'> " + cat + registrationDate + schoolName + links + "</tr>";
+					
+					$('#activeRegistration tbody').append(row);
+					// remove item from list
+					$("#availableLicensesList option[value='"+this.value+"']").remove();
+				}
+			});
+		});
 		
-		$("#top-nav-menu").load("${pageContext.request.contextPath}/nav-topbar");
-		$("#nav").load("${pageContext.request.contextPath}/nav-sidebar"); 
-	});
+		//delete license
+		function deleteLicense(registrationId){
+		    $.post("${pageContext.request.contextPath}/registration/delete", { licenseId: licenseId, instructorId: instructorId },
+		       function(data) {
+		    	if(data == 'SUCCESS') {
+		    		$("#licenseRow" + licenseId).remove();
+		    	} else {
+		    		alert(data);
+		    	}
+		       });
+		}
+		
+		function addTableRow() {
+			/* 
+			
+			<td><c:out value="${registration.licenseCategory}" /></td>
+			<td><c:out value="${registration.registrationDate}" /></td>
+			<td><c:out value="${registration.schoolName}" /></td>
+			<td><a class='deleteLink' href="#" onclick="deleteLicense(<c:out value="${license.id}" />, <c:out value="${result.id}" />);return false;"><spring:message code="action.delete" /></a></td>
+			
+			$("#activeRegistration tbody").append(); */
+			
+		}
 	</script>
 	
 </head>
@@ -155,7 +199,7 @@
 							<a href='<c:url value="/" />'>Dashboard</a>
 						</li>
 						<li class="current">
-							<spring:message code="label.customers"/>
+							<a href='<c:url value="/customer" />'><spring:message code="label.customers"/></a>
 						</li>
 					</ul>
 
@@ -182,10 +226,12 @@
 								<li class="active"><a href="#tab_overview" data-toggle="tab"><spring:message code="label.profile" /></a></li>
 								<li><a href="#tab_edit_account" data-toggle="tab"><spring:message code="label.edit" /></a></li>
 							</ul>
+							
 							<div class="tab-content row">
 								<div class="tab-pane active" id="tab_overview">
 								
-									<div class="col-md-9">
+									<!--=== Profile TAB ===-->
+									<div class="col-md-10"> 
 										<div class="row profile-info">
 											<div class="col-md-7">												
 												<h1><c:out value="${result.firstName} ${result.lastName}" /></h1>
@@ -221,14 +267,75 @@
 													<dt><spring:message code="label.school"/></dt>
 													<dd><c:out value="${result.schoolName}" /></dd>													
 												</dl>
-											</div> <!-- /.col-md-7 -->
-										</div>
-									</div>  <!-- /.col-md-9 -->
+											</div> <!-- /Profile Info -->
+											
+											<!--  -->
+											<div class="col-md-5">
+												<div class="widget box">
+												    <div class="widget-header">
+												        <h4><i class="icon-reorder"></i> <spring:message code="header.registration"/></h4>
+												 
+												        <!--=== Toolbar ===-->
+												        <div class="toolbar no-padding">
+												            <div class="btn-group">
+												                <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+												                <span class="btn btn-xs widget-refresh"><i class="icon-refresh"></i></span>
+												                <span class="btn btn-xs"><i class="icon-plus"></i> <spring:message code="action.add"/></span>
+												                <span class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+												                    <spring:message code="action.manage"/> <i class="icon-angle-down"></i>
+												                </span>
+												                <ul class="dropdown-menu pull-right">
+												                    <li><a href="#"><i class="icon-pencil"></i> <spring:message code="action.edit"/></a></li>
+												                    <li><a href="#" onclick="addTableRow();return false;"><i class="icon-trash"></i> <spring:message code="action.add"/></a></li>												                    
+												                </ul>
+												            </div>
+												        </div>
+												        <!-- /Toolbar -->
+												    </div>
+												    <div class="widget-content">
+												        <table id="activeRegistration" class="table table-striped table-bordered table-hover table-checkable">
+															<thead>
+																<tr>
+																	<th><spring:message code="label.license.category" /></th>
+																	<th><spring:message code="label.registrationDate" /></th>
+																	<th><spring:message code="label.school" /></th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<c:forEach items="${result.registrations}" var="registration">
+																	<tr>
+																		<td><c:out value="${registration.licenseCategory}" /></td>
+																		<td><c:out value="${registration.registrationDate}" /></td>
+																		<td><c:out value="${registration.schoolName}" /></td>
+																		<td>																			
+																			<a href='<c:url value="/reservation/add?sid=${result.id}" />'><spring:message code="action.reserve" /></a> |
+																			<a class='deleteLink' href="#" onclick="deleteLicense(<c:out value="${license.id}" />, <c:out value="${result.id}" />);return false;"><spring:message code="action.delete" /></a>
+																		</td>
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
+														
+														<div id="availableLicenses">
+															<select id="availableLicensesList">
+																<option value=-1 selected="selected"><spring:message code="input.select.addlicense" /></option>
+																<c:forEach items="${result.availableLicenses}" var="avLicense">
+																	<option value="${avLicense.key}">${avLicense.value}</option>
+																</c:forEach>
+															</select>
+														</div>
+												    </div>
+												</div>
+											</div>
+											
+										</div> <!-- /row -->
+									</div>  <!-- /Profile -->
 									
 								</div>
 								<!-- /Overview -->
 								
-								<!--=== Edit Account ===-->
+								<!--=== Edit Account TAB ===-->
 								<div class="tab-pane" id="tab_edit_account">
 									<form class="form-horizontal" action="#">
 										<div class="col-md-12">

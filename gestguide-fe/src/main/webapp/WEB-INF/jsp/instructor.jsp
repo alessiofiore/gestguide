@@ -63,7 +63,7 @@
 $( document ).ready(function() {
 	
 	// get list of licenses
-	$.getJSON( "../json/licenses", function( data ) {
+	$.getJSON( "..license/json/licenses", function( data ) {
 		  var items = [];
 		  items.push( "<option value=-1>Add license</option>");
 		  $.each( data, function( key, val ) {
