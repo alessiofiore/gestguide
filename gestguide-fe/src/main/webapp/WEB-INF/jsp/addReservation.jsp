@@ -37,6 +37,10 @@
 		<link href="${pageContext.request.contextPath}/resources/assets/css/ie8.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+	
+	<!-- Page specific css -->
+	<link href="${pageContext.request.contextPath}/resources/assets/css/plugins/jquery.ui.timepicker.css" rel="stylesheet" type="text/css" />
+	
 
 	<!--=== JavaScript ===-->
 
@@ -64,10 +68,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
 
 	<!-- Page specific plugins -->
-
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/timepicker/jquery.ui.timepicker.js"></script>
+	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/daterangepicker/daterangepicker.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/blockui/jquery.blockUI.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/blockui/jquery.blockUI.min.js"></script> --%>
 
 	<!-- Forms -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/select2/select2.min.js"></script> <!-- Styled select boxes -->
@@ -86,10 +90,14 @@
 		Plugins.init(); // Init all plugins
 		FormComponents.init(); // Init all form-specific plugins
 		
+		// init top and left menu
 		$("#top-nav-menu").load("${pageContext.request.contextPath}/nav-topbar");
-		$("#nav").load("${pageContext.request.contextPath}/nav-sidebar"); 
-	});
+		$("#nav").load("${pageContext.request.contextPath}/nav-sidebar");
+	});	
+	
 	</script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/add-reservation-form.js"></script>
 	
 </head>
 
@@ -167,8 +175,11 @@
 							<i class="icon-home"></i>
 							<a href='<c:url value="/" />'>Dashboard</a>
 						</li>
+						<li>
+							<a href="${pageContext.request.contextPath}/reservation"><spring:message code="header.reservations"/></a>
+						</li>						
 						<li class="current">
-							<spring:message code="header.reservations"/>
+							<spring:message code="header.addreservation"/>
 						</li>
 					</ul>
 				</div>
@@ -177,7 +188,7 @@
 				<!--=== Page Header ===-->
 				<div class="page-header">
 					<div class="page-title">
-						<h3><spring:message code="header.reservations"/></h3>
+						<h3><spring:message code="header.addreservation"/></h3>
 					</div>
 				</div>
 				<!-- /Page Header -->
@@ -190,26 +201,62 @@
 								<h4><i class="icon-reorder"></i> <spring:message code="header.reservations.availability" arguments="a" /></h4>								
 							</div>
 							<div class="widget-content">
-								<form class="form-vertical" action="#">
+								<!-- <form class="form-vertical" action="#"> -->
 									<div class="form-group">
-								        <select class="form-control">
-								        	<option selected="selected">Istruttore</option>
-								        	<option>ciao2</option>
-								        </select>
+										<div class="row">
+											<div class="col-md-8">
+												<div class="row">
+													<div class="col-md-2">
+														<label class="control-label"><spring:message code="label.reservation.from"/></label>
+													</div>
+													<div class="col-md-3">
+														 <input type="text" maxlength="10" size="10" id="fromDate" class="form-control input-width-medium">
+														 <span class="help-block"><spring:message code="label.reservation.from.date"/></span>
+													</div>
+													<div class="col-md-3">
+														<input type="text" maxlength="10" size="10" id="fromTime" class="form-control input-width-medium">
+														<span class="help-block"><spring:message code="label.reservation.from.time"/></span>
+													</div>
+																							
+												</div>
+												<div class="row">
+													<div class="col-md-2">
+														<label class="control-label"><spring:message code="label.reservation.to"/></label>
+													</div>
+													<div class="col-md-3">
+														 <input type="text" maxlength="10" size="10" id="toDate" class="form-control input-width-medium">
+														 <span class="help-block"><spring:message code="label.reservation.to.date"/></span>
+													</div>
+													<div class="col-md-3">
+														<input type="text" maxlength="10" size="10" id="toTime" class="form-control input-width-medium">
+														<span class="help-block"><spring:message code="label.reservation.to.time"/></span>
+													</div>										
+												</div>
+											</div>
+											<div class="col-md-1">
+												<div class="row">
+													<button class="btn btn-lg" id="searchButton"><spring:message code="input.button.search"/></button>
+												</div>
+											</div>	
+										</div>
 								    </div>
-								    <div class="form-group">
-								        <select class="form-control">
-								        	<option selected="selected">Mezzo</option>
-								        	<option>ciao2</option>
-								        </select>
+									<div class="form-group" >
+										<div class="row">
+											<div class="col-md-3" id="selectInstructor">
+										        <select class="form-control">
+										        	<option selected="selected">Istruttore</option>
+										        	<option>ciao2</option>
+										        </select>
+									        </div>
+									        <div class="col-md-3" id="selectVehicle">
+										        <select class="form-control">
+										        	<option selected="selected">Mezzo</option>
+										        	<option>ciao2</option>
+										        </select>
+									        </div>
+								        </div>
 								    </div>
-								    <div class="form-group">
-								    
-								    </div>
-								    <div class="form-group">
-								    	<input type="submit" value="<spring:message code="input.button.search"/>"/>
-								    </div>
-								</form>
+								<!-- </form> -->
 							</div>
 						</div> <!-- /.widget box -->
 					</div> <!-- /.col-md-12 -->

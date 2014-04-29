@@ -44,9 +44,9 @@ public class CustomerService {
 	}
 	
 	// Get List
-	public List<CustomerBean> getList() {
+	public List<CustomerBean> getList(int schoolId) {
 		ClienteDao dao = daoFactory.getClienteDao();
-		List<Cliente> customers = dao.findAll();
+		List<Cliente> customers = dao.findAll(schoolId);
 		
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		List<Autoscuola> schools = autoscuolaDao.findAll();

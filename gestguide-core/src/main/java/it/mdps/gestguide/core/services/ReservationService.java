@@ -4,12 +4,15 @@ import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.ReservationBean;
 import it.mdps.gestguide.core.beans.SearchReservationBean;
 import it.mdps.gestguide.database.dao.DaoFactory;
+import it.mdps.gestguide.database.dao.IstruttoreDao;
 import it.mdps.gestguide.database.dao.PrenotazioneDao;
 import it.mdps.gestguide.database.model.Prenotazione;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -35,9 +38,13 @@ public class ReservationService {
 		return beans;
 	}
 	
-	public SearchReservationBean searchReservation(int schoolId, int licenseId) {
-		SearchReservationBean searchBean = new SearchReservationBean();
+	public Map<Integer, String> getAvailableInstructor(int reservationId, Date date) {
+		Map<Integer, String> instructor = new LinkedHashMap<Integer, String>();
 		
-		return searchBean;
+		IstruttoreDao dao = daoFactory.getIstruttoreDao();
+		
+		
+		
+		return instructor;
 	}
 }

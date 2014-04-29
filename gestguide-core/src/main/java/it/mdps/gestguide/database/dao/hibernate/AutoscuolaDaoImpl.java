@@ -22,7 +22,6 @@ public class AutoscuolaDaoImpl extends GenericDao<Autoscuola> implements Autoscu
 	public List<Autoscuola> findAll() {
 		Session session = super.sessionFactory.getCurrentSession();
 		Query query = session.getNamedQuery("Autoscuola.findAll");
-		
 		return query.list();
 	}
 

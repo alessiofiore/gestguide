@@ -1,5 +1,6 @@
 package it.mdps.gestguide.database.dao.hibernate;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -19,13 +20,12 @@ public class IstruttoreDaoImpl extends GenericDao<Istruttore> implements Istrutt
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly=true)
-	public List<Istruttore> findAll() {
+	public List<Istruttore> findAll(int schoolId) {
 		Session session = super.sessionFactory.getCurrentSession();
 		Query query = session.getNamedQuery("Istruttore.findAll");
 		
 		return query.list();
-	}
-	
+	}	
 
 	@Override
 	@Transactional
@@ -34,5 +34,19 @@ public class IstruttoreDaoImpl extends GenericDao<Istruttore> implements Istrutt
 		Query q = session.createQuery("delete from Istruttore where idIstruttore = :id");
 		q.setInteger("id", (Integer) id);
 		q.executeUpdate();
+	}
+
+
+	@Override
+	public List<Istruttore> getInstructors(int schoolId, Date fromDate,
+			Date toDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Istruttore> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

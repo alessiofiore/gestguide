@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/customer")
+@SessionAttributes("schoolId")
 public class CustomerController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
@@ -41,22 +43,26 @@ public class CustomerController {
 		return new ModelAndView("addCustomer", "command", new CustomerBean());
 	}
 	
+	/*
+	 * customerBean map a Spring form
+	 */
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addCustomer(@ModelAttribute CustomerBean customerBean, Model model) {
+	public String addCustomer(@ModelAttribute("schoolId") int schoolId,
+			@ModelAttribute CustomerBean customerBean, Model model) {
 		logger.debug("Adding customers " + customerBean.getId());
 		CustomerService service = componentFactory.getComponent(CustomerService.class);
 		service.add(customerBean);
 		
-		List<CustomerBean> beans = service.getList();
+		List<CustomerBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "customers";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String getCustomers(Model model) {
+	public String getCustomers(@ModelAttribute("schoolId") int schoolId, Model model) {
 		logger.debug("Getting customers...");
 		CustomerService service = componentFactory.getComponent(CustomerService.class);
-		List<CustomerBean> beans = service.getList();
+		List<CustomerBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "customers";
 	}
@@ -71,12 +77,12 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public String delete(Model model, @PathVariable Integer id) {
+	public String delete(@ModelAttribute("schoolId") int schoolId, Model model, @PathVariable Integer id) {
 		logger.debug("Getting customer " + id + " ...");
 		CustomerService service = componentFactory.getComponent(CustomerService.class);
 		service.delete(id);
 		
-		List<CustomerBean> beans = service.getList();
+		List<CustomerBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "customers";
 	}

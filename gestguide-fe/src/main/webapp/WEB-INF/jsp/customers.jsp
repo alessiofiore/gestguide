@@ -178,7 +178,7 @@
 							<a href='<c:url value="/" />'>Dashboard</a>
 						</li>
 						<li class="current">
-							<a href="<c:url value="/customer" />" title=""><spring:message code="label.customers"/></a>
+							<a href="<c:url value="/customer" />" title=""><spring:message code="header.customers"/></a>
 						</li>
 					</ul>
 
@@ -201,7 +201,7 @@
 					<div class="col-md-12">					
 						<div class="widget box">
 							<div class="widget-header">
-								<h4><i class="icon-reorder"></i> <spring:message code="label.schools"/></h4>
+								<h4><i class="icon-reorder"></i> <spring:message code="header.customers"/></h4>
 								<div class="toolbar no-padding">
 									<div class="btn-group">
 										<span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>

@@ -4,6 +4,8 @@ import it.mdps.gestguide.core.beans.ReservationBean;
 import it.mdps.gestguide.core.services.ReservationService;
 import it.mdps.gestguide.core.utils.SpringComponentFactory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +31,25 @@ public class ReservationController {
 	@Autowired
 	private SpringComponentFactory componentFactory;
 	
+	/*
+	 * ------------------------------------------------------------------------------------
+	 * Pages
+	 * ------------------------------------------------------------------------------------
+	 */
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String reservation(Model model) {
 		return "pages_calendar";
 	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.GET)
+	public String viewReservationPage(@RequestParam("sid") int subscriptionId) {
+		return "addReservation";
+	}
+	
+	/*
+	 * ------------------------------------------------------------------------------------
+	 */
 	
 	@RequestMapping(value="/json/reservations", method=RequestMethod.GET)
 	@ResponseBody
@@ -69,12 +86,26 @@ public class ReservationController {
 		return service.getReservations(schoolId, from, to);
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.GET)
-	public String viewAddPage(
+	@RequestMapping(value="/json/availableInstructors", method=RequestMethod.GET)
+	public String getAvailableInstructors(
 			@ModelAttribute("schoolId") int schoolId,
-			@RequestParam("sid") int subscriptionId) {
+			@RequestParam("sid") int subscriptionId,
+			@RequestParam("from") String from,
+			@RequestParam("to") String to) {
 		
-		logger.debug("schoolId: " + schoolId);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+			try {
+				Date fromDate = sdf.parse(from);
+				Date toDate = sdf.parse(to);
+				
+				logger.info("Searching available instructors from " + fromDate + " to " + toDate);
+			} catch (ParseException e) {
+				logger.error(e.getMessage());
+			}
+			
+		
+			ReservationService service = componentFactory.getComponent(ReservationService.class);
+			
 		return "addReservation";
 	}
 
