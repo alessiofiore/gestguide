@@ -19,10 +19,10 @@ public class MezzoDaoImpl extends GenericDao<Mezzo> implements MezzoDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly=true)
-	public List<Mezzo> findAll() {
+	public List<Mezzo> findAll(int schoolId) {
 		Session session = super.sessionFactory.getCurrentSession();
 		Query query = session.getNamedQuery("Mezzo.findAll");
-		
+		query.setInteger("schoolId", schoolId);
 		return query.list();
 	}
 
@@ -33,5 +33,12 @@ public class MezzoDaoImpl extends GenericDao<Mezzo> implements MezzoDao {
 		Query q = session.createQuery("delete from Mezzo where idMezzo = :id");
 		q.setInteger("id", (Integer) id);
 		q.executeUpdate();
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Mezzo> findAll() {		
+		
+		return null;
 	}
 }

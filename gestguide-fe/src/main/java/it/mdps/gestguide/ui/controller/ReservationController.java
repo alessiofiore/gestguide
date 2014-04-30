@@ -90,6 +90,7 @@ public class ReservationController {
 	public String getAvailableInstructors(
 			@ModelAttribute("schoolId") int schoolId,
 			@RequestParam("sid") int subscriptionId,
+			@RequestParam("lid") int licenseId,
 			@RequestParam("from") String from,
 			@RequestParam("to") String to) {
 		
@@ -99,12 +100,14 @@ public class ReservationController {
 				Date toDate = sdf.parse(to);
 				
 				logger.info("Searching available instructors from " + fromDate + " to " + toDate);
+				ReservationService service = componentFactory.getComponent(ReservationService.class);
+				service.getAvailableInstructor(schoolId, licenseId, fromDate, toDate);
+				
 			} catch (ParseException e) {
 				logger.error(e.getMessage());
 			}
-			
 		
-			ReservationService service = componentFactory.getComponent(ReservationService.class);
+			
 			
 		return "addReservation";
 	}

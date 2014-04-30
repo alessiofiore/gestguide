@@ -3,7 +3,6 @@ package it.mdps.gestguide.core.services;
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.InstructorBean;
 import it.mdps.gestguide.core.beans.LicenseBean;
-import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.core.exception.ServiceException;
 import it.mdps.gestguide.core.exception.ServiceException.ErrorType;
 import it.mdps.gestguide.database.dao.AbilitazioneDao;
@@ -45,18 +44,12 @@ public class InstructorService {
 	}
 	
 	// Get List
-	public List<InstructorBean> getList() {
+	public List<InstructorBean> getList(int schoolId) {
 		IstruttoreDao dao = daoFactory.getIstruttoreDao();
-		List<Istruttore> customers = dao.findAll();
-		
-		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
-		List<Autoscuola> schools = autoscuolaDao.findAll();
-		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
-		for(Autoscuola a: schools)
-			schoolBeans.add(BeanConverter.toSchoolBean(a));			
+		List<Istruttore> istruttori = dao.findAll(schoolId);			
 		
 		List<InstructorBean> customerBeans = new ArrayList<InstructorBean>();		
-		for(Istruttore c: customers) {
+		for(Istruttore c: istruttori) {
 			InstructorBean bean = BeanConverter.toInstructorBean(c);
 			customerBeans.add(bean);
 		}

@@ -9,5 +9,5 @@ public interface IstruttoreDao extends IGenericDao<Istruttore> {
 
 	public List<Istruttore> findAll(int schoolId);
 	
-	public List<Istruttore> getInstructors(int schoolId, Date fromDate, Date toDate);
+	public List<Istruttore> getAvailableInstructors(int schoolId, int licenseId, Date fromDate, Date toDate);
 }

@@ -2,7 +2,6 @@ package it.mdps.gestguide.core.services;
 
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.VehicleBean;
-import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.MezzoDao;
@@ -38,15 +37,9 @@ public class VehicleService {
 	}
 	
 	// Get List
-	public List<VehicleBean> getList() {
+	public List<VehicleBean> getList(int schoolId) {
 		MezzoDao dao = daoFactory.getMezzoDao();
-		List<Mezzo> customers = dao.findAll();
-		
-		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
-		List<Autoscuola> schools = autoscuolaDao.findAll();
-		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
-		for(Autoscuola a: schools)
-			schoolBeans.add(BeanConverter.toSchoolBean(a));			
+		List<Mezzo> customers = dao.findAll(schoolId);
 		
 		List<VehicleBean> customerBeans = new ArrayList<VehicleBean>();		
 		for(Mezzo c: customers) {

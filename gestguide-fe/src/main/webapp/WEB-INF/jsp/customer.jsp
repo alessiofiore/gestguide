@@ -309,8 +309,8 @@
 																		<td><c:out value="${registration.registrationDate}" /></td>
 																		<td><c:out value="${registration.schoolName}" /></td>
 																		<td>																			
-																			<a href='<c:url value="/reservation/add?sid=${result.id}" />'><spring:message code="action.reserve" /></a> |
-																			<a class='deleteLink' href="#" onclick="deleteLicense(<c:out value="${license.id}" />, <c:out value="${result.id}" />);return false;"><spring:message code="action.delete" /></a>
+																			<a href='<c:url value="/reservation/add?sid=${registration.id}&lid=${registration.licenseId}" />'><spring:message code="action.reserve" /></a> |
+																			<a class='deleteLink' href="#" onclick="deleteRegistration(<c:out value="${registration.id}" />);return false;"><spring:message code="action.delete" /></a>
 																		</td>
 																	</tr>
 																</c:forEach>

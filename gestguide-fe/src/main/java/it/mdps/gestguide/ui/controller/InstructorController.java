@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/instructor")
+@SessionAttributes("schoolId")
 public class InstructorController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
@@ -44,22 +46,27 @@ public class InstructorController {
 		return new ModelAndView("addInstructor", "command", new InstructorBean());
 	}
 	
+	/*
+	 * instructorBean map a Spring form
+	 */
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addInstructor(@ModelAttribute InstructorBean instructorBean, Model model) {
+	public String addInstructor(
+			@ModelAttribute("schoolId") int schoolId,
+			@ModelAttribute InstructorBean instructorBean, Model model) {
 		logger.debug("Adding instructors " + instructorBean.getId());
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		service.add(instructorBean);
 		
-		List<InstructorBean> beans = service.getList();
+		List<InstructorBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "instructors";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String getInstructors(Model model) {
+	public String getInstructors(@ModelAttribute("schoolId") int schoolId, Model model) {
 		logger.debug("Getting instructors...");
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
-		List<InstructorBean> beans = service.getList();
+		List<InstructorBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "instructors";
 	}
@@ -74,12 +81,12 @@ public class InstructorController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public String delete(Model model, @PathVariable Integer id) {
+	public String delete(@ModelAttribute("schoolId") int schoolId,Model model, @PathVariable Integer id) {
 		logger.debug("Getting instructor " + id + " ...");
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		service.delete(id);
 		
-		List<InstructorBean> beans = service.getList();
+		List<InstructorBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "instructors";
 	}

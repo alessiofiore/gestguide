@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="istruttore")
-@NamedQuery(name="Istruttore.findAll", query="SELECT i FROM Istruttore i")
+@NamedQuery(name="Istruttore.findAll", query="SELECT i FROM Istruttore i where id_autoscuola = :schoolId")
 public class Istruttore implements Serializable {
 	private static final long serialVersionUID = 1L;
 

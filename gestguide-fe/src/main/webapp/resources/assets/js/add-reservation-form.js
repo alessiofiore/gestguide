@@ -14,6 +14,11 @@ $(function() {
 	 $("#fromDate").datepicker({"dateFormat": "dd/mm/yy"});
 	 $("#toDate").datepicker({"dateFormat": "dd/mm/yy"});
 	 
+	 var myDate = new Date();
+	 var prettyDate = myDate.getDate() + '/' + (myDate.getMonth()+1) + '/' + myDate.getFullYear();
+	 $("#fromDate").val(prettyDate);
+	 $("#toDate").val(prettyDate);
+	 
 	 $("#fromTime").timepicker({
 		 timeSeparator: ':',
 		 hours: {
@@ -64,6 +69,7 @@ $(function() {
 		$.getJSON("../reservation/json/availableInstructors", 
 			{
 				sid: getParameterByName('sid'),
+				lid: getParameterByName('lid'),
 				from: from,
 				to: to
 			},

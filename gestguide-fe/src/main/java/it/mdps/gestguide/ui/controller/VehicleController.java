@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/vehicle")
+@SessionAttributes("schoolId")
 public class VehicleController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
@@ -42,21 +44,24 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addVehicle(@ModelAttribute VehicleBean vehicleBean, Model model) {
+	public String addVehicle(
+			@ModelAttribute("schoolId") int schoolId,
+			@ModelAttribute VehicleBean vehicleBean, Model model)
+	{
 		logger.debug("Adding vehicles " + vehicleBean.getId());
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
 		service.add(vehicleBean);
 		
-		List<VehicleBean> beans = service.getList();
+		List<VehicleBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "vehicles";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String getVehicles(Model model) {
+	public String getVehicles(@ModelAttribute("schoolId") int schoolId, Model model) {
 		logger.debug("Getting vehicles...");
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
-		List<VehicleBean> beans = service.getList();
+		List<VehicleBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "vehicles";
 	}
@@ -71,12 +76,12 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public String delete(Model model, @PathVariable Integer id) {
+	public String delete(@ModelAttribute("schoolId") int schoolId, Model model, @PathVariable Integer id) {
 		logger.debug("Getting vehicle " + id + " ...");
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
 		service.delete(id);
 		
-		List<VehicleBean> beans = service.getList();
+		List<VehicleBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "vehicles";
 	}

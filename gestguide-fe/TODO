@@ -6,3 +6,24 @@ Terminare la parte di prenotazioni con calendar
 
 Campo di ricerca e paginazione tabella CLienti/Scuole
 Aggiungere colonna Iscrizioni a vista Cliente
+
+
+
+select * from istruttore 
+where id_autoscuola = 1
+and id_istruttore in (
+        select a.id_istruttore from Abilitazione a, Istruttore i // seleziona istruttori abilitati alla patente richiesta
+        where i.id_autoscuola = 1 and i.id_istruttore=a.id_istruttore
+        and id_patente=1
+)
+and id_istruttore not in (
+        select id_istruttore from Prenotazione  // seleziona istruttori impegnati in quell'arco temporale
+        where id_autoscuola = 1 
+        and ((data_inizio <= DATE('2003-12-31 01:02:03') and data_fine >= DATE('2003-12-31 01:02:03')) or (data_inizio <= DATE('2014-12-31 01:02:03') and data_fine >= DATE('2014-12-31 01:02:03')))
+)
+
+
+select id_istruttore from Prenotazione  // seleziona istruttori impegnati in quell'arco temporale
+        where id_autoscuola = 1 
+        
+select * from Prenotazione where (data_inizio <= DATE('2014-04-23 10:02:03') and data_fine >= DATE('2014-04-23 10:20:00'));

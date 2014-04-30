@@ -3,7 +3,6 @@ package it.mdps.gestguide.core.services;
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.CustomerBean;
 import it.mdps.gestguide.core.beans.RegistrationBean;
-import it.mdps.gestguide.core.beans.SchoolBean;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.ClienteDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
@@ -44,15 +43,10 @@ public class CustomerService {
 	}
 	
 	// Get List
+	@Transactional(readOnly=true)
 	public List<CustomerBean> getList(int schoolId) {
 		ClienteDao dao = daoFactory.getClienteDao();
-		List<Cliente> customers = dao.findAll(schoolId);
-		
-		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
-		List<Autoscuola> schools = autoscuolaDao.findAll();
-		List<SchoolBean> schoolBeans = new ArrayList<SchoolBean>();
-		for(Autoscuola a: schools)
-			schoolBeans.add(BeanConverter.toSchoolBean(a));			
+		List<Cliente> customers = dao.findAll(schoolId);	
 		
 		List<CustomerBean> customerBeans = new ArrayList<CustomerBean>();		
 		for(Cliente c: customers) {
