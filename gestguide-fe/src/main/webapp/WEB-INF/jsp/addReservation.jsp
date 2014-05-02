@@ -93,7 +93,12 @@
 		// init top and left menu
 		$("#top-nav-menu").load("${pageContext.request.contextPath}/nav-topbar");
 		$("#nav").load("${pageContext.request.contextPath}/nav-sidebar");
-	});	
+	});
+	
+	// init i18n messages for javascript use
+	var messages = new Array();
+	messages['input.select.instructor'] = "<spring:message code="input.select.instructor"/>";
+	messages['input.select.vehicle'] = "<spring:message code="input.select.vehicle"/>";
 	
 	</script>
 	
@@ -195,13 +200,13 @@
 
 				<!--=== Page Content ===-->
 				<div class="row">
-					<div class="col-md-8">					
+					<div class="col-md-12">					
 						<div class="widget box">
 							<div class="widget-header">
 								<h4><i class="icon-reorder"></i> <spring:message code="header.reservations.availability" arguments="a" /></h4>								
 							</div>
 							<div class="widget-content">
-								<!-- <form class="form-vertical" action="#"> -->
+								<form class="form-horizontal row-border" action="#">
 									<div class="form-group">
 										<div class="row">
 											<div class="col-md-8">
@@ -241,22 +246,19 @@
 										</div>
 								    </div>
 									<div class="form-group" >
-										<div class="row">
-											<div class="col-md-3" id="selectInstructor">
-										        <select class="form-control">
-										        	<option selected="selected">Istruttore</option>
-										        	<option>ciao2</option>
-										        </select>
+										<div class="row" id="">
+											<div class="col-md-3" id="availInstructor">
+										        <select class="form-control col-md-3" name="select" id="selectInstructor"> </select>
 									        </div>
-									        <div class="col-md-3" id="selectVehicle">
-										        <select class="form-control">
-										        	<option selected="selected">Mezzo</option>
-										        	<option>ciao2</option>
-										        </select>
+									        <div class="col-md-3" id="availVehicle">
+										        <select class="form-control col-md-3" name="select" id="selectVehicle"> </select>
 									        </div>
+									        <div class="col-md-1">												
+												<button class="btn btn-lg" id="saveButton"><spring:message code="input.button.save"/></button>												
+											</div>	
 								        </div>
 								    </div>
-								<!-- </form> -->
+								</form>
 							</div>
 						</div> <!-- /.widget box -->
 					</div> <!-- /.col-md-12 -->

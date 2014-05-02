@@ -48,6 +48,11 @@ public class ReservationService {
 		List<Istruttore> istruttori = dao.getAvailableInstructors(schoolId, licenseId, fromDate, toDate);
 		logger.debug("Found " + istruttori.size() + " istructors");
 		
+		for(Istruttore i: istruttori) {
+			instructor.put(i.getIdIstruttore(), i.getCognome() + " " + i.getNome());
+			logger.debug("Added instructor: " + i.getCognome() + " " + i.getNome());
+		}
+		
 		
 		return instructor;
 	}

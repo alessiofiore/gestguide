@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -42,9 +43,29 @@ public class IstruttoreDaoImpl extends GenericDao<Istruttore> implements Istrutt
 	@Transactional(readOnly=true)
 	public List<Istruttore> getAvailableInstructors(int schoolId, int licenseId, Date fromDate, Date toDate) {
 		Session session = super.sessionFactory.getCurrentSession();
-		String sql = "from Istruttore where autoscuola.idAutoscuola = :schoolId";
-		Query query = session.createQuery(sql);
+		String sql = "select * FROM Istruttore WHERE id_autoscuola = :schoolId "
+				+ " AND id_istruttore in ( "
+				+ "		SELECT a.id_istruttore FROM Abilitazione a, Istruttore i " // seleziona istruttori abilitati alla patente richiesta e appartenenti alla scuola
+				+ "		WHERE i.id_autoscuola = :schoolId AND i.id_istruttore=a.id_istruttore "
+				+ "		AND id_patente = :licenseId)"
+				+ "	AND id_istruttore NOT IN ("
+				+ "		SELECT id_istruttore FROM Prenotazione " // seleziona istruttori impegnati in quell'arco temporale
+				+ "		WHERE id_autoscuola = :schoolId "
+				+ "		AND ("
+				+ "			(:fromDate BETWEEN data_inizio AND data_fine) "
+				+ "			OR"
+				+ "			(:toDate BETWEEN data_inizio AND data_fine)"
+				+ "			OR"
+				+ "			(:fromDate <= data_inizio AND :toDate >= data_fine)"
+				+ "		)"
+				+ ")";
+		SQLQuery query = session.createSQLQuery(sql);
+		query.addEntity(Istruttore.class);
+		
 		query.setInteger("schoolId", schoolId);
+		query.setInteger("licenseId", licenseId);
+		query.setDate("fromDate", fromDate);
+		query.setDate("toDate", toDate);
 		
 		return query.list();
 	}

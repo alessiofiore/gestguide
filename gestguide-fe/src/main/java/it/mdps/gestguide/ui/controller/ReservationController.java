@@ -8,7 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,14 @@ public class ReservationController {
 	 * ------------------------------------------------------------------------------------
 	 */
 	
+	
+	
+	/*
+	 * ------------------------------------------------------------------------------------
+	 * JSON
+	 * ------------------------------------------------------------------------------------
+	 */
+	
 	@RequestMapping(value="/json/reservations", method=RequestMethod.GET)
 	@ResponseBody
 	public List<ReservationBean> getReservations(
@@ -87,12 +97,15 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value="/json/availableInstructors", method=RequestMethod.GET)
-	public String getAvailableInstructors(
+	@ResponseBody
+	public Map<Integer, String> getAvailableInstructors(
 			@ModelAttribute("schoolId") int schoolId,
 			@RequestParam("sid") int subscriptionId,
 			@RequestParam("lid") int licenseId,
 			@RequestParam("from") String from,
 			@RequestParam("to") String to) {
+		
+			Map<Integer, String> instructors = new LinkedHashMap<Integer, String>();
 		
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 			try {
@@ -101,15 +114,13 @@ public class ReservationController {
 				
 				logger.info("Searching available instructors from " + fromDate + " to " + toDate);
 				ReservationService service = componentFactory.getComponent(ReservationService.class);
-				service.getAvailableInstructor(schoolId, licenseId, fromDate, toDate);
+				instructors = service.getAvailableInstructor(schoolId, licenseId, fromDate, toDate);
 				
 			} catch (ParseException e) {
 				logger.error(e.getMessage());
 			}
-		
 			
-			
-		return "addReservation";
+			return instructors;
 	}
 
 }
