@@ -44,7 +44,7 @@ public class CustomerController {
 	}
 	
 	/*
-	 * customerBean map a Spring form
+	 * customerBean maps a Spring form
 	 */
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addCustomer(@ModelAttribute("schoolId") int schoolId,

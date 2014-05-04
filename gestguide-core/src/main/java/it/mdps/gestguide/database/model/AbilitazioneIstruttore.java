@@ -1,6 +1,7 @@
 package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -9,12 +10,13 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Abilitazione.findAll", query="SELECT a FROM Abilitazione a")
-public class Abilitazione implements Serializable {
+@Table(name="abilitazione")
+@NamedQuery(name="AbilitazioneIstruttore.findAll", query="SELECT a FROM AbilitazioneIstruttore a")
+public class AbilitazioneIstruttore implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private AbilitazionePK id;
+	private AbilitazioneIstruttorePK id;
 
 	@Column(name="costo_ora")
 	private short costoOra;
@@ -31,14 +33,14 @@ public class Abilitazione implements Serializable {
 	@JoinColumn(name="id_patente")
 	private Patente patente;
 
-	public Abilitazione() {
+	public AbilitazioneIstruttore() {
 	}
 
-	public AbilitazionePK getId() {
+	public AbilitazioneIstruttorePK getId() {
 		return this.id;
 	}
 
-	public void setId(AbilitazionePK id) {
+	public void setId(AbilitazioneIstruttorePK id) {
 		this.id = id;
 	}
 

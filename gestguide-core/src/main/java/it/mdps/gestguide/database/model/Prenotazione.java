@@ -1,9 +1,7 @@
 package it.mdps.gestguide.database.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.Date;
 
 
@@ -12,56 +10,49 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="prenotazione")
 @NamedQuery(name="Prenotazione.findAll", query="SELECT p FROM Prenotazione p")
 public class Prenotazione implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_patente", unique=true, nullable=false)	
+	@Column(name="id_prenotazione", unique=true, nullable=false)
 	private int idPrenotazione;
-	
-//	@EmbeddedId
-//	@Column(insertable=false, updatable=false)
-//	private PrenotazionePK id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_fine")
+	@Column(name="data_fine", nullable=false)
 	private Date dataFine;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="data_inizio")
+	@Column(name="data_inizio", nullable=false)
 	private Date dataInizio;
 
 	//bi-directional many-to-one association to Autoscuola
 	@ManyToOne
-//	@MapsId("idAutoscuola")
-	@JoinColumn(name="id_autoscuola", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_autoscuola", nullable=false)
 	private Autoscuola autoscuola;
 
 	//bi-directional many-to-one association to Iscrizione
 	@ManyToOne
-//	@MapsId("idIscrizione")
-	@JoinColumn(name="id_iscrizione", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_iscrizione", nullable=false)
 	private Iscrizione iscrizione;
 
 	//bi-directional many-to-one association to Istruttore
 	@ManyToOne
-//	@MapsId("idIstruttore")
-	@JoinColumn(name="id_istruttore", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_istruttore", nullable=false)
 	private Istruttore istruttore;
 
 	//bi-directional many-to-one association to Mezzo
 	@ManyToOne
-//	@MapsId("idMezzo")
-	@JoinColumn(name="id_mezzo", nullable=false, insertable=false, updatable=false)
+	@JoinColumn(name="id_mezzo", nullable=false)
 	private Mezzo mezzo;
 
 	public Prenotazione() {
 	}
 
 	public int getIdPrenotazione() {
-		return idPrenotazione;
+		return this.idPrenotazione;
 	}
 
 	public void setIdPrenotazione(int idPrenotazione) {
@@ -115,4 +106,5 @@ public class Prenotazione implements Serializable {
 	public void setMezzo(Mezzo mezzo) {
 		this.mezzo = mezzo;
 	}
+
 }

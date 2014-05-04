@@ -206,7 +206,7 @@
 								<h4><i class="icon-reorder"></i> <spring:message code="header.reservations.availability" arguments="a" /></h4>								
 							</div>
 							<div class="widget-content">
-								<form class="form-horizontal row-border" action="#">
+								<!-- <form class="form-horizontal row-border" action="#"> -->
 									<div class="form-group">
 										<div class="row">
 											<div class="col-md-8">
@@ -258,7 +258,7 @@
 											</div>	
 								        </div>
 								    </div>
-								</form>
+								<!-- </form> -->
 							</div>
 						</div> <!-- /.widget box -->
 					</div> <!-- /.col-md-12 -->

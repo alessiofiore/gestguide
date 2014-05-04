@@ -1,6 +1,6 @@
 package it.mdps.gestguide.core.beans;
 
-import it.mdps.gestguide.database.model.Abilitazione;
+import it.mdps.gestguide.database.model.AbilitazioneIstruttore;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
 import it.mdps.gestguide.database.model.Iscrizione;
@@ -154,7 +154,7 @@ public class BeanConverter {
 		return c;
 	}
 	
-	public static LicenseBean toLicenseBean(Abilitazione a) {
+	public static LicenseBean toLicenseBean(AbilitazioneIstruttore a) {
 		LicenseBean licenseBean = new LicenseBean();
 		licenseBean.setId(a.getPatente().getIdPatente());
 		licenseBean.setCategory(a.getPatente().getCategoria());

@@ -231,9 +231,9 @@
 								<div class="tab-pane active" id="tab_overview">
 								
 									<!--=== Profile TAB ===-->
-									<div class="col-md-10"> 
+									<div class="col-md-12"> 
 										<div class="row profile-info">
-											<div class="col-md-7">												
+											<div class="col-md-5">												
 												<h1><c:out value="${result.firstName} ${result.lastName}" /></h1>
 
 												<dl class="dl-horizontal">													
@@ -270,7 +270,7 @@
 											</div> <!-- /Profile Info -->
 											
 											<!--  -->
-											<div class="col-md-5">
+											<div class="col-md-7">
 												<div class="widget box">
 												    <div class="widget-header">
 												        <h4><i class="icon-reorder"></i> <spring:message code="header.registration"/></h4>
@@ -309,7 +309,7 @@
 																		<td><c:out value="${registration.registrationDate}" /></td>
 																		<td><c:out value="${registration.schoolName}" /></td>
 																		<td>																			
-																			<a href='<c:url value="/reservation/add?sid=${registration.id}&lid=${registration.licenseId}" />'><spring:message code="action.reserve" /></a> |
+																			<a href='<c:url value="/reservation/add?subscription=${registration.id}&license=${registration.licenseId}&customer=${result.id}" />'><spring:message code="action.reserve" /></a> |
 																			<a class='deleteLink' href="#" onclick="deleteRegistration(<c:out value="${registration.id}" />);return false;"><spring:message code="action.delete" /></a>
 																		</td>
 																	</tr>

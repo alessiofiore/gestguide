@@ -3,15 +3,15 @@ package it.mdps.gestguide.core.services;
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.InstructorBean;
 import it.mdps.gestguide.core.beans.LicenseBean;
-import it.mdps.gestguide.core.exception.ServiceException;
-import it.mdps.gestguide.core.exception.ServiceException.ErrorType;
+import it.mdps.gestguide.core.exception.EntityNotFoundException;
+import it.mdps.gestguide.core.exception.EntityNotFoundException.ErrorType;
 import it.mdps.gestguide.database.dao.AbilitazioneDao;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
 import it.mdps.gestguide.database.dao.IstruttoreDao;
 import it.mdps.gestguide.database.dao.PatenteDao;
-import it.mdps.gestguide.database.model.Abilitazione;
-import it.mdps.gestguide.database.model.AbilitazionePK;
+import it.mdps.gestguide.database.model.AbilitazioneIstruttore;
+import it.mdps.gestguide.database.model.AbilitazioneIstruttorePK;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Istruttore;
 import it.mdps.gestguide.database.model.Patente;
@@ -66,9 +66,9 @@ public class InstructorService {
 		InstructorBean instructor = BeanConverter.toInstructorBean(c);
 		
 		// set licenses owned
-		List<Abilitazione> abilitazioni = c.getAbilitaziones();
+		List<AbilitazioneIstruttore> abilitazioni = c.getAbilitaziones();
 		List<LicenseBean> licenses = new ArrayList<LicenseBean>();
-		for(Abilitazione a: abilitazioni) {
+		for(AbilitazioneIstruttore a: abilitazioni) {
 			LicenseBean bean = BeanConverter.toLicenseBean(a);
 			licenses.add(bean);
 		}
@@ -94,14 +94,14 @@ public class InstructorService {
 		Patente p = pDao.find(Patente.class, licenseId);
 		
 		if(i == null) 
-			throw new ServiceException(ErrorType.INSTRUCTOR_NOT_FOUND);		
+			throw new EntityNotFoundException(ErrorType.INSTRUCTOR_NOT_FOUND);		
 		if(p == null)
-			throw new ServiceException(ErrorType.LICENCE_NOT_FOUND);
+			throw new EntityNotFoundException(ErrorType.LICENCE_NOT_FOUND);
 		
-		Abilitazione a = new Abilitazione();
+		AbilitazioneIstruttore a = new AbilitazioneIstruttore();
 		a.setIstruttore(i);
 		a.setPatente(p);
-		AbilitazionePK pk = new AbilitazionePK();
+		AbilitazioneIstruttorePK pk = new AbilitazioneIstruttorePK();
 		pk.setIdIstruttore(instructorId);
 		pk.setIdPatente(licenseId);
 		a.setId(pk);
@@ -115,7 +115,7 @@ public class InstructorService {
 	@Transactional
 	public void deleteLicence(int licenseId, int instructorId) {
 		
-		AbilitazionePK pk = new AbilitazionePK();
+		AbilitazioneIstruttorePK pk = new AbilitazioneIstruttorePK();
 		pk.setIdIstruttore(instructorId);
 		pk.setIdPatente(licenseId);
 		

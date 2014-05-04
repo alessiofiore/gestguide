@@ -1,16 +1,16 @@
 package it.mdps.gestguide.core.exception;
 
-public class ServiceException extends RuntimeException {
+public class EntityNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
 	private ErrorType errorType;
 	
-	public ServiceException() {
+	public EntityNotFoundException() {
 		this.errorType = ErrorType.GENERIC_EXCEPTION;
 	}
 	
-	public ServiceException(ErrorType errorType) {
+	public EntityNotFoundException(ErrorType errorType) {
 		this.errorType = errorType;
 	}
 	
@@ -22,6 +22,11 @@ public class ServiceException extends RuntimeException {
 	}
 
 	public enum ErrorType {
-		GENERIC_EXCEPTION;
+		GENERIC_EXCEPTION,
+		INSTRUCTOR_NOT_FOUND,
+		LICENCE_NOT_FOUND,
+		SCHOOL_NOT_FOUND,
+		SUBSCRIPTION_NOT_FOUND,
+		VEHICLE_NOT_FOUND;
 	}
 }

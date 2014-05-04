@@ -11,7 +11,17 @@ $(document).ready(function(){
 		from = $("#fromDate").val() + " " + $("#fromTime").val();
 		to = $("#toDate").val() + " " + $("#toTime").val();
 		
-		getAvailableInstructors(getParameterByName('sid'), getParameterByName('lid'), from, to);
+		getAvailableInstructors(getParameterByName('license'), from, to);
+		getAvailableVehicles(getParameterByName('license'), from, to);
+		
+		$("#availInstructor").show();
+		$("#availVehicle").show();
+		$("#saveButton").show();
+	});
+	
+	$("#saveButton").click(function() {
+		addReservation(getParameterByName('customer'), getParameterByName('subscription'), 
+				$('#selectInstructor').val(), $('#selectVehicle').val(), from, to);
 	});
 	
 	$("#fromDate").change(function() {
@@ -102,11 +112,10 @@ function initDateTime() {
 	 $("#toTime").val(prettyTime);
 }
 
-function getAvailableInstructors(sid, lid, from, to) {
+function getAvailableInstructors(licenseId, from, to) {
 	$.getJSON("../reservation/json/availableInstructors", 
 			{
-				sid: sid,
-				lid: lid,
+				license: licenseId,
 				from: from,
 				to: to
 			},
@@ -119,9 +128,38 @@ function getAvailableInstructors(sid, lid, from, to) {
 			}
 		);
 	
-	$("#availInstructor").show();
-	$("#availVehicle").show();
-	$("#saveButton").show();
+}
+
+function getAvailableVehicles(licenseId, from, to) {
+	$.getJSON("../reservation/json/availableVehicles", 
+			{
+				license: licenseId,
+				from: from,
+				to: to
+			},
+			function( data ) {
+			  var items = [];
+			  items.push( "<option value=-1>Add license</option>");
+			  $.each( data, function( key, val ) {
+				 $("#selectVehicle").append("<option value='" + key + "'>" + val + "</option>");
+			  });
+			}
+		);	
+}
+
+function addReservation(customerId, subscriptionId, instructorId, vehicleId, from, to) {
+	$.post("../reservation/add",
+			{
+				subscription: subscriptionId,
+				from: from,
+				to: to,
+				instructor: instructorId,
+				vehicle: vehicleId
+			},
+			function(data, textStatus, jqXHR) {
+				window.location.replace("../customer/"+customerId);
+			}
+		);
 }
  
  

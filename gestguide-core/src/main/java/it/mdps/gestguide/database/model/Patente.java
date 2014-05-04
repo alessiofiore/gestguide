@@ -28,7 +28,7 @@ public class Patente implements Serializable {
 
 	//bi-directional many-to-one association to Abilitazione
 	@OneToMany(mappedBy="patente")
-	private List<Abilitazione> abilitaziones;
+	private List<AbilitazioneIstruttore> abilitaziones;
 
 	//bi-directional many-to-one association to Iscrizione
 	@OneToMany(mappedBy="patente")
@@ -65,22 +65,22 @@ public class Patente implements Serializable {
 		this.etaMinima = etaMinima;
 	}
 
-	public List<Abilitazione> getAbilitaziones() {
+	public List<AbilitazioneIstruttore> getAbilitaziones() {
 		return this.abilitaziones;
 	}
 
-	public void setAbilitaziones(List<Abilitazione> abilitaziones) {
+	public void setAbilitaziones(List<AbilitazioneIstruttore> abilitaziones) {
 		this.abilitaziones = abilitaziones;
 	}
 
-	public Abilitazione addAbilitazione(Abilitazione abilitazione) {
+	public AbilitazioneIstruttore addAbilitazione(AbilitazioneIstruttore abilitazione) {
 		getAbilitaziones().add(abilitazione);
 		abilitazione.setPatente(this);
 
 		return abilitazione;
 	}
 
-	public Abilitazione removeAbilitazione(Abilitazione abilitazione) {
+	public AbilitazioneIstruttore removeAbilitazione(AbilitazioneIstruttore abilitazione) {
 		getAbilitaziones().remove(abilitazione);
 		abilitazione.setPatente(null);
 

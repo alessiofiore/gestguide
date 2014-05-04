@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Scope("prototype")
 public class PrenotazioneDaoImpl extends GenericDao<Prenotazione> implements PrenotazioneDao {
-
+	
 	@Override
 	public void delete(Object id) {
 		

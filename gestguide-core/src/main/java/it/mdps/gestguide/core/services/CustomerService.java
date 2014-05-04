@@ -3,6 +3,8 @@ package it.mdps.gestguide.core.services;
 import it.mdps.gestguide.core.beans.BeanConverter;
 import it.mdps.gestguide.core.beans.CustomerBean;
 import it.mdps.gestguide.core.beans.RegistrationBean;
+import it.mdps.gestguide.core.exception.EntityNotFoundException;
+import it.mdps.gestguide.core.exception.EntityNotFoundException.ErrorType;
 import it.mdps.gestguide.database.dao.AutoscuolaDao;
 import it.mdps.gestguide.database.dao.ClienteDao;
 import it.mdps.gestguide.database.dao.DaoFactory;
@@ -34,8 +36,12 @@ public class CustomerService {
 	// Add
 	public void add(CustomerBean bean) {
 		Cliente cliente = BeanConverter.fromCustomerBean(bean);
+		
 		AutoscuolaDao autoscuolaDao = daoFactory.getAutoscuolaDao();
 		Autoscuola a = autoscuolaDao.find(Autoscuola.class, bean.getSchoolId());
+		if(a == null)
+			throw new EntityNotFoundException(ErrorType.SCHOOL_NOT_FOUND);
+		
 		cliente.setAutoscuola(a);
 		cliente.setDataCreazione(new Date());
 		ClienteDao clienteDao = daoFactory.getClienteDao();

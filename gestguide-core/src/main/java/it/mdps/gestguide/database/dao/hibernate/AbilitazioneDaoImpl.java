@@ -2,8 +2,8 @@ package it.mdps.gestguide.database.dao.hibernate;
 
 import it.mdps.gestguide.database.dao.AbilitazioneDao;
 import it.mdps.gestguide.database.dao.GenericDao;
-import it.mdps.gestguide.database.model.Abilitazione;
-import it.mdps.gestguide.database.model.AbilitazionePK;
+import it.mdps.gestguide.database.model.AbilitazioneIstruttore;
+import it.mdps.gestguide.database.model.AbilitazioneIstruttorePK;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Scope("prototype")
-public class AbilitazioneDaoImpl extends GenericDao<Abilitazione> implements AbilitazioneDao {
+public class AbilitazioneDaoImpl extends GenericDao<AbilitazioneIstruttore> implements AbilitazioneDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly=true)
-	public List<Abilitazione> findAll() {
+	public List<AbilitazioneIstruttore> findAll() {
 		Session session = super.sessionFactory.getCurrentSession();
 		Query query = session.getNamedQuery("Abilitazione.findAll");
 		
@@ -32,7 +32,7 @@ public class AbilitazioneDaoImpl extends GenericDao<Abilitazione> implements Abi
 	public void delete(Object id) {
 		Session session = super.sessionFactory.getCurrentSession();
 		Query q = session.createQuery("delete from Abilitazione where id = :id");
-		q.setParameter("id", (AbilitazionePK) id);
+		q.setParameter("id", (AbilitazioneIstruttorePK) id);
 		q.executeUpdate();
 	}
 }
