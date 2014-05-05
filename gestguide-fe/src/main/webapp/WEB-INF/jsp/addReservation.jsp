@@ -248,10 +248,10 @@
 									<div class="form-group" >
 										<div class="row" id="">
 											<div class="col-md-3" id="availInstructor">
-										        <select class="form-control col-md-3" name="select" id="selectInstructor"> </select>
+										        <select class="form-control  input-width-large" name="select" id="selectInstructor"> </select>
 									        </div>
 									        <div class="col-md-3" id="availVehicle">
-										        <select class="form-control col-md-3" name="select" id="selectVehicle"> </select>
+										        <select class="form-control  input-width-large" name="select" id="selectVehicle"> </select>
 									        </div>
 									        <div class="col-md-1">												
 												<button class="btn btn-lg" id="saveButton"><spring:message code="input.button.save"/></button>												

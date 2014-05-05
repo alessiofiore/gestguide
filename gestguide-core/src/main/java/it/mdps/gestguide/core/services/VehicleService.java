@@ -15,6 +15,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Scope("prototype")
@@ -37,6 +38,7 @@ public class VehicleService {
 	}
 	
 	// Get List
+	@Transactional(readOnly=true)
 	public List<VehicleBean> getList(int schoolId) {
 		MezzoDao dao = daoFactory.getMezzoDao();
 		List<Mezzo> customers = dao.findAll(schoolId);

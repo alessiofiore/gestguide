@@ -4,7 +4,7 @@ package it.mdps.gestguide.core.beans;
 public class VehicleBean {
 	
 	private Integer id;
-	private String alimentazione;
+	private int alimentazione = -1;
 	private String marca;
 	private String modello;
 	private boolean rimorchio;
@@ -23,10 +23,10 @@ public class VehicleBean {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getAlimentazione() {
+	public int getAlimentazione() {
 		return alimentazione;
 	}
-	public void setAlimentazione(String alimentazione) {
+	public void setAlimentazione(int alimentazione) {
 		this.alimentazione = alimentazione;
 	}
 	public String getMarca() {

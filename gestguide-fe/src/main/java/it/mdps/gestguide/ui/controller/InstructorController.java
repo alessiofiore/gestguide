@@ -53,7 +53,7 @@ public class InstructorController {
 	public String addInstructor(
 			@ModelAttribute("schoolId") int schoolId,
 			@ModelAttribute InstructorBean instructorBean, Model model) {
-		logger.debug("Adding instructors " + instructorBean.getId());
+		logger.debug("Adding instructors " + instructorBean.getFirstName() + " " + instructorBean.getLastName());
 		InstructorService service = componentFactory.getComponent(InstructorService.class);
 		service.add(instructorBean);
 		

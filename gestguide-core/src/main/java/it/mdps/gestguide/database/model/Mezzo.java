@@ -1,7 +1,11 @@
 package it.mdps.gestguide.database.model;
 
+import it.mdps.gestguide.common.EncodingValues.Fuel;
+
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +25,8 @@ public class Mezzo implements Serializable {
 	@Column(name="id_mezzo", unique=true, nullable=false)
 	private int idMezzo;
 
-	@Column(nullable=false, length=10)
-	private String alimentazione;
+	@Column(nullable=false, precision=1)
+	private Fuel alimentazione;
 
 	@Column(nullable=false)
 	private short cavalli;
@@ -46,6 +50,7 @@ public class Mezzo implements Serializable {
 
 	private boolean rimorchio;
 
+	@Column(name="stato", nullable=false)
 	private byte stato;
 
 	@Column(length=10)
@@ -54,7 +59,7 @@ public class Mezzo implements Serializable {
 	@Column(name="tempo_cambio")
 	private byte tempoCambio;
 
-	@Column(nullable=false, length=45)
+	@Column(length=45)
 	private String tipo;
 
 	//bi-directional many-to-one association to Autoscuola
@@ -77,11 +82,11 @@ public class Mezzo implements Serializable {
 		this.idMezzo = idMezzo;
 	}
 
-	public String getAlimentazione() {
+	public Fuel getAlimentazione() {
 		return this.alimentazione;
 	}
 
-	public void setAlimentazione(String alimentazione) {
+	public void setAlimentazione(Fuel alimentazione) {
 		this.alimentazione = alimentazione;
 	}
 

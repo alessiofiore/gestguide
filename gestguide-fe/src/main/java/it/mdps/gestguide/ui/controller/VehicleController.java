@@ -31,8 +31,15 @@ public class VehicleController {
 	@Autowired
 	private SpringComponentFactory componentFactory;
 	
+	/*
+	 * ------------------------------------------------------------------------------------
+	 * Pages
+	 * ------------------------------------------------------------------------------------
+	 */
+	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView viewAddPage(Model model) {
+		// TODO prendere solo la lista delle scuole parte del consorzio
 		SchoolService service = componentFactory.getComponent(SchoolService.class);
 		List<SchoolBean> beans = service.getSchools();
 		Map<Integer, String> schools = new LinkedHashMap<Integer, String>();
@@ -43,24 +50,26 @@ public class VehicleController {
 		return new ModelAndView("addVehicle", "command", new VehicleBean());
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addVehicle(
-			@ModelAttribute("schoolId") int schoolId,
-			@ModelAttribute VehicleBean vehicleBean, Model model)
-	{
-		logger.debug("Adding vehicles " + vehicleBean.getId());
+	@RequestMapping(method=RequestMethod.GET)
+	public String getVehicles(@ModelAttribute("schoolId") int schoolId, Model model) {
+		logger.debug("Getting vehicles...");
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
-		service.add(vehicleBean);
-		
 		List<VehicleBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "vehicles";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String getVehicles(@ModelAttribute("schoolId") int schoolId, Model model) {
-		logger.debug("Getting vehicles...");
+	// ------------------------------------------------------------------------------------
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String addVehicle(
+			@ModelAttribute("schoolId") int schoolId,
+			@ModelAttribute VehicleBean vehicleBean, Model model)
+	{
+		logger.debug("Adding vehicles " + vehicleBean.getMarca() + " " + vehicleBean.getModello());
 		VehicleService service = componentFactory.getComponent(VehicleService.class);
+		service.add(vehicleBean);
+		
 		List<VehicleBean> beans = service.getList(schoolId);
 		model.addAttribute("results", beans);
 		return "vehicles";

@@ -171,9 +171,9 @@
 							<i class="icon-home"></i> <a href='<c:url value="/" />'>Dashboard</a>
 						</li>
 						<li>
-							<a href='<c:url value="${pageContext.request.contextPath}/customer" />'><spring:message code="header.customers" /></a></li>
-							<li class="current"><spring:message code="header.addcustomer" />
+							<a href='<c:url value="${pageContext.request.contextPath}/customer" />'><spring:message code="header.customers" /></a>
 						</li>
+						<li class="current"><spring:message code="header.addcustomer" /></li>
 					</ul>
 				</div>
 				<!-- /Breadcrumbs line -->
@@ -196,73 +196,73 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.firstname" />:</label>
 								<div class="col-md-10">
-									<form:input path="firstName" type="text" name="regular" class="form-control" maxlength="30" size="20" />
+									<form:input path="firstName" type="text" name="regular" class="form-control input-width-large" maxlength="30" size="20" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.lastname" />:</label>
 								<div class="col-md-10">
-									<form:input path="lastName" type="text" name="regular" class="form-control" maxlength="30" size="20" />
+									<form:input path="lastName" type="text" name="regular" class="form-control input-width-large" maxlength="30" size="20" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.ssn" />:</label>
 								<div class="col-md-10">
-									<form:input path="socialSecurityNumber" type="text" name="regular" class="form-control" maxlength="16" size="16" />
+									<form:input path="socialSecurityNumber" type="text" name="regular" class="form-control input-width-large" maxlength="16" size="16" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.address" />:</label>
 								<div class="col-md-10">
-									<form:input path="address" type="text" name="regular" class="form-control" maxlength="100" size="30" />
+									<form:input path="address" type="text" name="regular" class="form-control input-width-xxlarge" maxlength="100" size="30" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.zip" />:</label>
 								<div class="col-md-10">
-									<form:input path="zipCode" type="text" name="regular" class="form-control" maxlength="5" size="5" />
+									<form:input path="zipCode" type="text" name="regular" class="form-control input-width-small" maxlength="5" size="5" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.city" />:</label>
 								<div class="col-md-10">
-									<form:input path="city" type="text" name="regular" class="form-control" maxlength="50" size="20" />
+									<form:input path="city" type="text" name="regular" class="form-control input-width-xlarge" maxlength="50" size="20" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.province" />:</label>
 								<div class="col-md-10">
-									<form:input path="province" type="text" name="regular" class="form-control" maxlength="2" size="2" />
+									<form:input path="province" type="text" name="regular" class="form-control input-width-mini" maxlength="2" size="2" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.phone" />:</label>
 								<div class="col-md-10">
-									<form:input path="phone" type="text" name="regular" class="form-control" maxlength="15" size="15" />
+									<form:input path="phone" type="text" name="regular" class="form-control input-width-large" maxlength="15" size="15" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.mobilephone" />:</label>
 								<div class="col-md-10">
-									<form:input path="mobilePhone" type="text" name="regular" class="form-control" maxlength="15" size="15" />
+									<form:input path="mobilePhone" type="text" name="regular" class="form-control input-width-large" maxlength="15" size="15" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.email" />:</label>
 								<div class="col-md-10">
-									<form:input path="email" type="text" name="regular" class="form-control" maxlength="50" size="30" />
+									<form:input path="email" type="text" name="regular" class="form-control input-width-large" maxlength="50" size="30" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.datebirth" />:</label>
 								<div class="col-md-10">
-									<form:input path="dateOfBirth" type="text" name="regular" class="form-control" maxlength="10" size="10" id="datepicker" />
+									<form:input path="dateOfBirth" type="text" name="regular" class="form-control input-width-small" maxlength="10" size="10" id="datepicker" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label"><spring:message code="label.school" />:</label>
 								<div class="col-md-10">
-									<form:select path="schoolId">
+									<form:select path="schoolId" class="form-control input-width-large">
 										<form:option value="-1" label="--- Select ---" />
 										<form:options items="${schools}" />
 									</form:select>

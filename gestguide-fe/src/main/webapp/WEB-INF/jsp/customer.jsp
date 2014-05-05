@@ -318,7 +318,7 @@
 														</table>
 														
 														<div id="availableLicenses">
-															<select id="availableLicensesList">
+															<select id="availableLicensesList" class="form-control input-width-large">
 																<option value=-1 selected="selected"><spring:message code="input.select.addlicense" /></option>
 																<c:forEach items="${result.availableLicenses}" var="avLicense">
 																	<option value="${avLicense.key}">${avLicense.value}</option>

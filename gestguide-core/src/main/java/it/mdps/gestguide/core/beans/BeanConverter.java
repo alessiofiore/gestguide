@@ -1,5 +1,6 @@
 package it.mdps.gestguide.core.beans;
 
+import it.mdps.gestguide.common.EncodingValues.Fuel;
 import it.mdps.gestguide.database.model.AbilitazioneIstruttore;
 import it.mdps.gestguide.database.model.Autoscuola;
 import it.mdps.gestguide.database.model.Cliente;
@@ -14,14 +15,15 @@ public class BeanConverter {
 	public static VehicleBean toVehicleBean(Mezzo m) {
 		VehicleBean bean = new VehicleBean();
 		bean.setId(m.getIdMezzo());
-		bean.setAlimentazione(m.getAlimentazione());
+		bean.setAlimentazione(m.getAlimentazione().ordinal());
 		bean.setMarca(m.getMarca());
 		bean.setModello(m.getModello());
 		bean.setRimorchio(m.getRimorchio());
 		bean.setStato(m.getStato());
 		bean.setTarga(m.getTarga());
 		bean.setTempoCambio(m.getTempoCambio());
-		bean.setTipo(m.getTipo());		
+		bean.setTipo(m.getTipo());
+		bean.setSchoolName(m.getAutoscuola().getNome());
 		return bean;
 	}
 	
@@ -29,14 +31,30 @@ public class BeanConverter {
 		Mezzo m = new Mezzo();
 		if(bean.getId() != null)
 			m.setIdMezzo(bean.getId());
-		m.setAlimentazione(bean.getAlimentazione());
 		m.setMarca(bean.getMarca());
 		m.setModello(bean.getModello());
 		m.setRimorchio(bean.getRimorchio());
 		m.setStato(bean.getStato());
 		m.setTarga(bean.getTarga());
 		m.setTempoCambio(bean.getTempoCambio());
-		m.setTipo(bean.getTipo());		
+		m.setTipo(bean.getTipo());
+		
+		switch (bean.getAlimentazione()) {
+		case 0:
+			m.setAlimentazione(Fuel.GASOLINE);
+			break;
+		case 1:
+			m.setAlimentazione(Fuel.DIESEL);
+			break;
+		case 2:
+			m.setAlimentazione(Fuel.GPL);
+			break;
+		case 3:
+			m.setAlimentazione(Fuel.METHANE);
+			break;
+		default:
+			throw new IllegalArgumentException("Unsopported fuel");
+		}
 		return m;
 	}
 	

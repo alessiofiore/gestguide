@@ -63,7 +63,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
 
+	<!-- ====================================================== -->
 	<!-- Page specific plugins -->
+	<!-- ====================================================== -->
+	
 	<!-- Charts -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/sparkline/jquery.sparkline.min.js"></script>
 
@@ -81,7 +84,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/colvis/ColVis.min.js"></script> <!-- optional -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/columnfilter/jquery.dataTables.columnFilter.js"></script> <!-- optional -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/datatables/DT_bootstrap.js"></script>
-
+	
+	<!-- ====================================================== -->
+	
 	<!-- App -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/app.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/plugins.js"></script>
